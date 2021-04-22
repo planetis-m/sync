@@ -7,7 +7,7 @@ type
 
 proc acquire*(s: var SpinLock) =
   while true:
-    if not atomicExchangeN(addr s.lock, true, AtomicAcquire)
+    if not atomicExchangeN(addr s.lock, true, AtomicAcquire):
       return
     else:
       while atomicLoadN(addr s.lock, AtomicRelaxed): cpuRelax()
@@ -19,7 +19,7 @@ proc tryAcquire*(s: var SpinLock): bool =
 proc release*(s: var SpinLock) =
   atomicStoreN(addr s.lock, false, AtomicRelease)
 
-template withSpinLock*(a: SpinLock, body: untyped) =
+template withLock*(a: SpinLock, body: untyped) =
   acquire(a)
   try:
     body
