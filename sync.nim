@@ -1,15 +1,18 @@
 import std / locks
+
+when not compileOption("threads"):
+  {.error: "This module requires --threads:on compilation flag".}
+
 {.push stackTrace: off.}
 
 type
   Arc*[T] = object
-    ## A thread-safe reference-counting pointer. 'Arc' stands for 'Atomically Reference Counted'.
     val: ptr tuple[value: T, atomicCounter: int]
 
 proc `=destroy`*[T](p: var Arc[T]) =
   mixin `=destroy`
   if p.val != nil:
-    if atomicLoadN(addr p.val[].atomicCounter, ATOMIC_CONSUME) == 0:
+    if atomicLoadN(addr p.val[].atomicCounter, AtomicConsume) == 0:
       `=destroy`(p.val[])
       deallocShared(p.val)
     else:
