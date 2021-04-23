@@ -18,7 +18,7 @@ proc `=destroy`*[T](p: var Arc[T]) =
     else:
       discard atomicDec(p.val[].atomicCounter)
 
-proc `=`*[T](dest: var Arc[T], src: Arc[T]) =
+proc `=copy`*[T](dest: var Arc[T], src: Arc[T]) =
   if src.val != nil:
     discard atomicInc(src.val[].atomicCounter)
   if dest.val != nil:
