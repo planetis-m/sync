@@ -33,18 +33,18 @@ type
 proc state[T](n: Node[T]): State {.inline.} =
   result = atomicLoadN(unsafeAddr n.isSet, AtomicAcquire)
 
-proc `state=`[T](n: var Node[T], state: State) {.inline.} =
+proc setState[T](n: var Node[T], state: State) {.inline.} =
   atomicStoreN(addr n.isSet, state, AtomicRelease)
 
 proc data[T](n: var Node[T]): T {.inline.} =
   ## Read the data from the candidate node.
   result = move(n.pdata)
-  n.state = Handled
+  setState n, Handled
 
-proc `data=`[T](n: var Node[T], data: sink T) {.inline, nodestroy.} =
+proc setData[T](n: var Node[T], data: sink T) {.inline, nodestroy.} =
   ## Load the given data into the node and change its state to `Set`.
   n.pdata = data
-  n.state = Set
+  setState n, Set
 
 ## The buffer list holds a fixed number of nodes.
 ## Buffer lists are connected with each other and
@@ -82,11 +82,13 @@ type
     tail: int # atomic
 
 proc `=destroy`*[T](x: var MpscQueue[T]) =
-  while atomicLoadN(addr x.headOfQueue.next, AtomicAcquire) != nil:
-    let next = atomicLoadN(addr x.headOfQueue.next, AtomicAcquire)
-    deallocShared(x.headOfQueue)
-    x.headOfQueue = next
-  deallocShared(x.headOfQueue)
+  #TODO call destructors
+  if x.headOfQueue != nil:
+    while atomicLoadN(addr x.headOfQueue.next, AtomicAcquire) != nil:
+      let next = atomicLoadN(addr x.headOfQueue.next, AtomicAcquire)
+      deallocShared(x.headOfQueue)
+      x.headOfQueue = next
+  if x.headOfQueue != nil: deallocShared(x.headOfQueue)
 
 proc newMpscQueue*[T](): MpscQueue[T] =
   let headOfQueue = newBufferList[T]()
@@ -101,6 +103,122 @@ proc createBuffer[T](buffer: ptr BufferList[T]): ptr BufferList[T] {.inline.} =
 
 proc sizeWithoutBuffer[T](buffer: ptr BufferList[T]): int {.inline.} =
   result = BufferSize * (buffer.pos - 1)
+
+proc insert[T](self: var MpscQueue[T], data: sink T,
+    index: int, buffer: ptr BufferList[T], isLastBuffer: bool) =
+  # Insert the element at the right index. This also atomically
+  # sets the state of the node to SET to make that change
+  # visible to the dequeue thread.
+  setData(buffer.nodes[index], data)
+  # Optimization to reduce contention on the tail of the queue.
+  # If the inserted element is the second entry in the
+  # current buffer, we already allocate a new buffer and
+  # append it to the queue.
+  if index == 1 and isLastBuffer:
+    let newBuffer = createBuffer(buffer)
+    var nilPtr: ptr BufferList[T]
+    if not atomicCompareExchangeN(addr buffer.next, addr nilPtr,
+        newBuffer, false, AtomicSeqCst, AtomicSeqCst):
+      deallocShared(newBuffer)
+
+proc foldBuffer[T](self: var MpscQueue[T], buffer: var ptr BufferList[T],
+    bufferHead: var int): bool =
+  let next = atomicLoadN(addr buffer.next, AtomicAcquire)
+  let prev = buffer.prev
+  if next == nil:
+    # We reached the last buffer, which cannot be dropped.
+    return false
+  next.prev = prev
+  atomicStoreN(addr prev.next, next, AtomicRelease)
+  # Drop current buffer
+  deallocShared(buffer)
+  # Advance to the next buffer.
+  buffer = next
+  bufferHead = buffer.head
+  result = true
+
+# The element at the head of the queue (which is not set yet).
+proc scan[T](self: var MpscQueue[T], node: ptr Node[T],
+  tempHeadOfQueue: var ptr BufferList[T], tempHead: var int, tempNode: var ptr Node[T]) =
+  var scanHeadOfQueue = self.headOfQueue
+  var scanHead = scanHeadOfQueue.head
+  while node[].state == Empty and scanHeadOfQueue != tempHeadOfQueue or
+      scanHead < tempHead - 1:
+    if scanHead > BufferSize:
+      # We reached the end of the current buffer and switch to the next.
+      scanHeadOfQueue = atomicLoadN(addr scanHeadOfQueue.next, AtomicAcquire)
+      scanHead = scanHeadOfQueue.head
+    else:
+      # Move forward inside the current buffer.
+      let scanNode = addr scanHeadOfQueue.nodes[scanHead]
+      inc scanHead
+      if scanNode[].state == Set:
+        # We found a new candidate to dequeue and restart
+        # the scan from the head of the queue to that element.
+        tempHead = scanHead
+        tempHeadOfQueue = scanHeadOfQueue
+        tempNode = scanNode
+        # re-scan from the beginning of the queue
+        scanHeadOfQueue = self.headOfQueue
+        scanHead = scanHeadOfQueue.head
+
+proc search[T](self: var MpscQueue[T], head: int, node: ptr Node[T]; dst: var T): bool =
+  result = false
+  var tempBuffer = self.headOfQueue
+  var tempHead = head
+  # Indicates if we need to continue the search in the next buffer.
+  var searchNextBuffer = false
+  # Indicates if all nodes in the current buffer are handled.
+  var allHandled = true
+  while node[].state == Empty:
+    # There are unhandled elements in the current buffer.
+    if tempHead < BufferSize:
+      # Move forward inside the current buffer.
+      var tempNode = addr self.headOfQueue.nodes[tempHead]
+      inc tempHead
+      # We found a set node which becomes the new candidate for dequeue.
+      if tempNode[].state == Set and node[].state == Empty:
+        # We scan from the head of the queue to the new candidate and
+        # check if there has been any node set in the meantime.
+        # If we find a node that is set, that node becomes the new
+        # dequeue candidate and we restart the scan process from the head.
+        # This process continues until there is no change found during scan.
+        # After scanning, `temp_node` stores the candidate node to dequeue.
+        self.scan(node, tempBuffer, tempHead, tempNode)
+        # Check if the actual head has been set in between.
+        if node[].state == Set:
+          break
+        # Dequeue the found candidate.
+        dst = tempNode[].data
+        if searchNextBuffer and (tempHead - 1 == tempBuffer.head):
+          # If we moved to a new buffer, we need to move the head forward so
+          # in the end we can delete the buffer.
+          inc tempBuffer.head
+        return true
+      if tempNode[].state == Empty:
+        allHandled = false
+    # We reached the end of the current buffer, move to the next.
+    # This also performs a cleanup operation called `fold` that
+    # removes buffers in which all elements are handled.
+    if tempHead >= BufferSize:
+      if allHandled and searchNextBuffer:
+        # If all nodes in the current buffer are handled, we try to fold the
+        # queue, i.e. remove the intermediate buffer.
+        if self.foldBuffer(tempBuffer, tempHead):
+          allHandled = true
+          searchNextBuffer = true
+        else:
+          # We reached the last buffer in the queue.
+          return false
+      else:
+        let next = atomicLoadN(addr tempBuffer.next, AtomicAcquire)
+        if next == nil:
+          # We reached the last buffer in the queue.
+          return false
+        tempBuffer = next
+        tempHead = tempBuffer.head
+        allHandled = true
+        searchNextBuffer = true
 
 proc enqueue*[T](self: var MpscQueue[T], data: sink T) =
   # Retrieve an index where we insert the new element.
@@ -194,122 +312,6 @@ proc dequeue*[T](self: var MpscQueue[T]; dst: var T): bool =
       deallocShared(self.headOfQueue)
       self.headOfQueue = next
 
-proc search[T](self: var MpscQueue[T], head: int, node: ptr Node[T]; dst: var T): bool =
-  result = false
-  var tempBuffer = self.headOfQueue
-  var tempHead = head
-  # Indicates if we need to continue the search in the next buffer.
-  var searchNextBuffer = false
-  # Indicates if all nodes in the current buffer are handled.
-  var allHandled = true
-  while node[].state == Empty:
-    # There are unhandled elements in the current buffer.
-    if tempHead < BufferSize:
-      # Move forward inside the current buffer.
-      var tempNode = addr self.headOfQueue.nodes[tempHead]
-      inc tempHead
-      # We found a set node which becomes the new candidate for dequeue.
-      if tempNode[].state == Set and node[].state == Empty:
-        # We scan from the head of the queue to the new candidate and
-        # check if there has been any node set in the meantime.
-        # If we find a node that is set, that node becomes the new
-        # dequeue candidate and we restart the scan process from the head.
-        # This process continues until there is no change found during scan.
-        # After scanning, `temp_node` stores the candidate node to dequeue.
-        self.scan(node, tempBuffer, tempHead, tempNode)
-        # Check if the actual head has been set in between.
-        if node[].state == Set:
-          break
-        # Dequeue the found candidate.
-        dst = tempNode[].data
-        if searchNextBuffer and (tempHead - 1 == tempBuffer.head):
-          # If we moved to a new buffer, we need to move the head forward so
-          # in the end we can delete the buffer.
-          inc tempBuffer.head
-        return true
-      if tempNode[].state == Empty:
-        allHandled = false
-    # We reached the end of the current buffer, move to the next.
-    # This also performs a cleanup operation called `fold` that
-    # removes buffers in which all elements are handled.
-    if tempHead >= BufferSize:
-      if allHandled and searchNextBuffer:
-        # If all nodes in the current buffer are handled, we try to fold the
-        # queue, i.e. remove the intermediate buffer.
-        if self.foldBuffer(tempBuffer, tempHead):
-          allHandled = true
-          searchNextBuffer = true
-        else:
-          # We reached the last buffer in the queue.
-          return false
-      else:
-        let next = atomicLoadN(addr tempBuffer.next, AtomicAcquire)
-        if next == nil:
-          # We reached the last buffer in the queue.
-          return false
-        tempBuffer = next
-        tempHead = tempBuffer.head
-        allHandled = true
-        searchNextBuffer = true
-
-# The element at the head of the queue (which is not set yet).
-proc scan[T](self: var MpscQueue[T], node: ptr Node[T],
-  tempHeadOfQueue: var ptr BufferList[T], tempHead: var int, tempNode: var ptr Node[T]) =
-  var scanHeadOfQueue = self.headOfQueue
-  var scanHead = scanHeadOfQueue.head
-  while node[].state == Empty and scanHeadOfQueue != tempHeadOfQueue or
-      scanHead < tempHead - 1:
-    if scanHead > BufferSize:
-      # We reached the end of the current buffer and switch to the next.
-      scanHeadOfQueue = atomicLoadN(addr scanHeadOfQueue.next, AtomicAcquire)
-      scanHead = scanHeadOfQueue.head
-    else:
-      # Move forward inside the current buffer.
-      let scanNode = addr scanHeadOfQueue.nodes[scanHead]
-      inc scanHead
-      if scanNode[].state == Set:
-        # We found a new candidate to dequeue and restart
-        # the scan from the head of the queue to that element.
-        tempHead = scanHead
-        tempHeadOfQueue = scanHeadOfQueue
-        tempNode = scanNode
-        # re-scan from the beginning of the queue
-        scanHeadOfQueue = self.headOfQueue
-        scanHead = scanHeadOfQueue.head
-
-proc foldBuffer[T](self: var MpscQueue[T], buffer: var ptr BufferList[T],
-    bufferHead: var int): bool =
-  let next = atomicLoadN(addr buffer.next, AtomicAcquire)
-  let prev = buffer.prev
-  if next == nil:
-    # We reached the last buffer, which cannot be dropped.
-    return false
-  next.prev = prev
-  atomicStoreN(addr prev.next, next, AtomicRelease)
-  # Drop current buffer
-  deallocShared(buffer)
-  # Advance to the next buffer.
-  buffer = next
-  bufferHead = buffer.head
-  result = true
-
-proc insert[T](self: var MpscQueue[T], data: sink T,
-    index: int, buffer: ptr BufferList[T], isLastBuffer: bool) =
-  # Insert the element at the right index. This also atomically
-  # sets the state of the node to SET to make that change
-  # visible to the dequeue thread.
-  buffer.nodes[index].data = data
-  # Optimization to reduce contention on the tail of the queue.
-  # If the inserted element is the second entry in the
-  # current buffer, we already allocate a new buffer and
-  # append it to the queue.
-  if index == 1 and isLastBuffer:
-    let newBuffer = createBuffer(buffer)
-    var nilPtr: ptr BufferList[T]
-    if not atomicCompareExchangeN(addr buffer.next, addr nilPtr,
-        newBuffer, false, AtomicSeqCst, AtomicSeqCst):
-      deallocShared(newBuffer)
-
 type
   Sender*[T] = object
     queue: Arc[MpscQueue[T]]
@@ -317,8 +319,8 @@ type
 proc newSender*[T](queue: sink Arc[MpscQueue[T]]): Sender[T] =
   result = Sender[T](queue: queue)
 
-proc send*[T](self: var Sender[T], t: sink T) =
-  self.queue.enqueue(t)
+proc send*[T](self: Sender[T], t: sink T) =
+  self.queue[].enqueue(t)
 
 type
   Receiver*[T] = object
@@ -329,12 +331,12 @@ proc `=copy`*[T](dest: var Receiver[T]; source: Receiver[T]) {.error.}
 proc newReceiver*[T](queue: sink Arc[MpscQueue[T]]): Receiver[T] =
   result = Receiver[T](queue: queue)
 
-proc tryRecv*[T](self: var Receiver[T]; dst: var T): bool =
-  result = self.queue.dequeue(dst)
+proc tryRecv*[T](self: Receiver[T]; dst: var T): bool =
+  result = self.queue[].dequeue(dst)
 
 proc newChannel*[T](): (Sender[T], Receiver[T]) =
-  let queue = newArc(newMpscQueue[T]())
-  result = (newSender(queue), newReceiver(queue))
+  let queue = newArc[MpscQueue[T]](newMpscQueue[T]())
+  result = (newSender[T](queue), newReceiver[T](queue))
 
 when isMainModule:
   var q = newMpscQueue[int]()
