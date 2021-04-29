@@ -223,7 +223,7 @@ proc search[T](self: var MpscQueue[T], head: int, node: ptr Node[T]; dst: var T)
         allHandled = true
         searchNextBuffer = true
 
-proc push*[T](self: var MpscQueue[T], data: sink T) =
+proc enqueue*[T](self: var MpscQueue[T], data: sink T) =
   # Retrieve an index where we insert the new element.
   # Since this is called by multiple enqueue threads,
   # the generated index can be either past or before
@@ -268,7 +268,7 @@ proc push*[T](self: var MpscQueue[T], data: sink T) =
         discard atomicCompareExchangeN(addr self.tailOfQueue, addr tempTail, next,
             false, AtomicSeqCst, AtomicSeqCst)
 
-proc pop*[T](self: var MpscQueue[T]; dst: var T): bool =
+proc dequeue*[T](self: var MpscQueue[T]; dst: var T): bool =
   while true:
     # The buffer from which we eventually dequeue from.
     let tempTail = atomicLoadN(addr self.tailOfQueue, AtomicSeqCst)
@@ -323,7 +323,7 @@ proc newMpscSender*[T](queue: sink Arc[MpscQueue[T]]): MpscSender[T] =
   result = MpscSender[T](queue: queue)
 
 proc send*[T](self: MpscSender[T], t: sink T) =
-  self.queue[].push(t)
+  self.queue[].enqueue(t)
 
 type
   MpscReceiver*[T] = object
@@ -335,7 +335,7 @@ proc newMpscReceiver*[T](queue: sink Arc[MpscQueue[T]]): MpscReceiver[T] =
   result = MpscReceiver[T](queue: queue)
 
 proc tryRecv*[T](self: MpscReceiver[T]; dst: var T): bool =
-  result = self.queue[].pop(dst)
+  result = self.queue[].dequeue(dst)
 
 proc newMpscChannel*[T](): (MpscSender[T], MpscReceiver[T]) =
   let queue = newArc[MpscQueue[T]](newMpscQueue[T]())
