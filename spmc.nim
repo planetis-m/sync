@@ -33,9 +33,9 @@ proc `=destroy`[T](self: var SpmcQueue[T]) =
   when not supportsCopyMem(T):
     for i in self.top ..< self.bottom: `=destroy`(x.data[i])
   while x != nil:
-    let nx = x.previous
+    let next = x.previous
     alignedDealloc(x, alignof(T))
-    x = nx
+    x = next
 
 proc newBuffer[T](cap = defaultInitialSize): ptr Buffer[T] =
   assert isPowerOfTwo(cap), " length must be a power of two"

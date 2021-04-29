@@ -5,14 +5,14 @@ const
   nmsgs = 1000
 
 var
-  p: array[nthreads, Thread[Sender[int]]]
+  p: array[nthreads, Thread[MpscSender[int]]]
 
-proc threadFn(tx: Sender[int]) =
+proc threadFn(tx: MpscSender[int]) =
   for i in 0..<nmsgs:
     tx.send(i)
 
 proc multiThreadedChannel =
-  let (tx, rx) = newChannel[int]()
+  let (tx, rx) = newMpscChannel[int]()
   for i in 0..<nthreads:
     createThread(p[i], threadFn, tx)
   joinThreads(p)

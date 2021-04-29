@@ -5,8 +5,9 @@
 ## It's a Nim port of [Jiffy](https:#github.com/DolevAdas/Jiffy)
 ## which is implemented in C++ and described in [this arxiv paper](https:#arxiv.org/abs/2010.14189).
 ## Presentation: https://www.youtube.com/watch?v=IO7ju-CEkNs
-## Many thanks to the Rust [port](https://github.com/s1ck/riffy), which this lib is based on.
+## Many thanks to the developers of the Rust [port](https://github.com/s1ck/riffy), which this lib is based on.
 import sync
+from typetraits import supportsCopyMem
 
 const
   BufferSize = 1620 ## The number of nodes within a single buffer.
@@ -82,13 +83,15 @@ type
     tail: int # atomic
 
 proc `=destroy`*[T](x: var MpscQueue[T]) =
-  #TODO call destructors
-  if x.headOfQueue != nil:
-    while atomicLoadN(addr x.headOfQueue.next, AtomicAcquire) != nil:
-      let next = atomicLoadN(addr x.headOfQueue.next, AtomicAcquire)
-      deallocShared(x.headOfQueue)
-      x.headOfQueue = next
-  if x.headOfQueue != nil: deallocShared(x.headOfQueue)
+  var tempBuffer = x.headOfQueue
+  while tempBuffer != nil:
+    when not supportsCopyMem(T):
+      for i in tempBuffer.head ..< BufferSize: #todo: prove this wrong
+        if tempBuffer.nodes[i].state == Set:
+          `=destroy`(tempBuffer.nodes[i].pdata)
+    let next = atomicLoadN(addr tempBuffer.next, AtomicAcquire)
+    deallocShared(tempBuffer)
+    tempBuffer = next
 
 proc newMpscQueue*[T](): MpscQueue[T] =
   let headOfQueue = newBufferList[T]()
@@ -220,7 +223,7 @@ proc search[T](self: var MpscQueue[T], head: int, node: ptr Node[T]; dst: var T)
         allHandled = true
         searchNextBuffer = true
 
-proc enqueue*[T](self: var MpscQueue[T], data: sink T) =
+proc push*[T](self: var MpscQueue[T], data: sink T) =
   # Retrieve an index where we insert the new element.
   # Since this is called by multiple enqueue threads,
   # the generated index can be either past or before
@@ -265,7 +268,7 @@ proc enqueue*[T](self: var MpscQueue[T], data: sink T) =
         discard atomicCompareExchangeN(addr self.tailOfQueue, addr tempTail, next,
             false, AtomicSeqCst, AtomicSeqCst)
 
-proc dequeue*[T](self: var MpscQueue[T]; dst: var T): bool =
+proc pop*[T](self: var MpscQueue[T]; dst: var T): bool =
   while true:
     # The buffer from which we eventually dequeue from.
     let tempTail = atomicLoadN(addr self.tailOfQueue, AtomicSeqCst)
@@ -284,21 +287,21 @@ proc dequeue*[T](self: var MpscQueue[T]; dst: var T): bool =
       let node = addr self.headOfQueue.nodes[head]
       # Check if the node has already been dequeued.
       # If yes, we increment head and move on.
-      case node[].state #TODO: this code is different than the original. check performance difference/correctness
-      of Handled:
+      if node[].state == Handled:
         inc head
       # The current head points to a node that is not yet set or handled.
       # This means an enqueue thread is still ongoing and we need to find
       # the next set element (and potentially dequeue that one).
-      of Empty:
-        if self.search(head, node, dst):
+      else:
+        if node[].state == Empty:
+          if self.search(head, node, dst):
+            return true
+        # The current head points to a valid node and can be dequeued.
+        if node[].state == Set:
+          # Increment head
+          inc head
+          dst = node[].data
           return true
-      # The current head points to a valid node and can be dequeued.
-      of Set:
-        # Increment head
-        inc head
-        dst = node[].data
-        return true
     # The head buffer has been handled and can be removed.
     # The new head becomes the successor of the current head buffer.
     if head >= BufferSize:
@@ -313,30 +316,30 @@ proc dequeue*[T](self: var MpscQueue[T]; dst: var T): bool =
       self.headOfQueue = next
 
 type
-  Sender*[T] = object
+  MpscSender*[T] = object
     queue: Arc[MpscQueue[T]]
 
-proc newSender*[T](queue: sink Arc[MpscQueue[T]]): Sender[T] =
-  result = Sender[T](queue: queue)
+proc newMpscSender*[T](queue: sink Arc[MpscQueue[T]]): MpscSender[T] =
+  result = MpscSender[T](queue: queue)
 
-proc send*[T](self: Sender[T], t: sink T) =
-  self.queue[].enqueue(t)
+proc send*[T](self: MpscSender[T], t: sink T) =
+  self.queue[].push(t)
 
 type
-  Receiver*[T] = object
+  MpscReceiver*[T] = object
     queue: Arc[MpscQueue[T]]
 
-proc `=copy`*[T](dest: var Receiver[T]; source: Receiver[T]) {.error.}
+proc `=copy`*[T](dest: var MpscReceiver[T]; source: MpscReceiver[T]) {.error.}
 
-proc newReceiver*[T](queue: sink Arc[MpscQueue[T]]): Receiver[T] =
-  result = Receiver[T](queue: queue)
+proc newMpscReceiver*[T](queue: sink Arc[MpscQueue[T]]): MpscReceiver[T] =
+  result = MpscReceiver[T](queue: queue)
 
-proc tryRecv*[T](self: Receiver[T]; dst: var T): bool =
-  result = self.queue[].dequeue(dst)
+proc tryRecv*[T](self: MpscReceiver[T]; dst: var T): bool =
+  result = self.queue[].pop(dst)
 
-proc newChannel*[T](): (Sender[T], Receiver[T]) =
+proc newMpscChannel*[T](): (MpscSender[T], MpscReceiver[T]) =
   let queue = newArc[MpscQueue[T]](newMpscQueue[T]())
-  result = (newSender[T](queue), newReceiver[T](queue))
+  result = (newMpscSender[T](queue), newMpscReceiver[T](queue))
 
 when isMainModule:
   var q = newMpscQueue[int]()
