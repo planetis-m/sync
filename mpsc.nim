@@ -10,15 +10,15 @@ import sync
 from typetraits import supportsCopyMem
 
 const
-  BufferSize = 1620 ## The number of nodes within a single buffer.
+  BufferSize = 1620 # The number of nodes within a single buffer.
 
 type
-  State = range[0'u8..2'u8] ## Represent the state of a node within a buffer.
+  State = range[0'u8..2'u8] # Represent the state of a node within a buffer.
 
 const
-  Empty = 0'u8   ## Initial state, the node contains no data.
-  Set = 1'u8     ## The enqueue process was successful, the node contains data.
-  Handled = 2'u8 ## The dequeue process was successful, the node contains no data.
+  Empty = 0'u8   # Initial state, the node contains no data.
+  Set = 1'u8     # The enqueue process was successful, the node contains data.
+  Handled = 2'u8 # The dequeue process was successful, the node contains no data.
 
 # A node is contained in a `BufferList` and owns
 # the actual data that has been enqueued. A node
@@ -38,36 +38,36 @@ proc setState[T](n: var Node[T], state: State) {.inline.} =
   atomicStoreN(addr n.isSet, state, AtomicRelease)
 
 proc data[T](n: var Node[T]): T {.inline.} =
-  ## Read the data from the candidate node.
+  # Read the data from the candidate node.
   result = move(n.pdata)
   setState n, Handled
 
 proc setData[T](n: var Node[T], data: sink T) {.inline, nodestroy.} =
-  ## Load the given data into the node and change its state to `Set`.
+  # Load the given data into the node and change its state to `Set`.
   n.pdata = data
   setState n, Set
 
-## The buffer list holds a fixed number of nodes.
-## Buffer lists are connected with each other and
-## form a linked list. Enqueue operations always
-## append to the linked list by creating a new buffer
-## and atomically updating the `next` pointer of the
-## last buffer list in the queue.
+# The buffer list holds a fixed number of nodes.
+# Buffer lists are connected with each other and
+# form a linked list. Enqueue operations always
+# append to the linked list by creating a new buffer
+# and atomically updating the `next` pointer of the
+# last buffer list in the queue.
 type
   BufferList[T] = object
-    ## A fixed size vector of nodes that hold the data.
+    # A fixed size vector of nodes that hold the data.
     nodes: array[BufferSize, Node[T]]
-    ## A pointer to the previous buffer list.
+    # A pointer to the previous buffer list.
     prev: ptr BufferList[T]
-    ## An atomic pointer to the next buffer list.
+    # An atomic pointer to the next buffer list.
     next: ptr BufferList[T]
-    ## The position to read the next element from inside
-    ## the buffer list. The head index is only updated
-    ## by the dequeue thread.
+    # The position to read the next element from inside
+    # the buffer list. The head index is only updated
+    # by the dequeue thread.
     head: int
-    ## The position of that buffer list in the queue.
-    ## That index is used to compute the number of elements
-    ## previously added to the queue.
+    # The position of that buffer list in the queue.
+    # That index is used to compute the number of elements
+    # previously added to the queue.
     pos: int
 
 proc newBufferList[T](positionInQueue: Natural = 1,
@@ -101,11 +101,8 @@ proc newMpscQueue*[T](): MpscQueue[T] =
     tail: 0
   )
 
-proc createBuffer[T](buffer: ptr BufferList[T]): ptr BufferList[T] {.inline.} =
-  result = newBufferList[T](buffer.pos + 1, buffer)
-
-proc sizeWithoutBuffer[T](buffer: ptr BufferList[T]): int {.inline.} =
-  result = BufferSize * (buffer.pos - 1)
+template createBuffer(buffer): untyped = newBufferList(buffer.pos + 1, buffer)
+template sizeWithoutBuffer(buffer): untyped = BufferSize * (buffer.pos - 1)
 
 proc insert[T](self: var MpscQueue[T], data: sink T,
     index: int, buffer: ptr BufferList[T], isLastBuffer: bool) =
@@ -166,7 +163,6 @@ proc scan[T](self: var MpscQueue[T], node: ptr Node[T],
         scanHead = scanHeadOfQueue.head
 
 proc search[T](self: var MpscQueue[T], head: int, node: ptr Node[T]; dst: var T): bool =
-  result = false
   var tempBuffer = self.headOfQueue
   var tempHead = head
   # Indicates if we need to continue the search in the next buffer.
@@ -190,7 +186,7 @@ proc search[T](self: var MpscQueue[T], head: int, node: ptr Node[T]; dst: var T)
         self.scan(node, tempBuffer, tempHead, tempNode)
         # Check if the actual head has been set in between.
         if node[].state == Set:
-          break
+          return false
         # Dequeue the found candidate.
         dst = tempNode[].data
         if searchNextBuffer and (tempHead - 1 == tempBuffer.head):
