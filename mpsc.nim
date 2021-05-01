@@ -86,12 +86,14 @@ proc `=destroy`*[T](x: var MpscQueue[T]) =
   var tempBuffer = x.headOfQueue
   while tempBuffer != nil:
     when not supportsCopyMem(T):
-      for i in tempBuffer.head ..< BufferSize: #todo: prove this wrong
+      for i in tempBuffer.head ..< BufferSize: # non-deterministic code
         if tempBuffer.nodes[i].state == Set:
           `=destroy`(tempBuffer.nodes[i].pdata)
     let next = atomicLoadN(addr tempBuffer.next, AtomicAcquire)
     deallocShared(tempBuffer)
     tempBuffer = next
+
+proc `=copy`*[T](dest: var MpscQueue[T]; source: MpscQueue[T]) {.error.}
 
 proc newMpscQueue*[T](): MpscQueue[T] =
   let headOfQueue = newBufferList[T]()
@@ -139,7 +141,7 @@ proc foldBuffer[T](self: var MpscQueue[T], buffer: var ptr BufferList[T],
 
 # The element at the head of the queue (which is not set yet).
 proc scan[T](self: var MpscQueue[T], node: ptr Node[T],
-  tempHeadOfQueue: var ptr BufferList[T], tempHead: var int, tempNode: var ptr Node[T]) =
+    tempHeadOfQueue: var ptr BufferList[T], tempHead: var int, tempNode: var ptr Node[T]) =
   var scanHeadOfQueue = self.headOfQueue
   var scanHead = scanHeadOfQueue.head
   while node[].state == Empty and scanHeadOfQueue != tempHeadOfQueue or
