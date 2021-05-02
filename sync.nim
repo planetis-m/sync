@@ -11,6 +11,6 @@ include sync/once
 include sync/rwmonitor
 include sync/semaphore
 include sync/spinlock
-include sync/mpsc
+when false: include sync/mpsc
 
 {.pop.}
