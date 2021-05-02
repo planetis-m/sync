@@ -6,7 +6,6 @@
 ## which is implemented in C++ and described in [this arxiv paper](https:#arxiv.org/abs/2010.14189).
 ## Presentation: https://www.youtube.com/watch?v=IO7ju-CEkNs
 ## Many thanks to the developers of the Rust [port](https://github.com/s1ck/riffy), which this lib is based on.
-import sync
 from typetraits import supportsCopyMem
 
 const
@@ -76,6 +75,9 @@ proc newBufferList[T](positionInQueue: Natural = 1,
   result.prev = prev
   result.pos = positionInQueue
 
+template createBuffer(buffer): untyped = newBufferList(buffer.pos + 1, buffer)
+template sizeWithoutBuffer(buffer): untyped = BufferSize * (buffer.pos - 1)
+
 type
   MpscQueue*[T] = object ## A multi-producer-single-consumer queue.
     headOfQueue: ptr BufferList[T]
@@ -86,9 +88,24 @@ proc `=destroy`*[T](x: var MpscQueue[T]) =
   var tempBuffer = x.headOfQueue
   while tempBuffer != nil:
     when not supportsCopyMem(T):
-      for i in tempBuffer.head ..< BufferSize: # non-deterministic code
-        if tempBuffer.nodes[i].state == Set:
-          `=destroy`(tempBuffer.nodes[i].pdata)
+      template head: untyped = tempBuffer.head
+      let tempTail = atomicLoadN(addr x.tailOfQueue, AtomicSeqCst)
+      let prevSize = sizeWithoutBuffer(tempTail)
+      let headIsTail = tempBuffer == tempTail
+      let headIsEmpty = head == atomicLoadN(addr x.tail, AtomicAcquire) - prevSize
+      echo "head: ", head
+      echo "size: ", x.tail - prevSize
+      echo "headIsTail: ", headIsTail, ", headIsEmpty: ", headIsEmpty
+      if headIsTail and headIsEmpty:
+        discard
+      else:
+        var count = 0
+        for i in head ..< BufferSize: # non-deterministic code
+          count.inc
+          if tempBuffer.nodes[i].state == Set:
+            echo "destroy ", tempBuffer.nodes[i].pdata
+            `=destroy`(tempBuffer.nodes[i].pdata)
+        echo "count ", count
     let next = atomicLoadN(addr tempBuffer.next, AtomicAcquire)
     deallocShared(tempBuffer)
     tempBuffer = next
@@ -102,9 +119,6 @@ proc newMpscQueue*[T](): MpscQueue[T] =
     tailOfQueue: headOfQueue,
     tail: 0
   )
-
-template createBuffer(buffer): untyped = newBufferList(buffer.pos + 1, buffer)
-template sizeWithoutBuffer(buffer): untyped = BufferSize * (buffer.pos - 1)
 
 proc insert[T](self: var MpscQueue[T], data: sink T,
     index: int, buffer: ptr BufferList[T], isLastBuffer: bool) =
@@ -122,6 +136,51 @@ proc insert[T](self: var MpscQueue[T], data: sink T,
     if not atomicCompareExchangeN(addr buffer.next, addr nilPtr,
         newBuffer, false, AtomicSeqCst, AtomicSeqCst):
       deallocShared(newBuffer)
+
+proc enqueue*[T](self: var MpscQueue[T], data: sink T) =
+  # Retrieve an index where we insert the new element.
+  # Since this is called by multiple enqueue threads,
+  # the generated index can be either past or before
+  # the current tail buffer of the queue.
+  let location = atomicFetchAdd(addr self.tail, 1, AtomicSeqCst)
+  # Track if the element is inserted in the last buffer.
+  var isLastBuffer = true
+  while true:
+    # The buffer in which we eventually insert into.
+    var tempTail = atomicLoadN(addr self.tailOfQueue, AtomicAcquire)
+    # The number of items in the queue without the current buffer.
+    var prevSize = sizeWithoutBuffer(tempTail)
+    # The location is in a previous buffer. We need to track back to that one.
+    while location < prevSize:
+      isLastBuffer = false
+      tempTail = tempTail.prev
+      prevSize -= BufferSize
+    # The current capacity of the queue.
+    let globalSize = BufferSize + prevSize
+    if prevSize <= location and location < globalSize:
+      # We found the right buffer to insert.
+      self.insert(data, location - prevSize, tempTail, isLastBuffer)
+      return
+    # The location is in the next buffer. We need to allocate a new buffer
+    # which becomes the new tail of the queue.
+    if location >= globalSize:
+      let next = atomicLoadN(addr tempTail.next, AtomicAcquire)
+      if next == nil:
+        # No next buffer, allocate a new one.
+        let newBuffer = createBuffer(tempTail)
+        var nilPtr: ptr BufferList[T]
+        # Try setting the successor of the current buffer to point to our new buffer.
+        if atomicCompareExchangeN(addr tempTail.next, addr nilPtr, newBuffer,
+            false, AtomicSeqCst, AtomicSeqCst):
+          # Only one thread comes here and updates the next pointer.
+          atomicStoreN(addr tempTail.next, newBuffer, AtomicRelease)
+        else:
+          # CAS was unsuccessful, we can drop our buffer.
+          deallocShared(newBuffer)
+      else:
+        # If next is not null, we update the tail and proceed on the that buffer.
+        discard atomicCompareExchangeN(addr self.tailOfQueue, addr tempTail, next,
+            false, AtomicSeqCst, AtomicSeqCst)
 
 proc foldBuffer[T](self: var MpscQueue[T], buffer: var ptr BufferList[T],
     bufferHead: var int): bool =
@@ -221,51 +280,6 @@ proc search[T](self: var MpscQueue[T], head: int, node: ptr Node[T]; dst: var T)
         allHandled = true
         searchNextBuffer = true
 
-proc enqueue*[T](self: var MpscQueue[T], data: sink T) =
-  # Retrieve an index where we insert the new element.
-  # Since this is called by multiple enqueue threads,
-  # the generated index can be either past or before
-  # the current tail buffer of the queue.
-  let location = atomicFetchAdd(addr self.tail, 1, AtomicSeqCst)
-  # Track if the element is inserted in the last buffer.
-  var isLastBuffer = true
-  while true:
-    # The buffer in which we eventually insert into.
-    var tempTail = atomicLoadN(addr self.tailOfQueue, AtomicAcquire)
-    # The number of items in the queue without the current buffer.
-    var prevSize = sizeWithoutBuffer(tempTail)
-    # The location is in a previous buffer. We need to track back to that one.
-    while location < prevSize:
-      isLastBuffer = false
-      tempTail = tempTail.prev
-      prevSize -= BufferSize
-    # The current capacity of the queue.
-    let globalSize = BufferSize + prevSize
-    if prevSize <= location and location < globalSize:
-      # We found the right buffer to insert.
-      self.insert(data, location - prevSize, tempTail, isLastBuffer)
-      return
-    # The location is in the next buffer. We need to allocate a new buffer
-    # which becomes the new tail of the queue.
-    if location >= globalSize:
-      let next = atomicLoadN(addr tempTail.next, AtomicAcquire)
-      if next == nil:
-        # No next buffer, allocate a new one.
-        let newBuffer = createBuffer(tempTail)
-        var nilPtr: ptr BufferList[T]
-        # Try setting the successor of the current buffer to point to our new buffer.
-        if atomicCompareExchangeN(addr tempTail.next, addr nilPtr, newBuffer,
-            false, AtomicSeqCst, AtomicSeqCst):
-          # Only one thread comes here and updates the next pointer.
-          atomicStoreN(addr tempTail.next, newBuffer, AtomicRelease)
-        else:
-          # CAS was unsuccessful, we can drop our buffer.
-          deallocShared(newBuffer)
-      else:
-        # If next is not null, we update the tail and proceed on the that buffer.
-        discard atomicCompareExchangeN(addr self.tailOfQueue, addr tempTail, next,
-            false, AtomicSeqCst, AtomicSeqCst)
-
 proc dequeue*[T](self: var MpscQueue[T]; dst: var T): bool =
   while true:
     # The buffer from which we eventually dequeue from.
@@ -338,17 +352,3 @@ proc tryRecv*[T](self: MpscReceiver[T]; dst: var T): bool =
 proc newMpscChannel*[T](): (MpscSender[T], MpscReceiver[T]) =
   let queue = newArc[MpscQueue[T]](newMpscQueue[T]())
   result = (newMpscSender[T](queue), newMpscReceiver[T](queue))
-
-when isMainModule:
-  var q = newMpscQueue[int]()
-  var n = 0
-  assert q.dequeue(n) == false
-
-  q.enqueue(42)
-  q.enqueue(84)
-
-  assert q.dequeue(n)
-  assert n == 42
-  assert q.dequeue(n)
-  assert n == 84
-  assert not q.dequeue(n)
