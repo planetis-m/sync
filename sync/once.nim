@@ -1,23 +1,16 @@
 type
-  Once* = object
-    L: Lock
-    finished: bool
+  Once* = distinct int
 
-proc initOnce*(o: var Once) =
-  initLock(o.L)
-  o.finished = false
-
-proc destroyOnce*(o: var Once) {.inline.} =
-  deinitLock(o.L)
+const
+  Incomplete = 0
+  Running = 1
+  Complete = 2
 
 template once*(o: Once, body: untyped) =
-  if not atomicLoadN(addr o.finished, AtomicAcquire):
-    acquire(o.L)
-    try:
-      if not o.finished:
-        try:
-          body
-        finally:
-          atomicStoreN(addr o.finished, true, AtomicRelease)
-    finally:
-      release(o.L)
+  let notCalled = Incomplete
+  if atomicCompareExchangeN(addr o.int, unsafeAddr notCalled,
+      Running, false, AtomicRelease, AtomicRelaxed):
+    body
+    atomicStoreN(addr o.int, Complete, AtomicRelease)
+  else:
+    while atomicLoadN(addr o.int, AtomicAcquire) != Complete: cpuRelax()
