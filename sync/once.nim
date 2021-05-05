@@ -9,7 +9,7 @@ const
 template once*(o: Once, body: untyped) =
   let notCalled = Incomplete
   if atomicCompareExchangeN(addr o.int, unsafeAddr notCalled,
-      Running, false, AtomicRelease, AtomicRelaxed):
+      Running, false, AtomicAcquire, AtomicRelaxed):
     body
     atomicStoreN(addr o.int, Complete, AtomicRelease)
   else:
