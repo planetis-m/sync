@@ -6,9 +6,9 @@ type
     left: int # current barrier count, number of threads still needed.
     cycle: uint # generation count
 
-proc initBarrier*(b: var Barrier; count: Natural) =
-  b.required = count
-  b.left = count
+proc initBarrier*(b: var Barrier; parties: Natural) =
+  b.required = parties
+  b.left = parties
   b.cycle = 0
   initCond(b.c)
   initLock(b.L)

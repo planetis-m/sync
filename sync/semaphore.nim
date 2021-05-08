@@ -4,10 +4,10 @@ type
     L: Lock
     counter: int
 
-proc initSemaphore*(s: var Semaphore; value = 0) =
+proc initSemaphore*(s: var Semaphore; permits = 0) =
   initCond(s.c)
   initLock(s.L)
-  s.counter = value
+  s.counter = permits
 
 proc destroySemaphore*(s: var Semaphore) {.inline.} =
   deinitCond(s.c)
