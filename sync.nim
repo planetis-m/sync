@@ -5,12 +5,13 @@ when not compileOption("threads"):
 
 {.push stackTrace: off.}
 
-include sync/arc
 include sync/barrier
 include sync/once
 include sync/rwmonitor
 include sync/semaphore
 include sync/spinlock
-when false: include sync/mpsc
+include sync/spmc
+include sync/mpsc
+when false sync/mpsc_channel
 
 {.pop.}
