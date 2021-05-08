@@ -13,22 +13,15 @@ proc destroySemaphore*(s: var Semaphore) {.inline.} =
   deinitCond(s.c)
   deinitLock(s.L)
 
-proc blockUntil*(s: var Semaphore) =
+proc blockUntil*(s: var Semaphore; permits: Positive = 1) =
   acquire(s.L)
-  while s.counter <= 0:
+  while s.counter < permits:
     wait(s.c, s.L)
-  dec s.counter
+  dec s.counter, permits
   release(s.L)
 
-proc blockUntil*(s: var Semaphore; tickets: int) =
+proc signal*(s: var Semaphore; permits: Positive = 1) =
   acquire(s.L)
-  while s.counter <= tickets:
-    wait(s.c, s.L)
-  dec s.counter, tickets+1
-  release(s.L)
-
-proc signal*(s: var Semaphore) =
-  acquire(s.L)
-  inc s.counter
+  inc s.counter, permits
   signal(s.c)
   release(s.L)
