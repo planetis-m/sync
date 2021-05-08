@@ -10,9 +10,9 @@ include sync/once
 include sync/rwmonitor
 include sync/semaphore
 include sync/spinlock
-include sync/spmc
-include sync/mpsc
-when false: sync/spmc_channel
-when false: sync/mpsc_channel
+include sync/spmc_queue
+include sync/mpsc_queue
+when false: sync/spmc
+when false: sync/mpsc
 
 {.pop.}
