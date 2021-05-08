@@ -7,7 +7,7 @@ when not compileOption("threads"):
 
 include sync/barrier
 include sync/once
-include sync/rwmonitor
+include sync/rwlock
 include sync/semaphore
 include sync/spinlock
 include sync/spmc_queue
