@@ -12,6 +12,7 @@ include sync/semaphore
 include sync/spinlock
 include sync/spmc
 include sync/mpsc
-when false sync/mpsc_channel
+when false: sync/spmc_channel
+when false: sync/mpsc_channel
 
 {.pop.}
