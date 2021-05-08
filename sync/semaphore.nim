@@ -2,26 +2,32 @@ type
   Semaphore* = object
     c: Cond
     L: Lock
-    counter: int
+    value, wakeups: int
 
 proc initSemaphore*(s: var Semaphore; value = 0) =
   initCond(s.c)
   initLock(s.L)
-  s.counter = value
+  s.value = value
+  s.wakeups = 0
 
 proc destroySemaphore*(s: var Semaphore) {.inline.} =
   deinitCond(s.c)
   deinitLock(s.L)
 
-proc blockUntil*(s: var Semaphore; permits: Positive = 1) =
+proc blockUntil*(s: var Semaphore) =
   acquire(s.L)
-  while s.counter < permits:
-    wait(s.c, s.L)
-  dec s.counter, permits
+  dec s.value
+  if s.value < 0:
+    while true:
+      wait(s.c, s.L)
+      if s.wakeups >= 1: break
+    dec s.wakeups
   release(s.L)
 
-proc signal*(s: var Semaphore; permits: Positive = 1) =
+proc signal*(s: var Semaphore) =
   acquire(s.L)
-  inc s.counter, permits
-  signal(s.c)
+  inc s.value
+  if s.value <= 0:
+    inc s.wakeups
+    signal(s.c)
   release(s.L)
