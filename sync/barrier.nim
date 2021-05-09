@@ -13,7 +13,7 @@ proc initBarrier*(b: var Barrier; parties: Natural) =
   initCond(b.c)
   initLock(b.L)
 
-proc destroyBarrier*(b: var Barrier) {.inline.} =
+proc destroyBarrier*(b: var Barrier) =
   deinitCond(b.c)
   deinitLock(b.L)
 

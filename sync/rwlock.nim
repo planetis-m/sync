@@ -11,7 +11,7 @@ proc initRwLock*(rw: var RwLock) =
   initLock rw.L
   rw.counter = 0
 
-proc destroyRwLock*(rw: var RwLock) {.inline.} =
+proc destroyRwLock*(rw: var RwLock) =
   deinitCond(rw.readPhase)
   deinitCond(rw.writePhase)
   deinitLock(rw.L)

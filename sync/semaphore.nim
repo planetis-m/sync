@@ -9,7 +9,7 @@ proc initSemaphore*(s: var Semaphore; permits = 0) =
   initLock(s.L)
   s.counter = permits
 
-proc destroySemaphore*(s: var Semaphore) {.inline.} =
+proc destroySemaphore*(s: var Semaphore) =
   deinitCond(s.c)
   deinitLock(s.L)
 
