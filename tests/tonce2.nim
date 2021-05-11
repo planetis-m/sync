@@ -10,23 +10,25 @@ type
 
 var
   threads: array[numThreads, Thread[void]]
-  counter = 0
-  instance: Singleton
+  counter = 1
+  instance: ptr Singleton
   o: Once
 
 proc getInstance(): ptr Singleton =
   once(o):
-    instance = Singleton(data: counter)
+    instance = createSharedU(Singleton)
+    instance.data = counter
     inc counter
-  result = addr instance
+  result = instance
 
 proc routine {.thread.} =
   for i in 1 .. maxIters:
-    assert getInstance().data == 0
+    assert getInstance().data == 1
 
 proc main =
   for i in 0 ..< numThreads:
     createThread(threads[i], routine)
   joinThreads(threads)
+  deallocShared(instance)
 
 main()
