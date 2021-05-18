@@ -10,7 +10,7 @@ proc newSpmcSender*[T](queue: sink SharedPtr[SpmcQueue[T]]): SpmcSender[T] =
   result = SpmcSender[T](queue: queue)
 
 proc send*[T](self: SpmcSender[T], t: sink Isolated[T]) {.inline.} =
-  self.queue[].push(t)
+  self.queue[].push(t.extract)
 
 template send*[T](self: SpmcSender[T], t: T) =
   send(self, isolate(t))

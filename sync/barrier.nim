@@ -5,12 +5,10 @@ type
     required: int # number of threads needed for the barrier to continue
     left: int # current barrier count, number of threads still needed.
     cycle: uint # generation count
-    initialized: bool
 
 proc `=destroy`*(b: var Barrier) =
-  if b.initialized:
-    deinitCond(b.c)
-    deinitLock(b.L)
+  deinitCond(b.c)
+  deinitLock(b.L)
 
 proc `=sink`*(dest: var Barrier; source: Barrier) {.error.}
 proc `=copy`*(dest: var Barrier; source: Barrier) {.error.}
@@ -19,7 +17,6 @@ proc initBarrier*(b: var Barrier; parties: Natural) =
   b.required = parties
   b.left = parties
   b.cycle = 0
-  b.initialized = true
   initCond(b.c)
   initLock(b.L)
 

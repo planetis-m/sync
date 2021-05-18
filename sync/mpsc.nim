@@ -8,7 +8,7 @@ proc newMpscSender*[T](queue: sink SharedPtr[MpscQueue[T]]): MpscSender[T] =
   result = MpscSender[T](queue: queue)
 
 proc send*[T](self: MpscSender[T], t: sink Isolated[T]) {.inline.} =
-  self.queue[].enqueue(t)
+  self.queue[].enqueue(t.extract)
 
 template send*[T](self: MpscSender[T], t: T) =
   send(self, isolate(t))

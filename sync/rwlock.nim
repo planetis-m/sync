@@ -4,13 +4,11 @@ type
     writePhase: Cond
     L: Lock
     counter: int # can be in three states: free = 0, reading > 0, writing = -1
-    initialized: bool
 
 proc `=destroy`*(rw: var RwLock) =
-  if rw.initialized:
-    deinitCond(rw.readPhase)
-    deinitCond(rw.writePhase)
-    deinitLock(rw.L)
+  deinitCond(rw.readPhase)
+  deinitCond(rw.writePhase)
+  deinitLock(rw.L)
 
 proc `=sink`*(dest: var RwLock; source: RwLock) {.error.}
 proc `=copy`*(dest: var RwLock; source: RwLock) {.error.}
@@ -20,7 +18,6 @@ proc initRwLock*(rw: var RwLock) =
   initCond rw.writePhase
   initLock rw.L
   rw.counter = 0
-  rw.initialized = true
 
 proc beginRead*(rw: var RwLock) =
   acquire(rw.L)
