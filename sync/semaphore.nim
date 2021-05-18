@@ -3,10 +3,10 @@ type
     c: Cond
     L: Lock
     counter: int
-    notMoved: bool
+    initialized: bool
 
 proc `=destroy`*(s: var Semaphore) =
-  if s.notMoved:
+  if s.initialized:
     deinitCond(s.c)
     deinitLock(s.L)
 
@@ -15,7 +15,7 @@ proc `=copy`*(dest: var Semaphore; source: Semaphore) {.error.}
 
 proc initSemaphore*(s: var Semaphore; permits = 0) =
   s.counter = permits
-  s.notMoved = true
+  s.initialized = true
   initCond(s.c)
   initLock(s.L)
 
