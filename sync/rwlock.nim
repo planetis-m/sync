@@ -4,17 +4,23 @@ type
     writePhase: Cond
     L: Lock
     counter: int # can be in three states: free = 0, reading > 0, writing = -1
+    notMoved: bool
 
-proc initRwLock*(rw: var RwLock) =
+proc `=destroy`*(rw: var RwLock) =
+  if rw.notMoved:
+    deinitCond(rw.readPhase)
+    deinitCond(rw.writePhase)
+    deinitLock(rw.L)
+
+proc `=sink`*(dest: var RwLock; source: RwLock) {.error.}
+proc `=copy`*(dest: var RwLock; source: RwLock) {.error.}
+
+proc init*(rw: var RwLock) =
   initCond rw.readPhase
   initCond rw.writePhase
   initLock rw.L
   rw.counter = 0
-
-proc destroyRwLock*(rw: var RwLock) =
-  deinitCond(rw.readPhase)
-  deinitCond(rw.writePhase)
-  deinitLock(rw.L)
+  rw.notMoved = true
 
 proc beginRead*(rw: var RwLock) =
   acquire(rw.L)

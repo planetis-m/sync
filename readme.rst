@@ -15,4 +15,4 @@ The following is an overview of the available synchronization objects:
 - *Once*: Used for thread-safe, one-time initialization of a global variable.
 - *RwLock*: Provides a mutual exclusion mechanism which allows multiple readers at the same time, while allowing only one writer at a time. In some cases, this can be more efficient than a mutex.
 - *Semaphore*: Counting semaphore performing asynchronous permit aquisition.
-- *Spinlock*: A mutual exclusion primitive useful for protecting shared data
+- *Spinlock*: A mutual exclusion primitive useful for protecting shared data.

@@ -5,17 +5,23 @@ type
     required: int # number of threads needed for the barrier to continue
     left: int # current barrier count, number of threads still needed.
     cycle: uint # generation count
+    notMoved: bool
 
-proc initBarrier*(b: var Barrier; parties: Natural) =
+proc `=destroy`*(b: var Barrier) =
+  if b.notMoved:
+    deinitCond(b.c)
+    deinitLock(b.L)
+
+proc `=sink`*(dest: var Barrier; source: Barrier) {.error.}
+proc `=copy`*(dest: var Barrier; source: Barrier) {.error.}
+
+proc init*(b: var Barrier; parties: Natural) =
   b.required = parties
   b.left = parties
   b.cycle = 0
+  b.notMoved = true
   initCond(b.c)
   initLock(b.L)
-
-proc destroyBarrier*(b: var Barrier) =
-  deinitCond(b.c)
-  deinitLock(b.L)
 
 proc wait*(b: var Barrier) =
   acquire(b.L)

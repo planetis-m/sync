@@ -3,15 +3,21 @@ type
     c: Cond
     L: Lock
     counter: int
+    notMoved: bool
 
-proc initSemaphore*(s: var Semaphore; permits = 0) =
+proc `=destroy`*(s: var Semaphore) =
+  if s.notMoved:
+    deinitCond(s.c)
+    deinitLock(s.L)
+
+proc `=sink`*(dest: var Semaphore; source: Semaphore) {.error.}
+proc `=copy`*(dest: var Semaphore; source: Semaphore) {.error.}
+
+proc init*(s: var Semaphore; permits = 0) =
+  s.counter = permits
+  s.notMoved = true
   initCond(s.c)
   initLock(s.L)
-  s.counter = permits
-
-proc destroySemaphore*(s: var Semaphore) =
-  deinitCond(s.c)
-  deinitLock(s.L)
 
 proc acquire*(s: var Semaphore; permits: Positive = 1) =
   acquire(s.L)
