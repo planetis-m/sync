@@ -11,7 +11,7 @@ include sync/rwlock
 include sync/semaphore
 include sync/spinlock
 when false: include sync/spmc_queue
-when false: include sync/mpsc_queue
+include sync/mpsc_queue
 when false: include sync/spmc
 when false: include sync/mpsc
 

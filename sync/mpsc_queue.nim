@@ -87,25 +87,6 @@ type
 proc `=destroy`*[T](x: var MpscQueue[T]) =
   var tempBuffer = x.headOfQueue
   while tempBuffer != nil:
-    when not supportsCopyMem(T):
-      template head: untyped = tempBuffer.head
-      let tempTail = atomicLoadN(addr x.tailOfQueue, AtomicSeqCst)
-      let prevSize = sizeWithoutBuffer(tempTail)
-      let headIsTail = tempBuffer == tempTail
-      let headIsEmpty = head == atomicLoadN(addr x.tail, AtomicAcquire) - prevSize
-      echo "head: ", head
-      echo "size: ", x.tail - prevSize
-      echo "headIsTail: ", headIsTail, ", headIsEmpty: ", headIsEmpty
-      if headIsTail and headIsEmpty:
-        discard
-      else:
-        var count = 0
-        for i in head ..< BufferSize: # non-deterministic code
-          count.inc
-          if tempBuffer.nodes[i].state == Set:
-            echo "destroy ", tempBuffer.nodes[i].pdata
-            `=destroy`(tempBuffer.nodes[i].pdata)
-        echo "count ", count
     let next = atomicLoadN(addr tempBuffer.next, AtomicAcquire)
     deallocShared(tempBuffer)
     tempBuffer = next

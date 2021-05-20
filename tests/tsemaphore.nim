@@ -1,8 +1,5 @@
 import sync
 
-const
-  N = 2
-
 var
   aThread, bThread: Thread[void]
   aArrived, bArrived: Semaphore
