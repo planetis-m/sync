@@ -12,7 +12,7 @@ var
 proc routine(id: int) =
   for i in 0 ..< numIters:
     phases[id] = i
-    if id mod numThreads == 0:
+    if (id + i) mod numThreads == 0:
       sleep(5)
     wait barrier
     for j in 0 ..< numThreads:
