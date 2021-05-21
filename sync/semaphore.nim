@@ -16,14 +16,14 @@ proc initSemaphore*(s: var Semaphore; permits = 0) =
   initCond(s.c)
   initLock(s.L)
 
-proc acquire*(s: var Semaphore; permits: Positive = 1) =
+proc blockUntil*(s: var Semaphore; permits: Positive = 1) =
   acquire(s.L)
   while s.counter < permits:
     wait(s.c, s.L)
   dec s.counter, permits
   release(s.L)
 
-proc release*(s: var Semaphore; permits: Positive = 1) =
+proc signal*(s: var Semaphore; permits: Positive = 1) =
   acquire(s.L)
   inc s.counter, permits
   signal(s.c)
