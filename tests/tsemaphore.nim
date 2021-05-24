@@ -13,7 +13,7 @@ var
 proc producer =
   for i in 0 ..< numIters:
     wait spaces
-    assert buf[head] == 0, &"Constraint: recv{buf[tail]} < send{i}"
+    assert buf[head] == 0, &"Broken constraint: recv_{buf[tail]} < send_{i}+{bufSize}"
     buf[head] = i
     head = (head + 1) mod bufSize
     signal chars
@@ -21,7 +21,7 @@ proc producer =
 proc consumer =
   for i in 0 ..< numIters:
     wait chars
-    assert buf[tail] == i, &"Constraint: send{buf[tail]} < recv{i}"
+    assert buf[tail] == i, &"Broken constraint: send_{buf[tail]} < recv_{i}"
     buf[tail] = 0
     tail = (tail + 1) mod bufSize
     signal spaces
