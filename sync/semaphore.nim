@@ -16,7 +16,7 @@ proc initSemaphore*(s: var Semaphore; permits = 0) =
   initCond(s.c)
   initLock(s.L)
 
-proc blockUntil*(s: var Semaphore; permits: Positive = 1) =
+proc wait*(s: var Semaphore; permits: Positive = 1) =
   acquire(s.L)
   while s.counter < permits:
     wait(s.c, s.L)

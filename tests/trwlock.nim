@@ -1,8 +1,8 @@
 import sync, std/os
 
 const
-  numThreads = 4
-  numIters = 10
+  numThreads = 10
+  numIters = 100
 
 var
   rw: RwLock
