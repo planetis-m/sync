@@ -13,13 +13,13 @@ proc routine =
   var r = initRand(getThreadId())
   for i in 0..<numIters:
     if r.rand(1.0) <= 1 / numThreads:
-      writeWith rw:
+      write rw:
         let tmp = data
         data = -1
         sleep 1
         data = tmp + 1
     else:
-      readWith rw:
+      read rw:
         assert data >= 0
 
 proc frob =

@@ -1,4 +1,4 @@
-import sync
+import sync, std/strformat
 
 const
   bufSize = 10
@@ -13,7 +13,7 @@ var
 proc producer =
   for i in 0 ..< numIters:
     wait spaces
-    assert buf[head] == 0
+    assert buf[head] == 0, &"Constraint: recv{buf[tail]} < send{i}"
     buf[head] = i
     head = (head + 1) mod bufSize
     signal chars
@@ -21,18 +21,18 @@ proc producer =
 proc consumer =
   for i in 0 ..< numIters:
     wait chars
-    assert buf[tail] == i
+    assert buf[tail] == i, &"Constraint: send{buf[tail]} < recv{i}"
     buf[tail] = 0
     tail = (tail + 1) mod bufSize
     signal spaces
 
-proc rendezvous =
-  initSemaphore chars
-  initSemaphore spaces, bufSize
+proc testSemaphore =
+  initSem chars
+  initSem spaces, bufSize
 
   createThread(thr1, producer)
   createThread(thr2, consumer)
   joinThread(thr1)
   joinThread(thr2)
 
-rendezvous()
+testSemaphore()

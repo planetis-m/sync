@@ -11,7 +11,7 @@ proc `=destroy`*(s: var Semaphore) =
 proc `=sink`*(dest: var Semaphore; source: Semaphore) {.error.}
 proc `=copy`*(dest: var Semaphore; source: Semaphore) {.error.}
 
-proc initSemaphore*(s: var Semaphore; permits = 0) =
+proc initSem*(s: var Semaphore; permits = 0) =
   s.counter = permits
   initCond(s.c)
   initLock(s.L)
