@@ -11,7 +11,7 @@ var
 
 proc routine =
   for i in 0..<numIters:
-    write rw:
+    writeWith rw:
       let tmp = data
       data = -1
       sleep 1
@@ -22,7 +22,7 @@ proc frob =
   for i in 0..<numThreads:
     createThread(threads[i], routine)
   for i in 0..<numIters:
-    read(rw, assert data >= 0)
+    readWith(rw, assert data >= 0)
   joinThreads(threads)
   assert data == numIters * numThreads
 
