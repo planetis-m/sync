@@ -42,11 +42,11 @@ proc newBuffer[T](cap = defaultInitialSize): ptr Buffer[T] =
   result = cast[ptr Buffer[T]](alignedAlloc0(align(sizeof(Buffer[T]), alignof(T)) + cap * sizeof(T), alignof(T)))
   result.mask = cap - 1
 
-proc `[]`*[T](self: ptr Buffer[T], idx: Natural): T =
+proc `[]`*[T](self: ptr Buffer[T], idx: Natural): T {.inline.} =
   let idx = idx and self.mask
   result = move(self.data[idx])
 
-proc `[]=`*[T](self: ptr Buffer[T], idx: Natural, value: sink T) =
+proc `[]=`*[T](self: ptr Buffer[T], idx: Natural, value: sink T) {.inline, nodestroy.} =
   let idx = idx and self.mask
   self.data[idx] = value
 
@@ -86,14 +86,14 @@ proc pop*[T](self: var SpmcQueue[T]; value: var T): bool =
   let p = self.p.load(AtomicRelaxed)
   self.bottom.store(b, AtomicRelaxed)
   atomicThreadFence(AtomicSeqCst)
-  let t = self.top.load(AtomicRelaxed)
+  var t = self.top.load(AtomicRelaxed)
   result = true
   if t <= b:
     # Non-empty queue.
     value = p[b]
     if t == b:
       # Single last element in queue.
-      if not atomicCompareExchangeN(addr self.top, unsafeAddr t, t + 1, false, AtomicSeqCst, AtomicRelaxed):
+      if not atomicCompareExchangeN(addr self.top, addr t, t + 1, false, AtomicSeqCst, AtomicRelaxed):
         # Failed race.
         result = false
       self.bottom.store(b + 1, AtomicRelaxed)
@@ -103,7 +103,7 @@ proc pop*[T](self: var SpmcQueue[T]; value: var T): bool =
     self.bottom.store(b + 1, AtomicRelaxed)
 
 proc steal*[T](self: var SpmcQueue[T]; value: var T): bool =
-  let t = self.top.load(AtomicAcquire)
+  var t = self.top.load(AtomicAcquire)
   when defined(StrongMemoryModel):
     atomicSignalFence(AtomicSeqCst)
   else:
@@ -113,5 +113,5 @@ proc steal*[T](self: var SpmcQueue[T]; value: var T): bool =
     # Non-empty queue.
     let p = self.p.load(AtomicConsume)
     value = p[t]
-    result = atomicCompareExchangeN(addr self.top, unsafeAddr t, t + 1, false, AtomicSeqCst, AtomicRelaxed)
+    result = atomicCompareExchangeN(addr self.top, addr t, t + 1, false, AtomicSeqCst, AtomicRelaxed)
   else: result = false

@@ -1,22 +1,28 @@
 import sync
 
-const
-  N = 4
-
 var
-  p: array[N, Thread[void]]
-  arrived: Semaphore
+  semS, semT: Semaphore
+  aArrived, cArrived = false
+  thread: Thread[void]
 
-proc a =
-  echo getThreadId(), " starts"
-  acquire arrived
-  echo getThreadId(), " progresses"
-  release arrived
+proc routine =
+  # Section C
+  cArrived = true
+  signal semT
+  wait semS
+  # Section D
+  assert aArrived, "Constraint: Section A precedes D"
 
-proc multiplex =
-  initSemaphore arrived, 2
-  for i in 0 ..< N:
-    createThread(p[i], a)
-  joinThreads(p)
+proc testRendezvous =
+  initSemaphore semS
+  initSemaphore semT
+  createThread(thread, routine)
+  # Section A
+  aArrived = true
+  signal semS
+  wait semT
+  # Section B
+  assert cArrived, "Constraint: Section C precedes B"
+  joinThread thread
 
-multiplex()
+testRendezvous()

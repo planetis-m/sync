@@ -1,27 +1,29 @@
-import mpsc
+import sync
 
 const
-  nthreads = 8
-  nmsgs = 1000
+  numThreads = 8
+  numMsgs = 1000
 
 var
-  p: array[nthreads, Thread[MpscSender[int]]]
+  p: array[numThreads, Thread[void]]
+  q: MpscQueue[int]
 
-proc threadFn(tx: MpscSender[int]) =
-  for i in 0..<nmsgs:
-    tx.send(i)
+proc threadFn =
+  for i in 0..<numMsgs:
+    q.enqueue(i)
 
 proc multiThreadedChannel =
-  let (tx, rx) = newMpscChannel[int]()
-  for i in 0..<nthreads:
-    createThread(p[i], threadFn, tx)
-  joinThreads(p)
-  var
-    s = 0
-    data = 0
-  while rx.tryRecv(data):
+  q = newMpscQueue[int]()
+  for i in 0..<numThreads:
+    createThread(p[i], threadFn)
+  let expected = (var sum = 0; for i in 0..<1_000: sum += i; sum) * numThreads
+  var s = 0
+  while true:
+    var data: int
+    while not q.dequeue(data): cpuRelax()
     s += data
-  let expected = (var sum = 0; for i in 0..<1_000: sum += i; sum) * nthreads
+    if s >= expected: break
   assert s == expected
+  joinThreads(p)
 
 multiThreadedChannel()
