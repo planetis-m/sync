@@ -1,6 +1,6 @@
-=================================================================
+====================================================
                         Sync
-=================================================================
+====================================================
 
 Useful synchronization primitives.
 
@@ -16,3 +16,10 @@ The following is an overview of the available synchronization objects:
 - *RwLock*: Provides a mutual exclusion mechanism which allows multiple readers at the same time, while allowing only one writer at a time. In some cases, this can be more efficient than a mutex.
 - *Semaphore*: Counting semaphore performing asynchronous permit aquisition.
 - *Spinlock*: A mutual exclusion primitive useful for protecting shared data.
+
+Acknowledgements
+================
+
+`Correctly implementing a spinlock in C++ <https://rigtorp.se/spinlock/>`_
+`Jiffy: A Fast, Memory Efficient, Wait-Free Multi-Producers Single-Consumer Queue <https://arxiv.org/abs/2010.14189>`_
+`Chase-Lev work stealing deque <https://arxiv.org/abs/2010.14189>`_

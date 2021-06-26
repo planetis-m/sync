@@ -1,20 +1,22 @@
+import std/atomics
+
 type
   SpinLock* = object
-    lock: bool
+    lock: Atomic[bool]
 
 proc acquire*(s: var SpinLock) =
   while true:
-    if not atomicExchangeN(addr s.lock, true, AtomicAcquire):
+    if not s.lock.exchange(true, moAcquire):
       return
     else:
-      while atomicLoadN(addr s.lock, AtomicRelaxed): cpuRelax()
+      while s.lock.load(moRelaxed): cpuRelax()
 
 proc tryAcquire*(s: var SpinLock): bool =
-  result = not atomicLoadN(addr s.lock, AtomicRelaxed) and
-      not atomicExchangeN(addr s.lock, true, AtomicAcquire)
+  result = not s.lock.load(moRelaxed) and
+      not s.lock.exchange(true, moAcquire)
 
 proc release*(s: var SpinLock) =
-  atomicStoreN(addr s.lock, false, AtomicRelease)
+  s.lock.store(false, moRelease)
 
 template withLock*(a: SpinLock, body: untyped) =
   acquire(a)
