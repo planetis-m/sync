@@ -15,6 +15,8 @@ The following is an overview of the available synchronization objects:
 - *Semaphore*: Counting semaphore performing asynchronous permit aquisition.
 - *Spinlock*: A mutual exclusion primitive useful for protecting shared data.
 
+API [documentation](https://planetis-m.github.io/sync/)
+
 Acknowledgements
 ================
 
