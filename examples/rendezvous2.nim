@@ -24,7 +24,7 @@ proc b(i: int) =
 proc main =
   #randomize()
   for i in 0 ..< N:
-    initSemaphore arrived[i]
+    init arrived[i]
 
   for i in 0 ..< N:
     if i mod 2 == 0:

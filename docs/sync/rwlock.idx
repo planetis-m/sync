@@ -2,7 +2,7 @@ RwLock	sync/rwlock.html#RwLock	rwlock: RwLock
 `=destroy`	sync/rwlock.html#=destroy,RwLock	rwlock: `=destroy`(rw: var RwLock)	
 `=sink`	sync/rwlock.html#=sink,RwLock,RwLock	rwlock: `=sink`(dest: var RwLock; source: RwLock)	
 `=copy`	sync/rwlock.html#=copy,RwLock,RwLock	rwlock: `=copy`(dest: var RwLock; source: RwLock)	
-initRwLock	sync/rwlock.html#initRwLock,RwLock	rwlock: initRwLock(rw: var RwLock)	
+init	sync/rwlock.html#init,RwLock	rwlock: init(rw: var RwLock)	
 beginRead	sync/rwlock.html#beginRead,RwLock	rwlock: beginRead(rw: var RwLock)	
 beginWrite	sync/rwlock.html#beginWrite,RwLock	rwlock: beginWrite(rw: var RwLock)	
 endRead	sync/rwlock.html#endRead,RwLock	rwlock: endRead(rw: var RwLock)	

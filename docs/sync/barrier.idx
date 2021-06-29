@@ -2,5 +2,5 @@ Barrier	sync/barrier.html#Barrier	barrier: Barrier
 `=destroy`	sync/barrier.html#=destroy,Barrier	barrier: `=destroy`(b: var Barrier)	
 `=sink`	sync/barrier.html#=sink,Barrier,Barrier	barrier: `=sink`(dest: var Barrier; source: Barrier)	
 `=copy`	sync/barrier.html#=copy,Barrier,Barrier	barrier: `=copy`(dest: var Barrier; source: Barrier)	
-initBarrier	sync/barrier.html#initBarrier,Barrier,Natural	barrier: initBarrier(b: var Barrier; parties: Natural)	
+init	sync/barrier.html#init,Barrier,Natural	barrier: init(b: var Barrier; parties: Natural)	
 wait	sync/barrier.html#wait,Barrier	barrier: wait(b: var Barrier)	

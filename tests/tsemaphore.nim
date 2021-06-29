@@ -29,8 +29,8 @@ proc consumer =
     signal spaces
 
 proc testSemaphore =
-  initSemaphore chars
-  initSemaphore spaces, bufSize
+  init chars
+  init spaces, bufSize
 
   createThread(thr1, producer)
   createThread(thr2, consumer)

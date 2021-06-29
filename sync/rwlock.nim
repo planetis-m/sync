@@ -17,7 +17,7 @@ proc `=destroy`*(rw: var RwLock) =
 proc `=sink`*(dest: var RwLock; source: RwLock) {.error.}
 proc `=copy`*(dest: var RwLock; source: RwLock) {.error.}
 
-proc initRwLock*(rw: var RwLock) =
+proc init*(rw: var RwLock) =
   initCond rw.readPhase
   initCond rw.writePhase
   initLock rw.L

@@ -23,8 +23,8 @@ proc b =
 
 proc main =
   #randomize()
-  initSemaphore aArrived
-  initSemaphore bArrived
+  init aArrived
+  init bArrived
 
   createThread(aThread, b)
   createThread(bThread, a)

@@ -117,14 +117,14 @@ window.addEventListener('DOMContentLoaded', main);
     title="signal(s: var Semaphore; permits: Positive = 1)">signal(s: var Semaphore; permits: Positive = 1)</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">initSemaphore
-      <li><a class="reference" href="#initSemaphore%2CSemaphore%2Cint"
-    title="initSemaphore(s: var Semaphore; permits = 0)">initSemaphore(s: var Semaphore; permits = 0)</a></li>
-
-  </ul>
   <ul class="simple nested-toc-section">=copy
       <li><a class="reference" href="#%3Dcopy%2CSemaphore%2CSemaphore"
     title="`=copy`(dest: var Semaphore; source: Semaphore)">`=copy`(dest: var Semaphore; source: Semaphore)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">init
+      <li><a class="reference" href="#init%2CSemaphore%2Cint"
+    title="init(s: var Semaphore; permits = 0)">init(s: var Semaphore; permits = 0)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">=destroy
@@ -171,9 +171,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L4"
+href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L6"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L4" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L6" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -187,9 +187,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L9"
+href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L11"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L9" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L11" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=sink,Semaphore,Semaphore"></a>
@@ -198,24 +198,13 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L13"
+href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L15"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L13" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L15" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=copy,Semaphore,Semaphore"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#%3Dcopy%2CSemaphore%2CSemaphore"><span class="Identifier">`=copy`</span></a><span class="Other">(</span><span class="Identifier">dest</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semaphore.html#Semaphore"><span class="Identifier">Semaphore</span></a><span class="Other">;</span> <span class="Identifier">source</span><span class="Other">:</span> <a href="semaphore.html#Semaphore"><span class="Identifier">Semaphore</span></a><span class="Other">)</span> {.<span class="Identifier">error</span>.}</pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L14"
-class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L14" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="initSemaphore,Semaphore,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#initSemaphore%2CSemaphore%2Cint"><span class="Identifier">initSemaphore</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semaphore.html#Semaphore"><span class="Identifier">Semaphore</span></a><span class="Other">;</span> <span class="Identifier">permits</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -225,15 +214,26 @@ class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L16" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+<a id="init,Semaphore,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#init%2CSemaphore%2Cint"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semaphore.html#Semaphore"><span class="Identifier">Semaphore</span></a><span class="Other">;</span> <span class="Identifier">permits</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L18"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L18" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
 <a id="wait,Semaphore,Positive"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#wait%2CSemaphore%2CPositive"><span class="Identifier">wait</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semaphore.html#Semaphore"><span class="Identifier">Semaphore</span></a><span class="Other">;</span> <span class="Identifier">permits</span><span class="Other">:</span> <span class="Identifier">Positive</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L21"
+href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L23"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L21" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L23" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="signal,Semaphore,Positive"></a>
@@ -242,9 +242,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L28"
+href="https://github.com/planetis-m/sync/tree/master/sync/semaphore.nim#L30"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L28" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/semaphore.nim#L30" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -257,7 +257,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-06-29 08:02:46 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-06-29 08:33:32 UTC</small>
       </div>
     </div>
   </div>

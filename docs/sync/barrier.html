@@ -114,14 +114,14 @@ window.addEventListener('DOMContentLoaded', main);
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">initBarrier
-      <li><a class="reference" href="#initBarrier%2CBarrier%2CNatural"
-    title="initBarrier(b: var Barrier; parties: Natural)">initBarrier(b: var Barrier; parties: Natural)</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">=copy
+      <ul class="simple nested-toc-section">=copy
       <li><a class="reference" href="#%3Dcopy%2CBarrier%2CBarrier"
     title="`=copy`(dest: var Barrier; source: Barrier)">`=copy`(dest: var Barrier; source: Barrier)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">init
+      <li><a class="reference" href="#init%2CBarrier%2CNatural"
+    title="init(b: var Barrier; parties: Natural)">init(b: var Barrier; parties: Natural)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">=destroy
@@ -170,9 +170,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L4"
+href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L6"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L4" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L6" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -186,9 +186,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L11"
+href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L13"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L11" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L13" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=sink,Barrier,Barrier"></a>
@@ -197,24 +197,13 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L15"
+href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L17"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L15" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L17" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=copy,Barrier,Barrier"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#%3Dcopy%2CBarrier%2CBarrier"><span class="Identifier">`=copy`</span></a><span class="Other">(</span><span class="Identifier">dest</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="barrier.html#Barrier"><span class="Identifier">Barrier</span></a><span class="Other">;</span> <span class="Identifier">source</span><span class="Other">:</span> <a href="barrier.html#Barrier"><span class="Identifier">Barrier</span></a><span class="Other">)</span> {.<span class="Identifier">error</span>.}</pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L16"
-class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L16" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="initBarrier,Barrier,Natural"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#initBarrier%2CBarrier%2CNatural"><span class="Identifier">initBarrier</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="barrier.html#Barrier"><span class="Identifier">Barrier</span></a><span class="Other">;</span> <span class="Identifier">parties</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -224,15 +213,26 @@ class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L18" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+<a id="init,Barrier,Natural"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#init%2CBarrier%2CNatural"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="barrier.html#Barrier"><span class="Identifier">Barrier</span></a><span class="Other">;</span> <span class="Identifier">parties</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L20"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L20" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
 <a id="wait,Barrier"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#wait%2CBarrier"><span class="Identifier">wait</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="barrier.html#Barrier"><span class="Identifier">Barrier</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L25"
+href="https://github.com/planetis-m/sync/tree/master/sync/barrier.nim#L27"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L25" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/barrier.nim#L27" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -245,7 +245,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-06-29 08:02:46 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-06-29 08:33:32 UTC</small>
       </div>
     </div>
   </div>

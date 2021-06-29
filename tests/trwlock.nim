@@ -18,7 +18,7 @@ proc routine =
       data = tmp + 1
 
 proc frob =
-  initRwLock rw
+  init rw
   for i in 0..<numThreads:
     createThread(threads[i], routine)
   for i in 0..<numIters:
