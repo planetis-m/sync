@@ -1,5 +1,7 @@
 import std/locks
 
+{.push stackTrace: off.}
+
 type
   Barrier* = object
     c: Cond
@@ -34,3 +36,5 @@ proc wait*(b: var Barrier) =
     while cycle == b.cycle:
       wait(b.c, b.L)
   release(b.L)
+
+{.pop.}

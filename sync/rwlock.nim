@@ -1,5 +1,7 @@
 import std/locks
 
+{.push stackTrace: off.}
+
 type
   RwLock* = object
     readPhase: Cond
@@ -62,3 +64,5 @@ template writeWith*(a: RwLock, body: untyped) =
     body
   finally:
     endWrite(a)
+
+{.pop.}

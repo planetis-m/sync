@@ -1,5 +1,7 @@
 import std/atomics
 
+{.push stackTrace: off.}
+
 type
   SpinLock* = object
     lock: Atomic[bool]
@@ -24,3 +26,5 @@ template withLock*(a: SpinLock, body: untyped) =
     body
   finally:
     release(a)
+
+{.pop.}

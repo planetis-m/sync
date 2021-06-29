@@ -1,5 +1,7 @@
 import std/locks
 
+{.push stackTrace: off.}
+
 type
   Semaphore* = object
     c: Cond
@@ -30,3 +32,5 @@ proc signal*(s: var Semaphore; permits: Positive = 1) =
   inc s.counter, permits
   signal(s.c)
   release(s.L)
+
+{.pop.}

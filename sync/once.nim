@@ -1,5 +1,7 @@
 import std/atomics
 
+{.push stackTrace: off.}
+
 type
   Once* = object
     flag: Atomic[int]
@@ -17,3 +19,5 @@ template once*(o: Once, body: untyped) =
     store(o.flag, Complete, moRelease)
   else:
     while load(o.flag, moAcquire) != Complete: cpuRelax()
+
+{.pop.}
