@@ -1,3 +1,5 @@
+import std/locks
+
 type
   Semaphore* = object
     c: Cond

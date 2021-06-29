@@ -1,3 +1,5 @@
+import std/locks
+
 type
   Barrier* = object
     c: Cond

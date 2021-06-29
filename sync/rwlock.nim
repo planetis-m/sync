@@ -1,3 +1,5 @@
+import std/locks
+
 type
   RwLock* = object
     readPhase: Cond
