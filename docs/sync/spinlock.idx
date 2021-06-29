@@ -1,0 +1,5 @@
+SpinLock	sync/spinlock.html#SpinLock	spinlock: SpinLock	
+acquire	sync/spinlock.html#acquire,SpinLock	spinlock: acquire(s: var SpinLock)	
+tryAcquire	sync/spinlock.html#tryAcquire,SpinLock	spinlock: tryAcquire(s: var SpinLock): bool	
+release	sync/spinlock.html#release,SpinLock	spinlock: release(s: var SpinLock)	
+withLock	sync/spinlock.html#withLock.t,SpinLock,untyped	spinlock: withLock(a: SpinLock; body: untyped)	

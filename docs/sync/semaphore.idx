@@ -1,0 +1,7 @@
+Semaphore	sync/semaphore.html#Semaphore	semaphore: Semaphore	
+`=destroy`	sync/semaphore.html#=destroy,Semaphore	semaphore: `=destroy`(s: var Semaphore)	
+`=sink`	sync/semaphore.html#=sink,Semaphore,Semaphore	semaphore: `=sink`(dest: var Semaphore; source: Semaphore)	
+`=copy`	sync/semaphore.html#=copy,Semaphore,Semaphore	semaphore: `=copy`(dest: var Semaphore; source: Semaphore)	
+initSemaphore	sync/semaphore.html#initSemaphore,Semaphore,int	semaphore: initSemaphore(s: var Semaphore; permits = 0)	
+wait	sync/semaphore.html#wait,Semaphore,Positive	semaphore: wait(s: var Semaphore; permits: Positive = 1)	
+signal	sync/semaphore.html#signal,Semaphore,Positive	semaphore: signal(s: var Semaphore; permits: Positive = 1)	
