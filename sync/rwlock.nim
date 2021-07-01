@@ -51,18 +51,20 @@ proc endWrite*(rw: var RwLock) =
   rw.writePhase.signal()
   release(rw.L)
 
-template readWith*(a: RwLock, body: untyped): untyped =
+template readWith*(a: RwLock, body: untyped) =
   beginRead(a)
-  try:
-    body
-  finally:
-    endRead(a)
+  {.locks: [a].}:
+    try:
+      body
+    finally:
+      endRead(a)
 
-template writeWith*(a: RwLock, body: untyped): untyped =
+template writeWith*(a: RwLock, body: untyped) =
   beginWrite(a)
-  try:
-    body
-  finally:
-    endWrite(a)
+  {.locks: [a].}:
+    try:
+      body
+    finally:
+      endWrite(a)
 
 {.pop.}

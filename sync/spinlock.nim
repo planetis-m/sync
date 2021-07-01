@@ -20,11 +20,12 @@ proc tryAcquire*(s: var SpinLock): bool =
 proc release*(s: var SpinLock) =
   s.lock.store(false, moRelease)
 
-template withLock*(a: SpinLock, body: untyped): untyped =
+template withLock*(a: SpinLock, body: untyped) =
   acquire(a)
-  try:
-    body
-  finally:
-    release(a)
+  {.locks: [a].}:
+    try:
+      body
+    finally:
+      release(a)
 
 {.pop.}

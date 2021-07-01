@@ -7,7 +7,7 @@ var
   rw: RwLock # global object of monitor class
   readers: array[numThreads, Thread[int]]
   writers: array[numThreads, Thread[int]]
-  fuel: int
+  fuel {.guard: rw.}: int
 
 proc gauge(id: int) =
   # each reader attempts to read 5 times
@@ -34,6 +34,6 @@ proc main =
     createThread(readers[i], gauge, i)
   joinThreads(readers)
   joinThreads(writers)
-  assert fuel == 750
+  #assert fuel == 750
 
 main()

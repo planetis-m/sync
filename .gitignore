@@ -2,6 +2,7 @@
 /*
 # Exclude source code files in subdirectories
 !/*.nim
+!/*.nimble
 !/*.rst
 # Exclude root directories
 !/*/

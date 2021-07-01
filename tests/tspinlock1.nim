@@ -5,8 +5,8 @@ const
   numIters = 1000
 
 var
-  a = 0
   lock: SpinLock
+  a = 0
   threads: array[numThreads, Thread[void]]
 
 proc inc =
