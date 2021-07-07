@@ -6,6 +6,9 @@ type
   SpinLock* = object
     lock: Atomic[bool]
 
+proc `=sink`*(dest: var SpinLock; source: SpinLock) {.error.}
+proc `=copy`*(dest: var SpinLock; source: SpinLock) {.error.}
+
 proc acquire*(s: var SpinLock) =
   while true:
     if not s.lock.exchange(true, Acquire):
