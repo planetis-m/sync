@@ -70,8 +70,16 @@ window.addEventListener('DOMContentLoaded', main);
 <div class="document" id="documentId">
   <div class="container">
     <h1 class="title">Index</h1>
-    Modules: <a href="sync/atomics2.html">sync/atomics2</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/spinlock.html">sync/spinlock</a>.<br/><p /><h2>API symbols</h2>
-<dl><dt><a name="%60%2B%3D%60" href="#%60%2B%3D%60"><span>`+=`:</span></a></dt><dd><ul class="simple">
+    Modules: <a href="sync/atomics2.html">sync/atomics2</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>, <a href="sync/spinlock.html">sync/spinlock</a>.<br/><p /><h2>API symbols</h2>
+<dl><dt><a name="%60%24%60" href="#%60%24%60"><span>`$`:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: `$`[T](p: ConstPtr[T]): string" href="sync/smartptrs.html#%24%2CConstPtr%5BT%5D">smartptrs: `$`[T](p: ConstPtr[T]): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `$`[T](p: SharedPtr[T]): string" href="sync/smartptrs.html#%24%2CSharedPtr%5BT%5D">smartptrs: `$`[T](p: SharedPtr[T]): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `$`[T](p: UniquePtr[T]): string" href="sync/smartptrs.html#%24%2CUniquePtr%5BT%5D">smartptrs: `$`[T](p: UniquePtr[T]): string</a></li>
+          </ul></dd>
+<dt><a name="%60%2B%3D%60" href="#%60%2B%3D%60"><span>`+=`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="atomics2: `+=`[T: SomeInteger](location: var Atomic[T]; value: T)" href="sync/atomics2.html#%2B%3D%2CAtomic%5BT%3A%20SomeInteger%5D%2CT">atomics2: `+=`[T: SomeInteger](location: var Atomic[T]; value: T)</a></li>
           </ul></dd>
@@ -88,6 +96,10 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="rwlock: `=copy`(dest: var RwLock; source: RwLock)" href="sync/rwlock.html#%3Dcopy%2CRwLock%2CRwLock">rwlock: `=copy`(dest: var RwLock; source: RwLock)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="semaphore: `=copy`(dest: var Semaphore; source: Semaphore)" href="sync/semaphore.html#%3Dcopy%2CSemaphore%2CSemaphore">semaphore: `=copy`(dest: var Semaphore; source: Semaphore)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `=copy`[T](dest: var SharedPtr[T]; src: SharedPtr[T])" href="sync/smartptrs.html#%3Dcopy%2CSharedPtr%5BT%5D%2CSharedPtr%5BT%5D">smartptrs: `=copy`[T](dest: var SharedPtr[T]; src: SharedPtr[T])</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `=copy`[T](dest: var UniquePtr[T]; src: UniquePtr[T])" href="sync/smartptrs.html#%3Dcopy%2CUniquePtr%5BT%5D%2CUniquePtr%5BT%5D">smartptrs: `=copy`[T](dest: var UniquePtr[T]; src: UniquePtr[T])</a></li>
           </ul></dd>
 <dt><a name="%60%3Ddestroy%60" href="#%60%3Ddestroy%60"><span>`=destroy`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -96,6 +108,10 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="rwlock: `=destroy`(rw: var RwLock)" href="sync/rwlock.html#%3Ddestroy%2CRwLock">rwlock: `=destroy`(rw: var RwLock)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="semaphore: `=destroy`(s: var Semaphore)" href="sync/semaphore.html#%3Ddestroy%2CSemaphore">semaphore: `=destroy`(s: var Semaphore)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `=destroy`[T](p: var SharedPtr[T])" href="sync/smartptrs.html#%3Ddestroy%2CSharedPtr%5BT%5D">smartptrs: `=destroy`[T](p: var SharedPtr[T])</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `=destroy`[T](p: var UniquePtr[T])" href="sync/smartptrs.html#%3Ddestroy%2CUniquePtr%5BT%5D">smartptrs: `=destroy`[T](p: var UniquePtr[T])</a></li>
           </ul></dd>
 <dt><a name="%60%3Dsink%60" href="#%60%3Dsink%60"><span>`=sink`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -106,6 +122,22 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="rwlock: `=sink`(dest: var RwLock; source: RwLock)" href="sync/rwlock.html#%3Dsink%2CRwLock%2CRwLock">rwlock: `=sink`(dest: var RwLock; source: RwLock)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="semaphore: `=sink`(dest: var Semaphore; source: Semaphore)" href="sync/semaphore.html#%3Dsink%2CSemaphore%2CSemaphore">semaphore: `=sink`(dest: var Semaphore; source: Semaphore)</a></li>
+          </ul></dd>
+<dt><a name="%60%5B%5D%3D%60" href="#%60%5B%5D%3D%60"><span>`[]=`:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: `[]=`[T](p: ConstPtr[T]; v: T)" href="sync/smartptrs.html#%5B%5D%3D%2CConstPtr%5BT%5D%2CT">smartptrs: `[]=`[T](p: ConstPtr[T]; v: T)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `[]=`[T](p: SharedPtr[T]; val: T)" href="sync/smartptrs.html#%5B%5D%3D%2CSharedPtr%5BT%5D%2CT">smartptrs: `[]=`[T](p: SharedPtr[T]; val: T)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `[]=`[T](p: UniquePtr[T]; val: T)" href="sync/smartptrs.html#%5B%5D%3D%2CUniquePtr%5BT%5D%2CT">smartptrs: `[]=`[T](p: UniquePtr[T]; val: T)</a></li>
+          </ul></dd>
+<dt><a name="%60%5B%5D%60" href="#%60%5B%5D%60"><span>`[]`:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: `[]`[T](p: ConstPtr[T]): lent T" href="sync/smartptrs.html#%5B%5D%2CConstPtr%5BT%5D">smartptrs: `[]`[T](p: ConstPtr[T]): lent T</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `[]`[T](p: SharedPtr[T]): var T" href="sync/smartptrs.html#%5B%5D%2CSharedPtr%5BT%5D">smartptrs: `[]`[T](p: SharedPtr[T]): var T</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: `[]`[T](p: UniquePtr[T]): var T" href="sync/smartptrs.html#%5B%5D%2CUniquePtr%5BT%5D">smartptrs: `[]`[T](p: UniquePtr[T]): var T</a></li>
           </ul></dd>
 <dt><a name="acquire" href="#acquire"><span>acquire:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -154,6 +186,10 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="atomics2: compareExchangeWeak[T](location: var Atomic[T]; expected: var T; desired: T;
                        success, failure: Ordering): bool" href="sync/atomics2.html#compareExchangeWeak%2CAtomic%5BT%5D%2CT%2CT%2COrdering%2COrdering">atomics2: compareExchangeWeak[T](location: var Atomic[T]; expected: var T; desired: T;
                        success, failure: Ordering): bool</a></li>
+          </ul></dd>
+<dt><a name="ConstPtr" href="#ConstPtr"><span>ConstPtr:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: ConstPtr" href="sync/smartptrs.html#ConstPtr">smartptrs: ConstPtr</a></li>
           </ul></dd>
 <dt><a name="endRead" href="#endRead"><span>endRead:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -205,9 +241,31 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="semaphore: init(s: var Semaphore; permits = 0)" href="sync/semaphore.html#init%2CSemaphore%2Cint">semaphore: init(s: var Semaphore; permits = 0)</a></li>
           </ul></dd>
+<dt><a name="isNil" href="#isNil"><span>isNil:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: isNil[T](p: ConstPtr[T]): bool" href="sync/smartptrs.html#isNil%2CConstPtr%5BT%5D">smartptrs: isNil[T](p: ConstPtr[T]): bool</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: isNil[T](p: SharedPtr[T]): bool" href="sync/smartptrs.html#isNil%2CSharedPtr%5BT%5D">smartptrs: isNil[T](p: SharedPtr[T]): bool</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: isNil[T](p: UniquePtr[T]): bool" href="sync/smartptrs.html#isNil%2CUniquePtr%5BT%5D">smartptrs: isNil[T](p: UniquePtr[T]): bool</a></li>
+          </ul></dd>
 <dt><a name="load" href="#load"><span>load:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="atomics2: load[T](location: var Atomic[T]; order: Ordering = SeqCst): T" href="sync/atomics2.html#load%2CAtomic%5BT%5D%2COrdering">atomics2: load[T](location: var Atomic[T]; order: Ordering = SeqCst): T</a></li>
+          </ul></dd>
+<dt><a name="newConstPtr" href="#newConstPtr"><span>newConstPtr:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: newConstPtr[T](val: sink Isolated[T]): ConstPtr[T]" href="sync/smartptrs.html#newConstPtr%2CsinkIsolated%5BT%5D">smartptrs: newConstPtr[T](val: sink Isolated[T]): ConstPtr[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="smartptrs: newConstPtr[T](val: T): ConstPtr[T]" href="sync/smartptrs.html#newConstPtr.t%2CT">smartptrs: newConstPtr[T](val: T): ConstPtr[T]</a></li>
+          </ul></dd>
+<dt><a name="newSharedPtr" href="#newSharedPtr"><span>newSharedPtr:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: newSharedPtr[T](val: T): SharedPtr[T]" href="sync/smartptrs.html#newSharedPtr.t%2CT">smartptrs: newSharedPtr[T](val: T): SharedPtr[T]</a></li>
+          </ul></dd>
+<dt><a name="newUniquePtr" href="#newUniquePtr"><span>newUniquePtr:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: newUniquePtr[T](val: T): UniquePtr[T]" href="sync/smartptrs.html#newUniquePtr.t%2CT">smartptrs: newUniquePtr[T](val: T): UniquePtr[T]</a></li>
           </ul></dd>
 <dt><a name="Once" href="#Once"><span>Once:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -237,6 +295,10 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="semaphore: Semaphore" href="sync/semaphore.html#Semaphore">semaphore: Semaphore</a></li>
           </ul></dd>
+<dt><a name="SharedPtr" href="#SharedPtr"><span>SharedPtr:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: SharedPtr" href="sync/smartptrs.html#SharedPtr">smartptrs: SharedPtr</a></li>
+          </ul></dd>
 <dt><a name="signal" href="#signal"><span>signal:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="semaphore: signal(s: var Semaphore; permits: Positive = 1)" href="sync/semaphore.html#signal%2CSemaphore%2CPositive">semaphore: signal(s: var Semaphore; permits: Positive = 1)</a></li>
@@ -252,6 +314,10 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><a name="tryAcquire" href="#tryAcquire"><span>tryAcquire:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="spinlock: tryAcquire(s: var SpinLock): bool" href="sync/spinlock.html#tryAcquire%2CSpinLock">spinlock: tryAcquire(s: var SpinLock): bool</a></li>
+          </ul></dd>
+<dt><a name="UniquePtr" href="#UniquePtr"><span>UniquePtr:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="smartptrs: UniquePtr" href="sync/smartptrs.html#UniquePtr">smartptrs: UniquePtr</a></li>
           </ul></dd>
 <dt><a name="wait" href="#wait"><span>wait:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -272,7 +338,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-07 11:47:27 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-07 14:10:31 UTC</small>
       </div>
     </div>
   </div>

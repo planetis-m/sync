@@ -39,6 +39,9 @@ runnableExamples("--threads:on"):
   loc.atomicInc(1)
   assert loc.load == 6
 
+when not compileOption("threads"):
+  {.error: "This module requires --threads:on compilation flag".}
+
 type
   Ordering* {.pure.} = enum
     ## Specifies how non-atomic operations can be reordered around atomic
