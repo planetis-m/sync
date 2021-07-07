@@ -33,7 +33,7 @@ proc newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T] {.nodestroy.} =
   # no destructor call for 'val: sink T' here either.
 
 template newUniquePtr*[T](val: T): UniquePtr[T] =
-  ## Returns a unique pointer which has exclusive ownership of the value.
+  ## .. warning:: Using this template in a loop causes multiple evaluations of `value`.
   newUniquePtr(isolate(val))
 
 proc isNil*[T](p: UniquePtr[T]): bool {.inline.} =
@@ -82,6 +82,7 @@ proc newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T] {.nodestroy.} =
   result.val.value = extract val
 
 template newSharedPtr*[T](val: T): SharedPtr[T] =
+  ## .. warning:: Using this template in a loop causes multiple evaluations of `value`.
   newSharedPtr(isolate(val))
 
 proc isNil*[T](p: SharedPtr[T]): bool {.inline.} =
@@ -110,6 +111,7 @@ proc newConstPtr*[T](val: sink Isolated[T]): ConstPtr[T] =
   ConstPtr[T](newSharedPtr(val))
 
 template newConstPtr*[T](val: T): ConstPtr[T] =
+  ## .. warning:: Using this template in a loop causes multiple evaluations of `value`.
   newConstPtr(isolate(val))
 
 proc isNil*[T](p: ConstPtr[T]): bool {.inline.} =
