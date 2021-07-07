@@ -1,4 +1,4 @@
-import std/atomics
+import atomics2
 
 {.push stackTrace: off.}
 
@@ -13,11 +13,11 @@ const
 
 template once*(o: Once, body: untyped) =
   var expected = Incomplete
-  if load(o.flag, moRelaxed) == Incomplete and
-      compareExchange(o.flag, expected, Running, moAcquire, moRelaxed):
+  if load(o.flag, Relaxed) == Incomplete and
+      compareExchange(o.flag, expected, Running, Acquire, Relaxed):
     body
-    store(o.flag, Complete, moRelease)
+    store(o.flag, Complete, Release)
   else:
-    while load(o.flag, moAcquire) != Complete: cpuRelax()
+    while load(o.flag, Acquire) != Complete: cpuRelax()
 
 {.pop.}
