@@ -39,7 +39,6 @@ proc newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T] {.nodestroy.} =
   # no destructor call for 'val: sink T' here either.
 
 template newUniquePtr*[T](val: T): UniquePtr[T] =
-  ## .. warning:: Using this template in a loop causes multiple evaluations of `val`.
   newUniquePtr(isolate(val))
 
 proc newUniquePtrU*[T](t: typedesc[T]): UniquePtr[T] =
@@ -52,11 +51,11 @@ proc isNil*[T](p: UniquePtr[T]): bool {.inline.} =
 
 proc `[]`*[T](p: UniquePtr[T]): var T {.inline.} =
   ## Returns a mutable view of the internal value of `p`.
-  checkNotNil("deferencing nil unique pointer")
+  checkNotNil("dereferencing nil unique pointer")
   p.val[]
 
 proc `[]=`*[T](p: UniquePtr[T], val: T) {.inline.} =
-  checkNotNil("deferencing nil unique pointer")
+  checkNotNil("dereferencing nil unique pointer")
   p.val[] = val
 
 proc `$`*[T](p: UniquePtr[T]): string {.inline.} =
@@ -93,24 +92,23 @@ proc newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T] {.nodestroy.} =
   result.val.value = extract val
 
 template newSharedPtr*[T](val: T): SharedPtr[T] =
-  ## .. warning:: Using this template in a loop causes multiple evaluations of `val`.
   newSharedPtr(isolate(val))
 
 proc newSharedPtrU*[T](t: typedesc[T]): SharedPtr[T] =
   ## Returns a shared pointer. It is not initialized,
   ## so reading from it before writing to it is undefined behaviour!
   result.val = cast[typeof(result.val)](allocShared(sizeof(result.val[])))
-  result.val.atomicCounter = 0
+  int(result.val.counter) = 0
 
 proc isNil*[T](p: SharedPtr[T]): bool {.inline.} =
   p.val == nil
 
 proc `[]`*[T](p: SharedPtr[T]): var T {.inline.} =
-  checkNotNil("deferencing nil shared pointer")
+  checkNotNil("dereferencing nil shared pointer")
   p.val.value
 
 proc `[]=`*[T](p: SharedPtr[T], val: T) {.inline.} =
-  checkNotNil("deferencing nil shared pointer")
+  checkNotNil("dereferencing nil shared pointer")
   p.val.value = val
 
 proc `$`*[T](p: SharedPtr[T]): string {.inline.} =
@@ -128,7 +126,6 @@ proc newConstPtr*[T](val: sink Isolated[T]): ConstPtr[T] =
   ConstPtr[T](newSharedPtr(val))
 
 template newConstPtr*[T](val: T): ConstPtr[T] =
-  ## .. warning:: Using this template in a loop causes multiple evaluations of `val`.
   newConstPtr(isolate(val))
 
 proc isNil*[T](p: ConstPtr[T]): bool {.inline.} =
@@ -136,7 +133,7 @@ proc isNil*[T](p: ConstPtr[T]): bool {.inline.} =
 
 proc `[]`*[T](p: ConstPtr[T]): lent T {.inline.} =
   ## Returns an immutable view of the internal value of `p`.
-  checkNotNil("deferencing nil const pointer")
+  checkNotNil("dereferencing nil const pointer")
   SharedPtr[T](p).val.value
 
 proc `[]=`*[T](p: ConstPtr[T], v: T) = {.error: "`ConstPtr` cannot be assigned.".}
