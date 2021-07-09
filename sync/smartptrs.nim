@@ -121,7 +121,7 @@ type
   ConstPtr*[T] = distinct SharedPtr[T]
     ## Distinct version of `SharedPtr[T]`, which doesn't allow mutating the underlying value.
 
-proc newConstPtr*[T](val: sink Isolated[T]): ConstPtr[T] =
+proc newConstPtr*[T](val: sink Isolated[T]): ConstPtr[T] {.nodestroy, inline.} =
   ## Similar to `newSharedPtr<#newSharedPtr,T>`_, but the underlying value can't be mutated.
   ConstPtr[T](newSharedPtr(val))
 
