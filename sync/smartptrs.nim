@@ -54,9 +54,12 @@ proc `[]`*[T](p: UniquePtr[T]): var T {.inline.} =
   checkNotNil("dereferencing nil unique pointer")
   p.val[]
 
-proc `[]=`*[T](p: UniquePtr[T], val: T) {.inline.} =
+proc `[]=`*[T](p: UniquePtr[T], val: sink Isolated[T]) {.inline.} =
   checkNotNil("dereferencing nil unique pointer")
-  p.val[] = val
+  p.val[] = extract val
+
+template `[]=`*[T](p: UniquePtr[T]; val: T) =
+  `[]=`(p, isolate(val))
 
 proc `$`*[T](p: UniquePtr[T]): string {.inline.} =
   if p.val == nil: "nil"
@@ -107,9 +110,12 @@ proc `[]`*[T](p: SharedPtr[T]): var T {.inline.} =
   checkNotNil("dereferencing nil shared pointer")
   p.val.value
 
-proc `[]=`*[T](p: SharedPtr[T], val: T) {.inline.} =
+proc `[]=`*[T](p: SharedPtr[T], val: sink Isolated[T]) {.inline.} =
   checkNotNil("dereferencing nil shared pointer")
-  p.val.value = val
+  p.val.value = extract val
+
+template `[]=`*[T](p: SharedPtr[T]; val: T) =
+  `[]=`(p, isolate(val))
 
 proc `$`*[T](p: SharedPtr[T]): string {.inline.} =
   if p.val == nil: "nil"
