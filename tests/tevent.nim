@@ -1,32 +1,33 @@
 import std/os, sync
 
 const
+  numIters = 100
   numThreads = 10
-  numIters = 20
 
 var
-  threads: array[numThreads, Thread[void]]
-  arrived = false
+  threads: array[numThreads, Thread[int]]
   event: Event
+  sem: Semaphore
 
-proc routine =
+proc routine(id: int) =
   for i in 0..<numIters:
+    signal sem
+    if (id + i) mod numThreads == 0:
+      sleep 1
     wait event
-    assert arrived
 
 proc main =
   #randomize()
   init event
-
+  init sem
   for i in 0..<numThreads:
-    createThread(threads[i], routine)
+    createThread(threads[i], routine, i)
 
   for i in 0..<numIters:
-    arrived = true
     signal event
-    sleep(1) # Prevent reset being called, before all threads have exited wait.
+    wait sem, numThreads
     reset event
-    arrived = false
+  signal event
 
   joinThreads(threads)
 
