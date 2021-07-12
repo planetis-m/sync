@@ -117,11 +117,6 @@ window.addEventListener('DOMContentLoaded', main);
     title="signal(s: var Event)">signal(s: var Event)</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">reset
-      <li><a class="reference" href="#reset%2CEvent"
-    title="reset(s: var Event)">reset(s: var Event)</a></li>
-
-  </ul>
   <ul class="simple nested-toc-section">=copy
       <li><a class="reference" href="#%3Dcopy%2CEvent%2CEvent"
     title="`=copy`(dest: var Event; source: Event)">`=copy`(dest: var Event; source: Event)</a></li>
@@ -176,9 +171,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L4"
+href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L6"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L4" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L6" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -192,9 +187,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L9"
+href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L11"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L9" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L11" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=sink,Event,Event"></a>
@@ -203,24 +198,13 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L13"
+href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L15"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L13" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L15" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=copy,Event,Event"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#%3Dcopy%2CEvent%2CEvent"><span class="Identifier">`=copy`</span></a><span class="Other">(</span><span class="Identifier">dest</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="event.html#Event"><span class="Identifier">Event</span></a><span class="Other">;</span> <span class="Identifier">source</span><span class="Other">:</span> <a href="event.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span> {.<span class="Identifier">error</span>.}</pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L14"
-class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L14" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="init,Event"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#init%2CEvent"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="event.html#Event"><span class="Identifier">Event</span></a><span class="Other">;</span> <span class="Identifier">value</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -230,15 +214,26 @@ class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L16" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+<a id="init,Event"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#init%2CEvent"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="event.html#Event"><span class="Identifier">Event</span></a><span class="Other">;</span> <span class="Identifier">value</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L18"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L18" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
 <a id="wait,Event"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#wait%2CEvent"><span class="Identifier">wait</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="event.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L21"
+href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L23"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L21" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L23" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="signal,Event"></a>
@@ -247,20 +242,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L27"
+href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L30"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L27" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="reset,Event"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#reset%2CEvent"><span class="Identifier">reset</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="event.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/event.nim#L33"
-class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L33" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/event.nim#L30" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -273,7 +257,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-09 10:47:34 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-12 19:30:39 UTC</small>
       </div>
     </div>
   </div>

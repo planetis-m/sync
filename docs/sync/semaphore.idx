@@ -3,5 +3,5 @@ Semaphore	sync/semaphore.html#Semaphore	semaphore: Semaphore
 `=sink`	sync/semaphore.html#=sink,Semaphore,Semaphore	semaphore: `=sink`(dest: var Semaphore; source: Semaphore)	
 `=copy`	sync/semaphore.html#=copy,Semaphore,Semaphore	semaphore: `=copy`(dest: var Semaphore; source: Semaphore)	
 init	sync/semaphore.html#init,Semaphore,int	semaphore: init(s: var Semaphore; permits = 0)	
-wait	sync/semaphore.html#wait,Semaphore,Positive	semaphore: wait(s: var Semaphore; permits: Positive = 1)	
-signal	sync/semaphore.html#signal,Semaphore,Positive	semaphore: signal(s: var Semaphore; permits: Positive = 1)	
+wait	sync/semaphore.html#wait,Semaphore	semaphore: wait(s: var Semaphore)	
+signal	sync/semaphore.html#signal,Semaphore	semaphore: signal(s: var Semaphore)	
