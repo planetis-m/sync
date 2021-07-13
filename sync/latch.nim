@@ -15,7 +15,7 @@ proc `=destroy`*(x: var Latch) =
 proc `=sink`*(dest: var Latch; source: Latch) {.error.}
 proc `=copy`*(dest: var Latch; source: Latch) {.error.}
 
-proc init*(x: var Latch, count: int) =
+proc init*(x: var Latch, count: Natural) =
   x.counter = count
   initCond(x.c)
   initLock(x.L)
@@ -24,8 +24,8 @@ proc dec*(x: var Latch) =
   acquire(x.L)
   if x.counter > 0:
     dec x.counter
-  if x.counter == 0:
-    broadcast(x.c)
+    if x.counter == 0:
+      broadcast(x.c)
   release(x.L)
 
 proc wait*(x: var Latch) =
