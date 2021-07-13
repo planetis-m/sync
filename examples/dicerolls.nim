@@ -1,5 +1,5 @@
 # https://www.youtube.com/watch?v=MDgVJVIRBnM
-import std / [random, os, strformat], pbarrier2
+import std / [random, os, strformat], sync
 
 const
   numThreads = 8

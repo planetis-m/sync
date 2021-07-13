@@ -37,22 +37,4 @@ proc wait*(b: var Barrier) =
       wait(b.c, b.L)
   release(b.L)
 
-template wait*(b: Barrier; body: untyped) =
-  acquire(b.L)
-  try:
-    dec b.left
-    if b.left == 0:
-      try:
-        body
-      finally:
-        inc b.cycle
-        b.left = b.required
-        broadcast(b.c)
-    else:
-      let cycle = b.cycle
-      while cycle == b.cycle:
-        wait(b.c, b.L)
-  finally:
-    release(b.L)
-
 {.pop.}
