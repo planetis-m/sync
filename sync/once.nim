@@ -1,23 +1,29 @@
-import atomics2
+import std/locks, atomics2
 
 {.push stackTrace: off.}
 
 type
   Once* = object
-    flag: Atomic[int]
+    L: Lock
+    finished: Atomic[bool]
 
-const
-  Incomplete = 0
-  Running = 1
-  Complete = 2
+proc init*(o: var Once) =
+  bool(o.finished) = false
+  initLock(o.L)
+
+proc `=destroy`*(o: var Once) =
+  deinitLock(o.L)
 
 template once*(o: Once, body: untyped) =
-  var expected = Incomplete
-  if load(o.flag, Relaxed) == Incomplete and
-      compareExchange(o.flag, expected, Running, Acquire, Relaxed):
-    body
-    store(o.flag, Complete, Release)
-  else:
-    while load(o.flag, Acquire) != Complete: cpuRelax()
+  if not o.finished.load(Acquire):
+    acquire(o.L)
+    try:
+      if not bool(o.finished):
+        try:
+          body
+        finally:
+          o.finished.store(true, Release)
+    finally:
+      release(o.L)
 
 {.pop.}

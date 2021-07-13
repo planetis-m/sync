@@ -1,6 +1,6 @@
 # Package
 
-version     = "0.9.0"
+version     = "1.0.0"
 author      = "Antonis Geralis"
 description = "Useful synchronization primitives."
 license     = "MIT"

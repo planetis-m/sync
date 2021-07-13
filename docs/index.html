@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', main);
 <div class="document" id="documentId">
   <div class="container">
     <h1 class="title">Index</h1>
-    Modules: <a href="sync/atomics2.html">sync/atomics2</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/event.html">sync/event</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>, <a href="sync/spinlock.html">sync/spinlock</a>.<br/><p /><h2>API symbols</h2>
+    Modules: <a href="sync/atomics2.html">sync/atomics2</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/event.html">sync/event</a>, <a href="sync/latch.html">sync/latch</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>, <a href="sync/spinlock.html">sync/spinlock</a>.<br/><p /><h2>API symbols</h2>
 <dl><dt><a name="%60%24%60" href="#%60%24%60"><span>`$`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: `$`[T](p: ConstPtr[T]): string" href="sync/smartptrs.html#%24%2CConstPtr%5BT%5D">smartptrs: `$`[T](p: ConstPtr[T]): string</a></li>
@@ -95,6 +95,8 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="event: `=copy`(dest: var Event; source: Event)" href="sync/event.html#%3Dcopy%2CEvent%2CEvent">event: `=copy`(dest: var Event; source: Event)</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="latch: `=copy`(dest: var Latch; source: Latch)" href="sync/latch.html#%3Dcopy%2CLatch%2CLatch">latch: `=copy`(dest: var Latch; source: Latch)</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="rwlock: `=copy`(dest: var RwLock; source: RwLock)" href="sync/rwlock.html#%3Dcopy%2CRwLock%2CRwLock">rwlock: `=copy`(dest: var RwLock; source: RwLock)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="semaphore: `=copy`(dest: var Semaphore; source: Semaphore)" href="sync/semaphore.html#%3Dcopy%2CSemaphore%2CSemaphore">semaphore: `=copy`(dest: var Semaphore; source: Semaphore)</a></li>
@@ -111,6 +113,10 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="event: `=destroy`(s: var Event)" href="sync/event.html#%3Ddestroy%2CEvent">event: `=destroy`(s: var Event)</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="latch: `=destroy`(x: var Latch)" href="sync/latch.html#%3Ddestroy%2CLatch">latch: `=destroy`(x: var Latch)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="once: `=destroy`(o: var Once)" href="sync/once.html#%3Ddestroy%2COnce">once: `=destroy`(o: var Once)</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="rwlock: `=destroy`(rw: var RwLock)" href="sync/rwlock.html#%3Ddestroy%2CRwLock">rwlock: `=destroy`(rw: var RwLock)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="semaphore: `=destroy`(s: var Semaphore)" href="sync/semaphore.html#%3Ddestroy%2CSemaphore">semaphore: `=destroy`(s: var Semaphore)</a></li>
@@ -126,6 +132,8 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="barrier: `=sink`(dest: var Barrier; source: Barrier)" href="sync/barrier.html#%3Dsink%2CBarrier%2CBarrier">barrier: `=sink`(dest: var Barrier; source: Barrier)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="event: `=sink`(dest: var Event; source: Event)" href="sync/event.html#%3Dsink%2CEvent%2CEvent">event: `=sink`(dest: var Event; source: Event)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="latch: `=sink`(dest: var Latch; source: Latch)" href="sync/latch.html#%3Dsink%2CLatch%2CLatch">latch: `=sink`(dest: var Latch; source: Latch)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="rwlock: `=sink`(dest: var RwLock; source: RwLock)" href="sync/rwlock.html#%3Dsink%2CRwLock%2CRwLock">rwlock: `=sink`(dest: var RwLock; source: RwLock)</a></li>
           <li><a class="reference external"
@@ -205,6 +213,10 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: ConstPtr" href="sync/smartptrs.html#ConstPtr">smartptrs: ConstPtr</a></li>
           </ul></dd>
+<dt><a name="dec" href="#dec"><span>dec:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="latch: dec(x: var Latch)" href="sync/latch.html#dec%2CLatch">latch: dec(x: var Latch)</a></li>
+          </ul></dd>
 <dt><a name="endRead" href="#endRead"><span>endRead:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="rwlock: endRead(rw: var RwLock)" href="sync/rwlock.html#endRead%2CRwLock">rwlock: endRead(rw: var RwLock)</a></li>
@@ -257,9 +269,13 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="event: init(s: var Event; value = false)" href="sync/event.html#init%2CEvent">event: init(s: var Event; value = false)</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="latch: init(x: var Latch; count: int)" href="sync/latch.html#init%2CLatch%2Cint">latch: init(x: var Latch; count: int)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="once: init(o: var Once)" href="sync/once.html#init%2COnce">once: init(o: var Once)</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="rwlock: init(rw: var RwLock)" href="sync/rwlock.html#init%2CRwLock">rwlock: init(rw: var RwLock)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="semaphore: init(s: var Semaphore; permits = 0)" href="sync/semaphore.html#init%2CSemaphore%2Cint">semaphore: init(s: var Semaphore; permits = 0)</a></li>
+          data-doc-search-tag="semaphore: init(s: var Semaphore; count = 0)" href="sync/semaphore.html#init%2CSemaphore%2Cint">semaphore: init(s: var Semaphore; count = 0)</a></li>
           </ul></dd>
 <dt><a name="isNil" href="#isNil"><span>isNil:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -268,6 +284,10 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="smartptrs: isNil[T](p: SharedPtr[T]): bool" href="sync/smartptrs.html#isNil%2CSharedPtr%5BT%5D">smartptrs: isNil[T](p: SharedPtr[T]): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="smartptrs: isNil[T](p: UniquePtr[T]): bool" href="sync/smartptrs.html#isNil%2CUniquePtr%5BT%5D">smartptrs: isNil[T](p: UniquePtr[T]): bool</a></li>
+          </ul></dd>
+<dt><a name="Latch" href="#Latch"><span>Latch:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="latch: Latch" href="sync/latch.html#Latch">latch: Latch</a></li>
           </ul></dd>
 <dt><a name="load" href="#load"><span>load:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -353,7 +373,11 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="barrier: wait(b: var Barrier)" href="sync/barrier.html#wait%2CBarrier">barrier: wait(b: var Barrier)</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="barrier: wait(b: Barrier; body: untyped)" href="sync/barrier.html#wait.t%2CBarrier%2Cuntyped">barrier: wait(b: Barrier; body: untyped)</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="event: wait(s: var Event)" href="sync/event.html#wait%2CEvent">event: wait(s: var Event)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="latch: wait(x: var Latch)" href="sync/latch.html#wait%2CLatch">latch: wait(x: var Latch)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="semaphore: wait(s: var Semaphore)" href="sync/semaphore.html#wait%2CSemaphore">semaphore: wait(s: var Semaphore)</a></li>
           </ul></dd>
@@ -370,7 +394,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-12 19:30:39 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-13 07:20:13 UTC</small>
       </div>
     </div>
   </div>

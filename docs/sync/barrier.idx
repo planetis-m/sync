@@ -4,3 +4,4 @@ Barrier	sync/barrier.html#Barrier	barrier: Barrier
 `=copy`	sync/barrier.html#=copy,Barrier,Barrier	barrier: `=copy`(dest: var Barrier; source: Barrier)	
 init	sync/barrier.html#init,Barrier,Natural	barrier: init(b: var Barrier; parties: Natural)	
 wait	sync/barrier.html#wait,Barrier	barrier: wait(b: var Barrier)	
+wait	sync/barrier.html#wait.t,Barrier,untyped	barrier: wait(b: Barrier; body: untyped)	
