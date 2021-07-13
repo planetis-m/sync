@@ -4,7 +4,7 @@ import sync, std/[locks, strutils]
 
 const
   numThreads = 4
-  intervals = 50000000 # number of intervals to use for the numeric integration
+  intervals = 50_000_000 # number of intervals to use for the numeric integration
   width = 1 / intervals # width of an interval
 
 type
@@ -20,12 +20,9 @@ var
   threads: array[numThreads, Thread[WorkItem]]
 
 proc work(w: WorkItem) =
-  var low: int
-  # first interval to be processed
-  var high: int
-  # first interval not to be processed
-  var localSum: float = 0
-  # mid-point of an interval
+  var low: int # first interval to be processed
+  var high: int # first interval not to be processed
+  var localSum: float = 0 # sum for intervals being processed
   # compute low and high from the ID
   # (thread IDs less than split have one extra interval)
   if w.id < w.split:
@@ -35,7 +32,7 @@ proc work(w: WorkItem) =
     low = w.split * (w.chunk + 1) + (w.id - w.split) * w.chunk
     high = low + w.chunk
   # compute sum of the heights of the rectangles for the assigned intervals
-  var x = (low.float + 0.5) * width
+  var x = (low.float + 0.5) * width # mid-point of an interval
   for i in low ..< high:
     localSum += 4 / (1 + x * x)
     x += width

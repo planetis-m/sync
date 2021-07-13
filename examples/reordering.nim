@@ -6,7 +6,8 @@ import std/strformat, sync
 var
   t1, t2: Thread[void]
   # Semaphores for signaling threads
-  s1, s2, e: Semaphore
+  s1, s2: Event
+  e: Semaphore
   # Variable for memory re-ordering
   v1, v2 = 0
   r1, r2 = 0
@@ -58,7 +59,8 @@ proc main =
     s1.signal()
     s2.signal()
     # Wait for them to finish
-    e.wait(2)
+    e.wait()
+    e.wait()
     # Check of both read values bypassed the loads
     if r1 == 0 and r2 == 0:
       echo &"ERROR! R1 = {r1}, R2 = {r2}, ITER {i}"
