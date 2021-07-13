@@ -9,7 +9,7 @@
 ## C++11 like smart pointers. They always use the shared allocator.
 import std/isolation, atomics2
 
-template checkNotNil(msg: typed) =
+template checkNotNil(p, msg: typed) =
   when compileOption("boundChecks"):
     {.line.}:
       if p.isNil:
@@ -29,7 +29,7 @@ proc `=copy`*[T](dest: var UniquePtr[T], src: UniquePtr[T]) {.error.}
   ## The copy operation is disallowed for `UniquePtr`, it
   ## can only be moved.
 
-proc newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T] {.nodestroy.} =
+proc newUniquePtr*[T](val: sink Isolated[T]): UniquePtr[T] {.nodestroy.} =
   ## Returns a unique pointer which has exclusive ownership of the value.
   result.val = cast[ptr T](allocShared(sizeof(T)))
   # thanks to '.nodestroy' we don't have to use allocShared0 here.
@@ -51,11 +51,11 @@ proc isNil*[T](p: UniquePtr[T]): bool {.inline.} =
 
 proc `[]`*[T](p: UniquePtr[T]): var T {.inline.} =
   ## Returns a mutable view of the internal value of `p`.
-  checkNotNil("dereferencing nil unique pointer")
+  checkNotNil(p, "dereferencing nil unique pointer")
   p.val[]
 
 proc `[]=`*[T](p: UniquePtr[T], val: sink Isolated[T]) {.inline.} =
-  checkNotNil("dereferencing nil unique pointer")
+  checkNotNil(p, "dereferencing nil unique pointer")
   p.val[] = extract val
 
 template `[]=`*[T](p: UniquePtr[T]; val: T) =
@@ -87,7 +87,7 @@ proc `=copy`*[T](dest: var SharedPtr[T], src: SharedPtr[T]) =
     `=destroy`(dest)
   dest.val = src.val
 
-proc newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T] {.nodestroy.} =
+proc newSharedPtr*[T](val: sink Isolated[T]): SharedPtr[T] {.nodestroy.} =
   ## Returns a shared pointer which shares
   ## ownership of the object by reference counting.
   result.val = cast[typeof(result.val)](allocShared(sizeof(result.val[])))
@@ -107,11 +107,11 @@ proc isNil*[T](p: SharedPtr[T]): bool {.inline.} =
   p.val == nil
 
 proc `[]`*[T](p: SharedPtr[T]): var T {.inline.} =
-  checkNotNil("dereferencing nil shared pointer")
+  checkNotNil(p, "dereferencing nil shared pointer")
   p.val.value
 
 proc `[]=`*[T](p: SharedPtr[T], val: sink Isolated[T]) {.inline.} =
-  checkNotNil("dereferencing nil shared pointer")
+  checkNotNil(p, "dereferencing nil shared pointer")
   p.val.value = extract val
 
 template `[]=`*[T](p: SharedPtr[T]; val: T) =
@@ -139,7 +139,7 @@ proc isNil*[T](p: ConstPtr[T]): bool {.inline.} =
 
 proc `[]`*[T](p: ConstPtr[T]): lent T {.inline.} =
   ## Returns an immutable view of the internal value of `p`.
-  checkNotNil("dereferencing nil const pointer")
+  checkNotNil(p, "dereferencing nil const pointer")
   SharedPtr[T](p).val.value
 
 proc `[]=`*[T](p: ConstPtr[T], v: T) = {.error: "`ConstPtr` cannot be assigned.".}
