@@ -1,5 +1,5 @@
 import smartptrs, spsc_queue, std/isolation
-export smartptrs, spsc_queue
+export smartptrs
 
 type
   SpscSender*[T] = object
@@ -10,7 +10,7 @@ type
 proc newSpscSender*[T](queue: sink SharedPtr[SpscQueue[T]]): SpscSender[T] =
   result = SpscSender[T](queue: queue)
 
-template trySend*(self: SpscSender, t: typed): bool =
+proc trySend*[T](self: SpscSender, t: var Isolated[T]): bool {.inline.} =
   self.queue[].tryPush(t)
 
 type
@@ -22,10 +22,9 @@ type
 proc newSpscReceiver*[T](queue: sink SharedPtr[SpscQueue[T]]): SpscReceiver[T] =
   result = SpscReceiver[T](queue: queue)
 
-template tryRecv*(self: SpscReceiver; dst: typed): bool =
+proc tryRecv*[T](self: SpscReceiver; dst: var T): bool {.inline.} =
   self.queue[].tryPop(dst)
 
 proc newSpscChannel*[T](cap: int): (SpscSender[T], SpscReceiver[T]) =
-  var p = isolate(newSpscQueue[T](cap))
-  let queue = newSharedPtr[SpscQueue[T]](move p)
+  let queue = newSharedPtr[SpscQueue[T]](newSpscQueue[T](cap))
   result = (newSpscSender[T](queue), newSpscReceiver[T](queue))
