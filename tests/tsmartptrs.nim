@@ -20,9 +20,12 @@ block:
   assert not a3.isNil
   assert a3[] == 0
 
-  a1 = newUniquePtrU(int)
+  a1 = newUniquePtr(int)
   a1[] = 1
   assert a1[] == 1
+  var a4 = newUniquePtr(string)
+  a4[] = "hello world"
+  assert a4[] == "hello world"
 
 block:
   var a1: SharedPtr[int]
@@ -38,9 +41,12 @@ block:
   assert not a3.isNil
   assert a3[] == 0
 
-  a1 = newSharedPtrU(int)
+  a1 = newSharedPtr(int)
   a1[] = 1
   assert a1[] == 1
+  var a4 = newSharedPtr(string)
+  a4[] = "hello world"
+  assert a4[] == "hello world"
 
 block:
   var a1: ConstPtr[float]

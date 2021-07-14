@@ -121,12 +121,7 @@ window.addEventListener('DOMContentLoaded', main);
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">newUniquePtrU
-      <li><a class="reference" href="#newUniquePtrU%2Ctypedesc%5BT%5D"
-    title="newUniquePtrU[T](t: typedesc[T]): UniquePtr[T]">newUniquePtrU[T](t: typedesc[T]): UniquePtr[T]</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">$
+      <ul class="simple nested-toc-section">$
       <li><a class="reference" href="#%24%2CUniquePtr%5BT%5D"
     title="`$`[T](p: UniquePtr[T]): string">`$`[T](p: UniquePtr[T]): string</a></li>
   <li><a class="reference" href="#%24%2CSharedPtr%5BT%5D"
@@ -160,19 +155,18 @@ window.addEventListener('DOMContentLoaded', main);
     title="`=copy`[T](dest: var SharedPtr[T]; src: SharedPtr[T])">`=copy`[T](dest: var SharedPtr[T]; src: SharedPtr[T])</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">newSharedPtrU
-      <li><a class="reference" href="#newSharedPtrU%2Ctypedesc%5BT%5D"
-    title="newSharedPtrU[T](t: typedesc[T]): SharedPtr[T]">newSharedPtrU[T](t: typedesc[T]): SharedPtr[T]</a></li>
-
-  </ul>
   <ul class="simple nested-toc-section">newUniquePtr
       <li><a class="reference" href="#newUniquePtr%2CsinkIsolated%5BT%5D"
     title="newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]">newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]</a></li>
+  <li><a class="reference" href="#newUniquePtr%2Ctypedesc%5BT%5D"
+    title="newUniquePtr[T](t: typedesc[T]): UniquePtr[T]">newUniquePtr[T](t: typedesc[T]): UniquePtr[T]</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">newSharedPtr
       <li><a class="reference" href="#newSharedPtr%2CsinkIsolated%5BT%5D"
     title="newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]">newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]</a></li>
+  <li><a class="reference" href="#newSharedPtr%2Ctypedesc%5BT%5D"
+    title="newSharedPtr[T](t: typedesc[T]): SharedPtr[T]">newSharedPtr[T](t: typedesc[T]): SharedPtr[T]</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">=destroy
@@ -256,9 +250,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 Non copyable pointer to a value of type <tt class="docutils literal"><span class="pre"><span class="Identifier">T</span></span></tt> with exclusive ownership.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L19"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L20"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L19" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L20" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="SharedPtr"></a>
@@ -269,9 +263,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 Shared ownership reference counting pointer.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L71"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L75"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L71" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L75" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="ConstPtr"></a>
@@ -280,9 +274,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 Distinct version of <tt class="docutils literal"><span class="pre"><span class="Identifier">SharedPtr</span><span class="Punctuation">[</span><span class="Identifier">T</span><span class="Punctuation">]</span></span></tt>, which doesn't allow mutating the underlying value.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L127"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L134"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L127" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L134" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -296,9 +290,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L23"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L24"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L23" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L24" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=copy,UniquePtr[T],UniquePtr[T]"></a>
@@ -307,9 +301,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 The copy operation is disallowed for <tt class="docutils literal"><span class="pre"><span class="Identifier">UniquePtr</span></span></tt>, it can only be moved.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L28"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L29"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L28" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L29" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="newUniquePtr,sinkIsolated[T]"></a>
@@ -318,20 +312,20 @@ class="link-seesrc" target="_blank">Source</a>
 
 Returns a unique pointer which has exclusive ownership of the value.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L32"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L33"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L32" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L33" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="newUniquePtrU,typedesc[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newUniquePtrU%2Ctypedesc%5BT%5D"><span class="Identifier">newUniquePtrU</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="smartptrs.html#UniquePtr"><span class="Identifier">UniquePtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<a id="newUniquePtr,typedesc[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newUniquePtr%2Ctypedesc%5BT%5D"><span class="Identifier">newUniquePtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="smartptrs.html#UniquePtr"><span class="Identifier">UniquePtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
 <dd>
 
 Returns a unique pointer. It is not initialized, so reading from it before writing to it is undefined behaviour!
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L44"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L45"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L44" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L45" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="isNil,UniquePtr[T]"></a>
@@ -340,9 +334,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L49"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L53"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L49" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L53" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="[],UniquePtr[T]"></a>
@@ -351,9 +345,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 Returns a mutable view of the internal value of <tt class="docutils literal"><span class="pre"><span class="Identifier">p</span></span></tt>.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L52"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L56"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L52" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L56" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="[]=,UniquePtr[T],sinkIsolated[T]"></a>
@@ -362,9 +356,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L57"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L61"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L57" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L61" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="$,UniquePtr[T]"></a>
@@ -373,9 +367,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L64"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L68"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L64" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L68" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=destroy,SharedPtr[T]"></a>
@@ -384,9 +378,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L75"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L79"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L75" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L79" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="=copy,SharedPtr[T],SharedPtr[T]"></a>
@@ -395,9 +389,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L83"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L87"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L83" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L87" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="newSharedPtr,sinkIsolated[T]"></a>
@@ -406,46 +400,24 @@ class="link-seesrc" target="_blank">Source</a>
 
 Returns a shared pointer which shares ownership of the object by reference counting.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L90"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L94"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L90" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L94" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="newSharedPtrU,typedesc[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newSharedPtrU%2Ctypedesc%5BT%5D"><span class="Identifier">newSharedPtrU</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<a id="newSharedPtr,typedesc[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newSharedPtr%2Ctypedesc%5BT%5D"><span class="Identifier">newSharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
 <dd>
 
 Returns a shared pointer. It is not initialized, so reading from it before writing to it is undefined behaviour!
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L100"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L104"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L100" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L104" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="isNil,SharedPtr[T]"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2CSharedPtr%5BT%5D"><span class="Identifier">isNil</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L106"
-class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L106" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="[],SharedPtr[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CSharedPtr%5BT%5D"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">T</span> {.<span class="Identifier">inline</span>.}</pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L109"
-class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L109" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="[]=,SharedPtr[T],sinkIsolated[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CSharedPtr%5BT%5D%2CsinkIsolated%5BT%5D"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">sink</span> <span class="Identifier">Isolated</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span> {.<span class="Identifier">inline</span>.}</pre></dt>
 <dd>
 
 
@@ -455,8 +427,19 @@ class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L113" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="$,SharedPtr[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#%24%2CSharedPtr%5BT%5D"><span class="Identifier">`$`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+<a id="[],SharedPtr[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CSharedPtr%5BT%5D"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">T</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L116"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L116" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<a id="[]=,SharedPtr[T],sinkIsolated[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CSharedPtr%5BT%5D%2CsinkIsolated%5BT%5D"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">sink</span> <span class="Identifier">Isolated</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span> {.<span class="Identifier">inline</span>.}</pre></dt>
 <dd>
 
 
@@ -466,15 +449,26 @@ class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L120" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+<a id="$,SharedPtr[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%24%2CSharedPtr%5BT%5D"><span class="Identifier">`$`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L127"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L127" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
 <a id="newConstPtr,sinkIsolated[T]"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#newConstPtr%2CsinkIsolated%5BT%5D"><span class="Identifier">newConstPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">sink</span> <span class="Identifier">Isolated</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="smartptrs.html#ConstPtr"><span class="Identifier">ConstPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">nodestroy</span><span class="Other">,</span> <span class="Identifier">inline</span>.}</pre></dt>
 <dd>
 
 Similar to <a class="reference external" href="#newSharedPtr,T">newSharedPtr</a>, but the underlying value can't be mutated.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L130"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L137"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L130" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L137" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="isNil,ConstPtr[T]"></a>
@@ -483,9 +477,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L137"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L144"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L137" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L144" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="[],ConstPtr[T]"></a>
@@ -494,9 +488,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 Returns an immutable view of the internal value of <tt class="docutils literal"><span class="pre"><span class="Identifier">p</span></span></tt>.
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L140"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L147"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L140" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L147" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="[]=,ConstPtr[T],T"></a>
@@ -505,9 +499,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L145"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L152"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L145" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L152" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="$,ConstPtr[T]"></a>
@@ -516,9 +510,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L147"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L154"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L147" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L154" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -532,9 +526,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L41"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L42"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L41" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L42" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="[]=.t,UniquePtr[T],T"></a>
@@ -543,9 +537,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L61"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L65"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L61" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L65" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="newSharedPtr.t,T"></a>
@@ -554,9 +548,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L97"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L101"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L97" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L101" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="[]=.t,SharedPtr[T],T"></a>
@@ -565,9 +559,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L117"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L124"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L117" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L124" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="newConstPtr.t,T"></a>
@@ -576,9 +570,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L134"
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L141"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L134" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L141" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -591,7 +585,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-14 05:53:55 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-14 15:18:15 UTC</small>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@
 
 ## C++11 like smart pointers. They always use the shared allocator.
 import std/isolation, atomics2
+from typetraits import supportsCopyMem
 
 template checkNotNil(p, msg: typed) =
   when compileOption("boundChecks"):
@@ -41,10 +42,13 @@ proc newUniquePtr*[T](val: sink Isolated[T]): UniquePtr[T] {.nodestroy.} =
 template newUniquePtr*[T](val: T): UniquePtr[T] =
   newUniquePtr(isolate(val))
 
-proc newUniquePtrU*[T](t: typedesc[T]): UniquePtr[T] =
+proc newUniquePtr*[T](t: typedesc[T]): UniquePtr[T] =
   ## Returns a unique pointer. It is not initialized,
   ## so reading from it before writing to it is undefined behaviour!
-  result.val = cast[ptr T](allocShared(sizeof(T)))
+  when not supportsCopyMem(T):
+    result.val = cast[ptr T](allocShared0(sizeof(T)))
+  else:
+    result.val = cast[ptr T](allocShared(sizeof(T)))
 
 proc isNil*[T](p: UniquePtr[T]): bool {.inline.} =
   p.val == nil
@@ -97,10 +101,13 @@ proc newSharedPtr*[T](val: sink Isolated[T]): SharedPtr[T] {.nodestroy.} =
 template newSharedPtr*[T](val: T): SharedPtr[T] =
   newSharedPtr(isolate(val))
 
-proc newSharedPtrU*[T](t: typedesc[T]): SharedPtr[T] =
+proc newSharedPtr*[T](t: typedesc[T]): SharedPtr[T] =
   ## Returns a shared pointer. It is not initialized,
   ## so reading from it before writing to it is undefined behaviour!
-  result.val = cast[typeof(result.val)](allocShared(sizeof(result.val[])))
+  when not supportsCopyMem(T):
+    result.val = cast[typeof(result.val)](allocShared0(sizeof(T)))
+  else:
+    result.val = cast[typeof(result.val)](allocShared(sizeof(T)))
   int(result.val.counter) = 0
 
 proc isNil*[T](p: SharedPtr[T]): bool {.inline.} =

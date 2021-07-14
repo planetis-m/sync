@@ -317,11 +317,9 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]" href="sync/smartptrs.html#newSharedPtr%2CsinkIsolated%5BT%5D">smartptrs: newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="smartptrs: newSharedPtr[T](t: typedesc[T]): SharedPtr[T]" href="sync/smartptrs.html#newSharedPtr%2Ctypedesc%5BT%5D">smartptrs: newSharedPtr[T](t: typedesc[T]): SharedPtr[T]</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="smartptrs: newSharedPtr[T](val: T): SharedPtr[T]" href="sync/smartptrs.html#newSharedPtr.t%2CT">smartptrs: newSharedPtr[T](val: T): SharedPtr[T]</a></li>
-          </ul></dd>
-<dt><a name="newSharedPtrU" href="#newSharedPtrU"><span>newSharedPtrU:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="smartptrs: newSharedPtrU[T](t: typedesc[T]): SharedPtr[T]" href="sync/smartptrs.html#newSharedPtrU%2Ctypedesc%5BT%5D">smartptrs: newSharedPtrU[T](t: typedesc[T]): SharedPtr[T]</a></li>
           </ul></dd>
 <dt><a name="newSpscChannel" href="#newSpscChannel"><span>newSpscChannel:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -343,11 +341,9 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]" href="sync/smartptrs.html#newUniquePtr%2CsinkIsolated%5BT%5D">smartptrs: newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="smartptrs: newUniquePtr[T](t: typedesc[T]): UniquePtr[T]" href="sync/smartptrs.html#newUniquePtr%2Ctypedesc%5BT%5D">smartptrs: newUniquePtr[T](t: typedesc[T]): UniquePtr[T]</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="smartptrs: newUniquePtr[T](val: T): UniquePtr[T]" href="sync/smartptrs.html#newUniquePtr.t%2CT">smartptrs: newUniquePtr[T](val: T): UniquePtr[T]</a></li>
-          </ul></dd>
-<dt><a name="newUniquePtrU" href="#newUniquePtrU"><span>newUniquePtrU:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="smartptrs: newUniquePtrU[T](t: typedesc[T]): UniquePtr[T]" href="sync/smartptrs.html#newUniquePtrU%2Ctypedesc%5BT%5D">smartptrs: newUniquePtrU[T](t: typedesc[T]): UniquePtr[T]</a></li>
           </ul></dd>
 <dt><a name="Once" href="#Once"><span>Once:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -423,11 +419,11 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="tryRecv" href="#tryRecv"><span>tryRecv:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="spsc: tryRecv(self: SpscReceiver; dst: typed): bool" href="sync/spsc.html#tryRecv.t%2CSpscReceiver%2Ctyped">spsc: tryRecv(self: SpscReceiver; dst: typed): bool</a></li>
+          data-doc-search-tag="spsc: tryRecv[T](self: SpscReceiver; dst: var T): bool" href="sync/spsc.html#tryRecv%2CSpscReceiver%2CT">spsc: tryRecv[T](self: SpscReceiver; dst: var T): bool</a></li>
           </ul></dd>
 <dt><a name="trySend" href="#trySend"><span>trySend:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="spsc: trySend(self: SpscSender; t: typed): bool" href="sync/spsc.html#trySend.t%2CSpscSender%2Ctyped">spsc: trySend(self: SpscSender; t: typed): bool</a></li>
+          data-doc-search-tag="spsc: trySend[T](self: SpscSender; t: var Isolated[T]): bool" href="sync/spsc.html#trySend%2CSpscSender%2CIsolated%5BT%5D">spsc: trySend[T](self: SpscSender; t: var Isolated[T]): bool</a></li>
           </ul></dd>
 <dt><a name="UniquePtr" href="#UniquePtr"><span>UniquePtr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -456,7 +452,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-14 05:53:55 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-14 15:18:15 UTC</small>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 import smartptrs, spsc_queue, std/isolation
-export smartptrs
+export smartptrs.isNil
 
 type
   SpscSender*[T] = object
-    queue*: SharedPtr[SpscQueue[T]]
+    queue: SharedPtr[SpscQueue[T]]
 
 #proc `=copy`*[T](dest: var SpscSender[T]; source: SpscSender[T]) {.error.}
 
@@ -15,7 +15,7 @@ proc trySend*[T](self: SpscSender, t: var Isolated[T]): bool {.inline.} =
 
 type
   SpscReceiver*[T] = object
-    queue*: SharedPtr[SpscQueue[T]]
+    queue: SharedPtr[SpscQueue[T]]
 
 #proc `=copy`*[T](dest: var SpscReceiver[T]; source: SpscReceiver[T]) {.error.}
 

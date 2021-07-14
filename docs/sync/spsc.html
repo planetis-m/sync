@@ -109,17 +109,22 @@ window.addEventListener('DOMContentLoaded', main);
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#SpscSender"
     title="SpscSender[T] = object
-  queue*: SharedPtr[SpscQueue[T]]">SpscSender</a></li>
+  queue: SharedPtr[SpscQueue[T]]">SpscSender</a></li>
   <li><a class="reference" href="#SpscReceiver"
     title="SpscReceiver[T] = object
-  queue*: SharedPtr[SpscQueue[T]]">SpscReceiver</a></li>
+  queue: SharedPtr[SpscQueue[T]]">SpscReceiver</a></li>
 
   </ul>
 </li>
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">newSpscSender
+      <ul class="simple nested-toc-section">trySend
+      <li><a class="reference" href="#trySend%2CSpscSender%2CIsolated%5BT%5D"
+    title="trySend[T](self: SpscSender; t: var Isolated[T]): bool">trySend[T](self: SpscSender; t: var Isolated[T]): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">newSpscSender
       <li><a class="reference" href="#newSpscSender%2CsinkSharedPtr%5BSpscQueue%5BT%5D%5D"
     title="newSpscSender[T](queue: sink SharedPtr[SpscQueue[T]]): SpscSender[T]">newSpscSender[T](queue: sink SharedPtr[SpscQueue[T]]): SpscSender[T]</a></li>
 
@@ -134,20 +139,9 @@ window.addEventListener('DOMContentLoaded', main);
     title="newSpscReceiver[T](queue: sink SharedPtr[SpscQueue[T]]): SpscReceiver[T]">newSpscReceiver[T](queue: sink SharedPtr[SpscQueue[T]]): SpscReceiver[T]</a></li>
 
   </ul>
-
-  </ul>
-</li>
-<li>
-  <a class="reference reference-toplevel" href="#18" id="68">Templates</a>
-  <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">trySend
-      <li><a class="reference" href="#trySend.t%2CSpscSender%2Ctyped"
-    title="trySend(self: SpscSender; t: typed): bool">trySend(self: SpscSender; t: typed): bool</a></li>
-
-  </ul>
   <ul class="simple nested-toc-section">tryRecv
-      <li><a class="reference" href="#tryRecv.t%2CSpscReceiver%2Ctyped"
-    title="tryRecv(self: SpscReceiver; dst: typed): bool">tryRecv(self: SpscReceiver; dst: typed): bool</a></li>
+      <li><a class="reference" href="#tryRecv%2CSpscReceiver%2CT"
+    title="tryRecv[T](self: SpscReceiver; dst: var T): bool">tryRecv[T](self: SpscReceiver; dst: var T): bool</a></li>
 
   </ul>
 
@@ -182,7 +176,7 @@ class="link-seesrc" target="_blank">Source</a>
 <dl class="item">
 <a id="SpscSender"></a>
 <dt><pre><a href="spsc.html#SpscSender"><span class="Identifier">SpscSender</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">queue</span><span class="Operator">*</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">]</span>
+  <span class="Identifier">queue</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">]</span>
 </pre></dt>
 <dd>
 
@@ -195,7 +189,7 @@ class="link-seesrc" target="_blank">Source</a>
 </dd>
 <a id="SpscReceiver"></a>
 <dt><pre><a href="spsc.html#SpscReceiver"><span class="Identifier">SpscReceiver</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">queue</span><span class="Operator">*</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">]</span>
+  <span class="Identifier">queue</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">]</span>
 </pre></dt>
 <dd>
 
@@ -222,6 +216,17 @@ class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc.nim#L10" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+<a id="trySend,SpscSender,Isolated[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#trySend%2CSpscSender%2CIsolated%5BT%5D"><span class="Identifier">trySend</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="spsc.html#SpscSender"><span class="Identifier">SpscSender</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Isolated</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/spsc.nim#L13"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc.nim#L13" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
 <a id="newSpscReceiver,sinkSharedPtr[SpscQueue[T]]"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#newSpscReceiver%2CsinkSharedPtr%5BSpscQueue%5BT%5D%5D"><span class="Identifier">newSpscReceiver</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">queue</span><span class="Other">:</span> <span class="Identifier">sink</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="spsc.html#SpscReceiver"><span class="Identifier">SpscReceiver</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
 <dd>
@@ -231,6 +236,17 @@ class="link-seesrc" target="_blank">Source</a>
 href="https://github.com/planetis-m/sync/tree/master/sync/spsc.nim#L22"
 class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc.nim#L22" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<a id="tryRecv,SpscReceiver,T"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#tryRecv%2CSpscReceiver%2CT"><span class="Identifier">tryRecv</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="spsc.html#SpscReceiver"><span class="Identifier">SpscReceiver</span></a><span class="Other">;</span> <span class="Identifier">dst</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/spsc.nim#L25"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc.nim#L25" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="newSpscChannel,int"></a>
@@ -246,37 +262,10 @@ class="link-seesrc" target="_blank">Source</a>
 </dd>
 
 </dl></div>
-<div class="section" id="18">
-<h1><a class="toc-backref" href="#18">Templates</a></h1>
-<dl class="item">
-<a id="trySend.t,SpscSender,typed"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#trySend.t%2CSpscSender%2Ctyped"><span class="Identifier">trySend</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="spsc.html#SpscSender"><span class="Identifier">SpscSender</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/spsc.nim#L13"
-class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc.nim#L13" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="tryRecv.t,SpscReceiver,typed"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#tryRecv.t%2CSpscReceiver%2Ctyped"><span class="Identifier">tryRecv</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="spsc.html#SpscReceiver"><span class="Identifier">SpscReceiver</span></a><span class="Other">;</span> <span class="Identifier">dst</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/planetis-m/sync/tree/master/sync/spsc.nim#L25"
-class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc.nim#L25" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-
-</dl></div>
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="smartptrs.html#=destroy,UniquePtr[T]"><span class="Identifier">=destroy</span></a>, <a href="smartptrs.html#newUniquePtr,sinkIsolated[T]"><span class="Identifier">newUniquePtr</span></a>, <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a>, <a href="smartptrs.html#[]=,UniquePtr[T],sinkIsolated[T]"><span class="Identifier">[]=</span></a>, <a href="smartptrs.html#newConstPtr.t,T"><span class="Identifier">newConstPtr</span></a>, <a href="smartptrs.html#isNil,UniquePtr[T]"><span class="Identifier">isNil</span></a>, <a href="smartptrs.html#[]=.t,UniquePtr[T],T"><span class="Identifier">[]=</span></a>, <a href="smartptrs.html#[]=.t,SharedPtr[T],T"><span class="Identifier">[]=</span></a>, <a href="smartptrs.html#newConstPtr,sinkIsolated[T]"><span class="Identifier">newConstPtr</span></a>, <a href="smartptrs.html#=copy,SharedPtr[T],SharedPtr[T]"><span class="Identifier">=copy</span></a>, <a href="smartptrs.html#newUniquePtrU,typedesc[T]"><span class="Identifier">newUniquePtrU</span></a>, <a href="smartptrs.html#[]=,ConstPtr[T],T"><span class="Identifier">[]=</span></a>, <a href="smartptrs.html#newUniquePtr.t,T"><span class="Identifier">newUniquePtr</span></a>, <a href="smartptrs.html#=destroy,SharedPtr[T]"><span class="Identifier">=destroy</span></a>, <a href="smartptrs.html#[]=,SharedPtr[T],sinkIsolated[T]"><span class="Identifier">[]=</span></a>, <a href="smartptrs.html#$,UniquePtr[T]"><span class="Identifier">$</span></a>, <a href="smartptrs.html#=copy,UniquePtr[T],UniquePtr[T]"><span class="Identifier">=copy</span></a>, <a href="smartptrs.html#$,ConstPtr[T]"><span class="Identifier">$</span></a>, <a href="smartptrs.html#UniquePtr"><span class="Identifier">UniquePtr</span></a>, <a href="smartptrs.html#$,SharedPtr[T]"><span class="Identifier">$</span></a>, <a href="smartptrs.html#isNil,SharedPtr[T]"><span class="Identifier">isNil</span></a>, <a href="smartptrs.html#[],ConstPtr[T]"><span class="Identifier">[]</span></a>, <a href="smartptrs.html#newSharedPtr,sinkIsolated[T]"><span class="Identifier">newSharedPtr</span></a>, <a href="smartptrs.html#isNil,ConstPtr[T]"><span class="Identifier">isNil</span></a>, <a href="smartptrs.html#newSharedPtrU,typedesc[T]"><span class="Identifier">newSharedPtrU</span></a>, <a href="smartptrs.html#ConstPtr"><span class="Identifier">ConstPtr</span></a>, <a href="smartptrs.html#[],UniquePtr[T]"><span class="Identifier">[]</span></a>, <a href="smartptrs.html#newSharedPtr.t,T"><span class="Identifier">newSharedPtr</span></a>, <a href="smartptrs.html#[],SharedPtr[T]"><span class="Identifier">[]</span></a>, <a href="spsc_queue.html#cap,SpscQueue[T]"><span class="Identifier">cap</span></a>, <a href="spsc_queue.html#len,SpscQueue[T]"><span class="Identifier">len</span></a>, <a href="spsc_queue.html#newSpscQueue,int"><span class="Identifier">newSpscQueue</span></a>, <a href="spsc_queue.html#=copy,SpscQueue[T],SpscQueue[T]"><span class="Identifier">=copy</span></a>, <a href="spsc_queue.html#tryPop,SpscQueue[T],T"><span class="Identifier">tryPop</span></a>, <a href="spsc_queue.html#tryPush.t,SpscQueue[T],T"><span class="Identifier">tryPush</span></a>, <a href="spsc_queue.html#init,SpscQueue[T],Natural"><span class="Identifier">init</span></a>, <a href="spsc_queue.html#tryPush,SpscQueue[T],Isolated[T]"><span class="Identifier">tryPush</span></a>, <a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a>, <a href="spsc_queue.html#=destroy,SpscQueue[T]"><span class="Identifier">=destroy</span></a>
+<a href="smartptrs.html#isNil,UniquePtr[T]"><span class="Identifier">isNil</span></a>, <a href="smartptrs.html#isNil,SharedPtr[T]"><span class="Identifier">isNil</span></a>, <a href="smartptrs.html#isNil,ConstPtr[T]"><span class="Identifier">isNil</span></a>
 </dl></div>
 
   </div>
@@ -286,7 +275,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-14 05:53:55 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-14 15:18:15 UTC</small>
       </div>
     </div>
   </div>
