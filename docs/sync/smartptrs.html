@@ -165,6 +165,16 @@ window.addEventListener('DOMContentLoaded', main);
     title="newSharedPtrU[T](t: typedesc[T]): SharedPtr[T]">newSharedPtrU[T](t: typedesc[T]): SharedPtr[T]</a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">newUniquePtr
+      <li><a class="reference" href="#newUniquePtr%2CsinkIsolated%5BT%5D"
+    title="newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]">newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">newSharedPtr
+      <li><a class="reference" href="#newSharedPtr%2CsinkIsolated%5BT%5D"
+    title="newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]">newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]</a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">=destroy
       <li><a class="reference" href="#%3Ddestroy%2CUniquePtr%5BT%5D"
     title="`=destroy`[T](p: var UniquePtr[T])">`=destroy`[T](p: var UniquePtr[T])</a></li>
@@ -302,6 +312,17 @@ class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L28" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+<a id="newUniquePtr,sinkIsolated[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newUniquePtr%2CsinkIsolated%5BT%5D"><span class="Identifier">newUniquePtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">sink</span> <span class="Identifier">Isolated</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="smartptrs.html#UniquePtr"><span class="Identifier">UniquePtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">nodestroy</span>.}</pre></dt>
+<dd>
+
+Returns a unique pointer which has exclusive ownership of the value.
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L32"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L32" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
 <a id="newUniquePtrU,typedesc[T]"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#newUniquePtrU%2Ctypedesc%5BT%5D"><span class="Identifier">newUniquePtrU</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="smartptrs.html#UniquePtr"><span class="Identifier">UniquePtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
 <dd>
@@ -377,6 +398,17 @@ class="link-seesrc" target="_blank">Source</a>
 href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L83"
 class="link-seesrc" target="_blank">Source</a>
 &nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L83" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<a id="newSharedPtr,sinkIsolated[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newSharedPtr%2CsinkIsolated%5BT%5D"><span class="Identifier">newSharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">sink</span> <span class="Identifier">Isolated</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="smartptrs.html#SharedPtr"><span class="Identifier">SharedPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">nodestroy</span>.}</pre></dt>
+<dd>
+
+Returns a shared pointer which shares ownership of the object by reference counting.
+&nbsp;&nbsp;<a
+href="https://github.com/planetis-m/sync/tree/master/sync/smartptrs.nim#L90"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/planetis-m/sync/edit/master/sync/smartptrs.nim#L90" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <a id="newSharedPtrU,typedesc[T]"></a>
@@ -559,7 +591,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-13 12:36:13 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-14 05:53:55 UTC</small>
       </div>
     </div>
   </div>

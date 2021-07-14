@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', main);
 <div class="document" id="documentId">
   <div class="container">
     <h1 class="title">Index</h1>
-    Modules: <a href="sync/atomics2.html">sync/atomics2</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/event.html">sync/event</a>, <a href="sync/latch.html">sync/latch</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>, <a href="sync/spinlock.html">sync/spinlock</a>.<br/><p /><h2>API symbols</h2>
+    Modules: <a href="sync/atomics2.html">sync/atomics2</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/event.html">sync/event</a>, <a href="sync/latch.html">sync/latch</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>, <a href="sync/spinlock.html">sync/spinlock</a>, <a href="sync/spsc.html">sync/spsc</a>, <a href="sync/spsc_queue.html">sync/spsc_queue</a>.<br/><p /><h2>API symbols</h2>
 <dl><dt><a name="%60%24%60" href="#%60%24%60"><span>`$`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: `$`[T](p: ConstPtr[T]): string" href="sync/smartptrs.html#%24%2CConstPtr%5BT%5D">smartptrs: `$`[T](p: ConstPtr[T]): string</a></li>
@@ -106,6 +106,8 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="smartptrs: `=copy`[T](dest: var UniquePtr[T]; src: UniquePtr[T])" href="sync/smartptrs.html#%3Dcopy%2CUniquePtr%5BT%5D%2CUniquePtr%5BT%5D">smartptrs: `=copy`[T](dest: var UniquePtr[T]; src: UniquePtr[T])</a></li>
           <li><a class="reference external"
           data-doc-search-tag="spinlock: `=copy`(dest: var SpinLock; source: SpinLock)" href="sync/spinlock.html#%3Dcopy%2CSpinLock%2CSpinLock">spinlock: `=copy`(dest: var SpinLock; source: SpinLock)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="spsc_queue: `=copy`[T](dest: var SpscQueue[T]; source: SpscQueue[T])" href="sync/spsc_queue.html#%3Dcopy%2CSpscQueue%5BT%5D%2CSpscQueue%5BT%5D">spsc_queue: `=copy`[T](dest: var SpscQueue[T]; source: SpscQueue[T])</a></li>
           </ul></dd>
 <dt><a name="%60%3Ddestroy%60" href="#%60%3Ddestroy%60"><span>`=destroy`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -124,6 +126,8 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="smartptrs: `=destroy`[T](p: var SharedPtr[T])" href="sync/smartptrs.html#%3Ddestroy%2CSharedPtr%5BT%5D">smartptrs: `=destroy`[T](p: var SharedPtr[T])</a></li>
           <li><a class="reference external"
           data-doc-search-tag="smartptrs: `=destroy`[T](p: var UniquePtr[T])" href="sync/smartptrs.html#%3Ddestroy%2CUniquePtr%5BT%5D">smartptrs: `=destroy`[T](p: var UniquePtr[T])</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="spsc_queue: `=destroy`[T](this: var SpscQueue[T])" href="sync/spsc_queue.html#%3Ddestroy%2CSpscQueue%5BT%5D">spsc_queue: `=destroy`[T](this: var SpscQueue[T])</a></li>
           </ul></dd>
 <dt><a name="%60%3Dsink%60" href="#%60%3Dsink%60"><span>`=sink`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -188,6 +192,10 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><a name="beginWrite" href="#beginWrite"><span>beginWrite:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="rwlock: beginWrite(rw: var RwLock)" href="sync/rwlock.html#beginWrite%2CRwLock">rwlock: beginWrite(rw: var RwLock)</a></li>
+          </ul></dd>
+<dt><a name="cap" href="#cap"><span>cap:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc_queue: cap[T](this: SpscQueue[T]): int" href="sync/spsc_queue.html#cap%2CSpscQueue%5BT%5D">spsc_queue: cap[T](this: SpscQueue[T]): int</a></li>
           </ul></dd>
 <dt><a name="compareExchange" href="#compareExchange"><span>compareExchange:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -276,6 +284,8 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="rwlock: init(rw: var RwLock)" href="sync/rwlock.html#init%2CRwLock">rwlock: init(rw: var RwLock)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="semaphore: init(s: var Semaphore; count = 0)" href="sync/semaphore.html#init%2CSemaphore%2Cint">semaphore: init(s: var Semaphore; count = 0)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="spsc_queue: init[T](this: var SpscQueue[T]; capacity: Natural)" href="sync/spsc_queue.html#init%2CSpscQueue%5BT%5D%2CNatural">spsc_queue: init[T](this: var SpscQueue[T]; capacity: Natural)</a></li>
           </ul></dd>
 <dt><a name="isNil" href="#isNil"><span>isNil:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -289,6 +299,10 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="latch: Latch" href="sync/latch.html#Latch">latch: Latch</a></li>
           </ul></dd>
+<dt><a name="len" href="#len"><span>len:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc_queue: len[T](this: SpscQueue[T]): int" href="sync/spsc_queue.html#len%2CSpscQueue%5BT%5D">spsc_queue: len[T](this: SpscQueue[T]): int</a></li>
+          </ul></dd>
 <dt><a name="load" href="#load"><span>load:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="atomics2: load[T](location: var Atomic[T]; order: Ordering = SeqCst): T" href="sync/atomics2.html#load%2CAtomic%5BT%5D%2COrdering">atomics2: load[T](location: var Atomic[T]; order: Ordering = SeqCst): T</a></li>
@@ -301,14 +315,34 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="newSharedPtr" href="#newSharedPtr"><span>newSharedPtr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="smartptrs: newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]" href="sync/smartptrs.html#newSharedPtr%2CsinkIsolated%5BT%5D">smartptrs: newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="smartptrs: newSharedPtr[T](val: T): SharedPtr[T]" href="sync/smartptrs.html#newSharedPtr.t%2CT">smartptrs: newSharedPtr[T](val: T): SharedPtr[T]</a></li>
           </ul></dd>
 <dt><a name="newSharedPtrU" href="#newSharedPtrU"><span>newSharedPtrU:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: newSharedPtrU[T](t: typedesc[T]): SharedPtr[T]" href="sync/smartptrs.html#newSharedPtrU%2Ctypedesc%5BT%5D">smartptrs: newSharedPtrU[T](t: typedesc[T]): SharedPtr[T]</a></li>
           </ul></dd>
+<dt><a name="newSpscChannel" href="#newSpscChannel"><span>newSpscChannel:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc: newSpscChannel[T](cap: int): (SpscSender[T], SpscReceiver[T])" href="sync/spsc.html#newSpscChannel%2Cint">spsc: newSpscChannel[T](cap: int): (SpscSender[T], SpscReceiver[T])</a></li>
+          </ul></dd>
+<dt><a name="newSpscQueue" href="#newSpscQueue"><span>newSpscQueue:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc_queue: newSpscQueue[T](cap: int): SpscQueue[T]" href="sync/spsc_queue.html#newSpscQueue%2Cint">spsc_queue: newSpscQueue[T](cap: int): SpscQueue[T]</a></li>
+          </ul></dd>
+<dt><a name="newSpscReceiver" href="#newSpscReceiver"><span>newSpscReceiver:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc: newSpscReceiver[T](queue: sink SharedPtr[SpscQueue[T]]): SpscReceiver[T]" href="sync/spsc.html#newSpscReceiver%2CsinkSharedPtr%5BSpscQueue%5BT%5D%5D">spsc: newSpscReceiver[T](queue: sink SharedPtr[SpscQueue[T]]): SpscReceiver[T]</a></li>
+          </ul></dd>
+<dt><a name="newSpscSender" href="#newSpscSender"><span>newSpscSender:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc: newSpscSender[T](queue: sink SharedPtr[SpscQueue[T]]): SpscSender[T]" href="sync/spsc.html#newSpscSender%2CsinkSharedPtr%5BSpscQueue%5BT%5D%5D">spsc: newSpscSender[T](queue: sink SharedPtr[SpscQueue[T]]): SpscSender[T]</a></li>
+          </ul></dd>
 <dt><a name="newUniquePtr" href="#newUniquePtr"><span>newUniquePtr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="smartptrs: newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]" href="sync/smartptrs.html#newUniquePtr%2CsinkIsolated%5BT%5D">smartptrs: newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="smartptrs: newUniquePtr[T](val: T): UniquePtr[T]" href="sync/smartptrs.html#newUniquePtr.t%2CT">smartptrs: newUniquePtr[T](val: T): UniquePtr[T]</a></li>
           </ul></dd>
 <dt><a name="newUniquePtrU" href="#newUniquePtrU"><span>newUniquePtrU:</span></a></dt><dd><ul class="simple">
@@ -357,6 +391,18 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="spinlock: SpinLock" href="sync/spinlock.html#SpinLock">spinlock: SpinLock</a></li>
           </ul></dd>
+<dt><a name="SpscQueue" href="#SpscQueue"><span>SpscQueue:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc_queue: SpscQueue" href="sync/spsc_queue.html#SpscQueue">spsc_queue: SpscQueue</a></li>
+          </ul></dd>
+<dt><a name="SpscReceiver" href="#SpscReceiver"><span>SpscReceiver:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc: SpscReceiver" href="sync/spsc.html#SpscReceiver">spsc: SpscReceiver</a></li>
+          </ul></dd>
+<dt><a name="SpscSender" href="#SpscSender"><span>SpscSender:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc: SpscSender" href="sync/spsc.html#SpscSender">spsc: SpscSender</a></li>
+          </ul></dd>
 <dt><a name="store" href="#store"><span>store:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="atomics2: store[T](location: var Atomic[T]; desired: T; order: Ordering = SeqCst)" href="sync/atomics2.html#store%2CAtomic%5BT%5D%2CT%2COrdering">atomics2: store[T](location: var Atomic[T]; desired: T; order: Ordering = SeqCst)</a></li>
@@ -364,6 +410,24 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><a name="tryAcquire" href="#tryAcquire"><span>tryAcquire:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="spinlock: tryAcquire(s: var SpinLock): bool" href="sync/spinlock.html#tryAcquire%2CSpinLock">spinlock: tryAcquire(s: var SpinLock): bool</a></li>
+          </ul></dd>
+<dt><a name="tryPop" href="#tryPop"><span>tryPop:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc_queue: tryPop[T](this: var SpscQueue[T]; value: var T): bool" href="sync/spsc_queue.html#tryPop%2CSpscQueue%5BT%5D%2CT">spsc_queue: tryPop[T](this: var SpscQueue[T]; value: var T): bool</a></li>
+          </ul></dd>
+<dt><a name="tryPush" href="#tryPush"><span>tryPush:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc_queue: tryPush[T](this: var SpscQueue[T]; value: var Isolated[T]): bool" href="sync/spsc_queue.html#tryPush%2CSpscQueue%5BT%5D%2CIsolated%5BT%5D">spsc_queue: tryPush[T](this: var SpscQueue[T]; value: var Isolated[T]): bool</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="spsc_queue: tryPush[T](this: SpscQueue[T]; value: T): bool" href="sync/spsc_queue.html#tryPush.t%2CSpscQueue%5BT%5D%2CT">spsc_queue: tryPush[T](this: SpscQueue[T]; value: T): bool</a></li>
+          </ul></dd>
+<dt><a name="tryRecv" href="#tryRecv"><span>tryRecv:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc: tryRecv(self: SpscReceiver; dst: typed): bool" href="sync/spsc.html#tryRecv.t%2CSpscReceiver%2Ctyped">spsc: tryRecv(self: SpscReceiver; dst: typed): bool</a></li>
+          </ul></dd>
+<dt><a name="trySend" href="#trySend"><span>trySend:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="spsc: trySend(self: SpscSender; t: typed): bool" href="sync/spsc.html#trySend.t%2CSpscSender%2Ctyped">spsc: trySend(self: SpscSender; t: typed): bool</a></li>
           </ul></dd>
 <dt><a name="UniquePtr" href="#UniquePtr"><span>UniquePtr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -392,7 +456,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-13 12:36:13 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-07-14 05:53:55 UTC</small>
       </div>
     </div>
   </div>
