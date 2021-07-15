@@ -22,4 +22,4 @@ Acknowledgements
 
 - `Correctly implementing a spinlock in C++ <https://rigtorp.se/spinlock/>`_
 - `SPSCQueue.h <https://github.com/rigtorp/SPSCQueue>`_ A bounded single-producer
-  single-consumer wait-free and lock-free queue written in C++11
+  single-consumer wait-free and lock-free queue written in C++11, Erik Rigtorp
