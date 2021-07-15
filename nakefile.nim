@@ -5,8 +5,8 @@ task "docs", "Generate documentation":
   let
     sync = "sync"
     src = [
-      sync.addFileExt(".nim"), #sync / "atomics2.nim",
-      #sync / "barrier.nim", sync / "event.nim",
+      sync.addFileExt(".nim"),
+      #sync / "atomics2.nim", sync / "barrier.nim",
       #sync / "latch.nim", sync / "once.nim",
       #sync / "rwlock.nim", sync / "semaphore.nim",
       #sync / "smartptrs.nim", sync / "spinlock.nim",

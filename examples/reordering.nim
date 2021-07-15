@@ -6,7 +6,7 @@ import std/strformat, sync
 var
   t1, t2: Thread[void]
   # Semaphores for signaling threads
-  s1, s2: Event
+  s1, s2: Semaphore
   e: Semaphore
   # Variable for memory re-ordering
   v1, v2 = 0
