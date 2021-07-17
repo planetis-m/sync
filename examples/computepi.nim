@@ -40,7 +40,7 @@ proc work(w: WorkItem) =
   acquire(L)
   sum += localSum
   release(L)
-  # decriment the latch
+  # decrement the latch
   dec(latch)
 
 proc pi =
