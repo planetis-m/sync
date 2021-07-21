@@ -15,62 +15,62 @@ type
 
 template Pad: untyped = (cacheLineSize - 1) div sizeof(T) + 1
 
-proc `=destroy`*[T](this: var SpscQueue[T]) =
-  if this.data != nil:
+proc `=destroy`*[T](self: var SpscQueue[T]) =
+  if self.data != nil:
     when not supportsCopyMem(T):
-      let head = this.head.load(Acquire)
-      var tail = this.tail.load(Relaxed)
+      let head = self.head.load(Acquire)
+      var tail = self.tail.load(Relaxed)
       while tail != head:
-        `=destroy`(this.data[tail + Pad])
+        `=destroy`(self.data[tail + Pad])
         inc tail
-        if tail == this.cap:
+        if tail == self.cap:
           tail = 0
-    deallocShared(this.data)
+    deallocShared(self.data)
 
 proc `=copy`*[T](dest: var SpscQueue[T]; source: SpscQueue[T]) {.error.}
 
-proc init*[T](this: var SpscQueue[T]; capacity: Natural) =
-  this.cap = capacity + 1
-  this.data = cast[ptr UncheckedArray[T]](allocShared((this.cap + 2 * Pad) * sizeof(T)))
+proc init*[T](self: var SpscQueue[T]; capacity: Natural) =
+  self.cap = capacity + 1
+  self.data = cast[ptr UncheckedArray[T]](allocShared((self.cap + 2 * Pad) * sizeof(T)))
 
 proc newSpscQueue*[T](cap: int): SpscQueue[T] =
   init(result, cap)
 
-proc cap*[T](this: SpscQueue[T]): int = this.cap - 1
+proc cap*[T](self: SpscQueue[T]): int = self.cap - 1
 
-proc len*[T](this: SpscQueue[T]): int =
-  result = this.head.load(Acquire) - this.tail.load(Acquire)
+proc len*[T](self: SpscQueue[T]): int =
+  result = self.head.load(Acquire) - self.tail.load(Acquire)
   if result < 0:
-    result += this.cap
+    result += self.cap
 
-proc tryPush*[T](this: var SpscQueue[T]; value: var Isolated[T]): bool {.
+proc tryPush*[T](self: var SpscQueue[T]; value: var Isolated[T]): bool {.
     nodestroy.} =
-  let head = this.head.load(Relaxed)
+  let head = self.head.load(Relaxed)
   var nextHead = head + 1
-  if nextHead == this.cap:
+  if nextHead == self.cap:
     nextHead = 0
-  if nextHead == this.tail.load(Acquire):
+  if nextHead == self.tail.load(Acquire):
     result = false
   else:
-    this.data[head + Pad] = extract value
-    this.head.store(nextHead, Release)
+    self.data[head + Pad] = extract value
+    self.head.store(nextHead, Release)
     result = true
 
-template tryPush*[T](this: SpscQueue[T]; value: T): bool =
+template tryPush*[T](self: SpscQueue[T]; value: T): bool =
   ## .. warning:: Using this template in a loop causes multiple evaluations of `value`.
   var p = isolate(value)
-  tryPush(this, p)
+  tryPush(self, p)
 
-proc tryPop*[T](this: var SpscQueue[T]; value: var T): bool =
-  let tail = this.tail.load(Relaxed)
-  if tail == this.head.load(Acquire):
+proc tryPop*[T](self: var SpscQueue[T]; value: var T): bool =
+  let tail = self.tail.load(Relaxed)
+  if tail == self.head.load(Acquire):
     result = false
   else:
-    value = move this.data[tail + Pad]
+    value = move self.data[tail + Pad]
     var nextTail = tail + 1
-    if nextTail == this.cap:
+    if nextTail == self.cap:
       nextTail = 0
-    this.tail.store(nextTail, Release)
+    self.tail.store(nextTail, Release)
     result = true
 
 when isMainModule:

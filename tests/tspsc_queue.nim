@@ -23,6 +23,7 @@ proc pongFn {.thread.} =
     pushLoop(q2, n): cpuRelax()
     #sleep 20
     if n == 0: break
+    assert n == 9091_89
 
 proc pingPong =
   q1 = newSpscQueue[int](50)
@@ -33,9 +34,11 @@ proc pingPong =
     var n: int
     #sleep 10
     popLoop(q2, n): cpuRelax()
+    assert n == 9091_89
   pushLoop(q1, 0): cpuRelax()
   var n: int
   popLoop(q2, n): cpuRelax()
+  assert n == 0
   pong.joinThread()
 
 pingPong()
