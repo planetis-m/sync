@@ -15,6 +15,7 @@ proc trySend*[T](self: SpscSender, t: var Isolated[T]): bool {.inline.} =
 
 template trySend*[T](self: SpscSender[T]; value: T): bool =
   ## .. warning:: Using this template in a loop causes multiple evaluations of `value`.
+  mixin isolate
   var p = isolate(value)
   trySend(self, p)
 
