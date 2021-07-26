@@ -9,7 +9,10 @@ type
   SpscQueue*[T] = object
     cap: int
     data: ptr UncheckedArray[T]
-    head, tail {.align(cacheLineSize).}: Atomic[int]
+    head {.align(cacheLineSize).}: Atomic[int]
+    cachedTail {.align(cacheLineSize).}: int
+    tail {.align(cacheLineSize).}: Atomic[int]
+    cachedHead {.align(cacheLineSize).}: int
     # Padding to avoid adjacent allocations to share cache line with tail
     padding: array[cacheLineSize - sizeof(Atomic[int]), byte]
 
@@ -49,8 +52,10 @@ proc tryPush*[T](self: var SpscQueue[T]; value: var Isolated[T]): bool {.
   var nextHead = head + 1
   if nextHead == self.cap:
     nextHead = 0
-  if nextHead == self.tail.load(Acquire):
-    result = false
+  if nextHead == self.cachedTail:
+    self.cachedTail = self.tail.load(Acquire)
+    if nextHead == self.cachedTail:
+      result = false
   else:
     self.data[head + Pad] = extract value
     self.head.store(nextHead, Release)
@@ -64,8 +69,10 @@ template tryPush*[T](self: SpscQueue[T]; value: T): bool =
 
 proc tryPop*[T](self: var SpscQueue[T]; value: var T): bool =
   let tail = self.tail.load(Relaxed)
-  if tail == self.head.load(Acquire):
-    result = false
+  if tail == self.cachedHead:
+    self.cachedHead = self.head.load(Acquire)
+    if tail == self.cachedHead:
+      result = false
   else:
     value = move self.data[tail + Pad]
     var nextTail = tail + 1
