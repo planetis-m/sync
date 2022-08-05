@@ -6,11 +6,11 @@ task "docs", "Generate documentation":
     sync = "sync"
     src = [
       sync.addFileExt(".nim"),
-      #sync / "atomics2.nim", sync / "barrier.nim",
-      #sync / "latch.nim", sync / "once.nim",
-      #sync / "rwlock.nim", sync / "semaphore.nim",
-      #sync / "smartptrs.nim", sync / "spinlock.nim",
-      #sync / "spsc.nim", sync / "spsc_queue.nim"
+      sync / "atomics2.nim", sync / "barrier.nim",
+      sync / "latch.nim", sync / "once.nim",
+      sync / "rwlock.nim", sync / "semaphore.nim",
+      sync / "smartptrs.nim", sync / "spinlock.nim",
+      sync / "spsc.nim", sync / "spsc_queue.nim"
     ]
     dir = "docs/"
     doc = dir / sync.addFileExt(".html")
@@ -28,4 +28,5 @@ task "test", "Run the tests":
   withDir("tests/"):
     for f in walkFiles("t*.nim"):
       echo "Running test ", f, "..."
-      direShell(nimExe, &"c -r --gc:orc --panics:on --threads:on --threadanalysis:off --tlsEmulation:off --hints:off -w:off --path:../ {f}")
+      direShell(nimExe,
+          "c -r --gc:orc --panics:on --threads:on --threadanalysis:off --tlsEmulation:off --hints:off -w:off --path:../", f)
