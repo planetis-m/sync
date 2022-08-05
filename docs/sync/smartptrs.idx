@@ -1,0 +1,29 @@
+UniquePtr	sync/smartptrs.html#UniquePtr	smartptrs: UniquePtr	
+`=destroy`	sync/smartptrs.html#=destroy,UniquePtr[T]	smartptrs: `=destroy`[T](p: var UniquePtr[T])	
+`=copy`	sync/smartptrs.html#=copy,UniquePtr[T],UniquePtr[T]	smartptrs: `=copy`[T](dest: var UniquePtr[T]; src: UniquePtr[T])	
+newUniquePtr	sync/smartptrs.html#newUniquePtr,sinkIsolated[T]	smartptrs: newUniquePtr[T](val: sink Isolated[T]): UniquePtr[T]	
+newUniquePtr	sync/smartptrs.html#newUniquePtr.t,T	smartptrs: newUniquePtr[T](val: T): UniquePtr[T]	
+newUniquePtr	sync/smartptrs.html#newUniquePtr,typedesc[T]	smartptrs: newUniquePtr[T](t: typedesc[T]): UniquePtr[T]	
+isNil	sync/smartptrs.html#isNil,UniquePtr[T]	smartptrs: isNil[T](p: UniquePtr[T]): bool	
+`[]`	sync/smartptrs.html#[],UniquePtr[T]	smartptrs: `[]`[T](p: UniquePtr[T]): var T	
+`[]=`	sync/smartptrs.html#[]=,UniquePtr[T],sinkIsolated[T]	smartptrs: `[]=`[T](p: UniquePtr[T]; val: sink Isolated[T])	
+`[]=`	sync/smartptrs.html#[]=.t,UniquePtr[T],T	smartptrs: `[]=`[T](p: UniquePtr[T]; val: T)	
+`$`	sync/smartptrs.html#$,UniquePtr[T]	smartptrs: `$`[T](p: UniquePtr[T]): string	
+SharedPtr	sync/smartptrs.html#SharedPtr	smartptrs: SharedPtr	
+`=destroy`	sync/smartptrs.html#=destroy,SharedPtr[T]	smartptrs: `=destroy`[T](p: var SharedPtr[T])	
+`=copy`	sync/smartptrs.html#=copy,SharedPtr[T],SharedPtr[T]	smartptrs: `=copy`[T](dest: var SharedPtr[T]; src: SharedPtr[T])	
+newSharedPtr	sync/smartptrs.html#newSharedPtr,sinkIsolated[T]	smartptrs: newSharedPtr[T](val: sink Isolated[T]): SharedPtr[T]	
+newSharedPtr	sync/smartptrs.html#newSharedPtr.t,T	smartptrs: newSharedPtr[T](val: T): SharedPtr[T]	
+newSharedPtr	sync/smartptrs.html#newSharedPtr,typedesc[T]	smartptrs: newSharedPtr[T](t: typedesc[T]): SharedPtr[T]	
+isNil	sync/smartptrs.html#isNil,SharedPtr[T]	smartptrs: isNil[T](p: SharedPtr[T]): bool	
+`[]`	sync/smartptrs.html#[],SharedPtr[T]	smartptrs: `[]`[T](p: SharedPtr[T]): var T	
+`[]=`	sync/smartptrs.html#[]=,SharedPtr[T],sinkIsolated[T]	smartptrs: `[]=`[T](p: SharedPtr[T]; val: sink Isolated[T])	
+`[]=`	sync/smartptrs.html#[]=.t,SharedPtr[T],T	smartptrs: `[]=`[T](p: SharedPtr[T]; val: T)	
+`$`	sync/smartptrs.html#$,SharedPtr[T]	smartptrs: `$`[T](p: SharedPtr[T]): string	
+ConstPtr	sync/smartptrs.html#ConstPtr	smartptrs: ConstPtr	
+newConstPtr	sync/smartptrs.html#newConstPtr,sinkIsolated[T]	smartptrs: newConstPtr[T](val: sink Isolated[T]): ConstPtr[T]	
+newConstPtr	sync/smartptrs.html#newConstPtr.t,T	smartptrs: newConstPtr[T](val: T): ConstPtr[T]	
+isNil	sync/smartptrs.html#isNil,ConstPtr[T]	smartptrs: isNil[T](p: ConstPtr[T]): bool	
+`[]`	sync/smartptrs.html#[],ConstPtr[T]	smartptrs: `[]`[T](p: ConstPtr[T]): lent T	
+`[]=`	sync/smartptrs.html#[]=,ConstPtr[T],T	smartptrs: `[]=`[T](p: ConstPtr[T]; v: T)	
+`$`	sync/smartptrs.html#$,ConstPtr[T]	smartptrs: `$`[T](p: ConstPtr[T]): string	

@@ -1,0 +1,7 @@
+Latch	sync/latch.html#Latch	latch: Latch	
+`=destroy`	sync/latch.html#=destroy,Latch	latch: `=destroy`(x: var Latch)	
+`=sink`	sync/latch.html#=sink,Latch,Latch	latch: `=sink`(dest: var Latch; source: Latch)	
+`=copy`	sync/latch.html#=copy,Latch,Latch	latch: `=copy`(dest: var Latch; source: Latch)	
+init	sync/latch.html#init,Latch,Natural	latch: init(x: var Latch; count: Natural)	
+dec	sync/latch.html#dec,Latch	latch: dec(x: var Latch)	
+wait	sync/latch.html#wait,Latch	latch: wait(x: var Latch)	

@@ -11,3 +11,7 @@
 # Exclude source code files in subdirectories
 !/*/*.nim
 !/*/*.rst
+# Exclude docs
+!/*/*.js
+!/*/*.html
+!/*/*.css

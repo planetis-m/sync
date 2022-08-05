@@ -1,0 +1,8 @@
+SpscSender	sync/spsc.html#SpscSender	spsc: SpscSender	
+newSpscSender	sync/spsc.html#newSpscSender,sinkSharedPtr[SpscQueue[T]]	spsc: newSpscSender[T](queue: sink SharedPtr[SpscQueue[T]]): SpscSender[T]	
+trySend	sync/spsc.html#trySend,SpscSender,Isolated[T]	spsc: trySend[T](self: SpscSender; t: var Isolated[T]): bool	
+trySend	sync/spsc.html#trySend.t,SpscSender[T],T	spsc: trySend[T](self: SpscSender[T]; value: T): bool	
+SpscReceiver	sync/spsc.html#SpscReceiver	spsc: SpscReceiver	
+newSpscReceiver	sync/spsc.html#newSpscReceiver,sinkSharedPtr[SpscQueue[T]]	spsc: newSpscReceiver[T](queue: sink SharedPtr[SpscQueue[T]]): SpscReceiver[T]	
+tryRecv	sync/spsc.html#tryRecv,SpscReceiver,T	spsc: tryRecv[T](self: SpscReceiver; dst: var T): bool	
+newSpscChannel	sync/spsc.html#newSpscChannel,int	spsc: newSpscChannel[T](cap: int): (SpscSender[T], SpscReceiver[T])	
