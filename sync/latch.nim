@@ -15,7 +15,7 @@ proc `=destroy`*(x: var Latch) =
 proc `=sink`*(dest: var Latch; source: Latch) {.error.}
 proc `=copy`*(dest: var Latch; source: Latch) {.error.}
 
-proc init*(x: var Latch, count: Natural) =
+proc init*(x: out Latch, count: Natural) =
   x.counter = count
   initCond(x.c)
   initLock(x.L)

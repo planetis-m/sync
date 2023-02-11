@@ -32,7 +32,7 @@ proc `=destroy`*[T](self: var SpscQueue[T]) =
 
 proc `=copy`*[T](dest: var SpscQueue[T]; source: SpscQueue[T]) {.error.}
 
-proc init*[T](self: var SpscQueue[T]; capacity: Natural) =
+proc init*[T](self: out SpscQueue[T]; capacity: Natural) =
   self.cap = capacity + 1
   self.data = cast[ptr UncheckedArray[T]](allocShared((self.cap + 2 * Pad) * sizeof(T)))
 

@@ -28,7 +28,7 @@ type
 proc newSpscReceiver*[T](queue: sink SharedPtr[SpscQueue[T]]): SpscReceiver[T] =
   result = SpscReceiver[T](queue: queue)
 
-proc tryRecv*[T](self: SpscReceiver; dst: var T): bool {.inline.} =
+proc tryRecv*[T](self: SpscReceiver; dst: out T): bool {.inline.} =
   self.queue[].tryPop(dst)
 
 proc newSpscChannel*[T](cap: int): (SpscSender[T], SpscReceiver[T]) =

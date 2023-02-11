@@ -17,7 +17,7 @@ proc `=destroy`*(b: var Barrier) =
 proc `=sink`*(dest: var Barrier; source: Barrier) {.error.}
 proc `=copy`*(dest: var Barrier; source: Barrier) {.error.}
 
-proc init*(b: var Barrier; parties: Natural) =
+proc init*(b: out Barrier; parties: Natural) =
   b.required = parties
   b.left = parties
   b.cycle = 0
