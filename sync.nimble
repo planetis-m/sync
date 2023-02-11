@@ -21,9 +21,9 @@ task docs, "Generate documentation":
   withDir(PkgDir):
     let src = "sync.nim"
     # Generate the docs for {src}
-    exec("nim doc --verbosity:0 --git.url:" & ProjectUrl &
+    exec("nim doc --project --verbosity:0 --git.url:" & ProjectUrl &
         " --git.devel:main --git.commit:main --out:" & DocsDir & " " & src)
-    # mvFile("theindex.html", "index.html")
+    mvFile("theindex.html", "index.html")
 
 task test, "Run the tests":
   withDir(PkgDir):

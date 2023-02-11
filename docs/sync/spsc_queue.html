@@ -11,10 +11,6 @@
 <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAUAAAAF////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAIAAABbAAAAlQAAAKIAAACbAAAAmwAAAKIAAACVAAAAWwAAAAL///8A////AP///wD///8A////AAAAABQAAADAAAAAYwAAAA3///8A////AP///wD///8AAAAADQAAAGMAAADAAAAAFP///wD///8A////AP///wAAAACdAAAAOv///wD///8A////AP///wD///8A////AP///wD///8AAAAAOgAAAJ3///8A////AP///wAAAAAnAAAAcP///wAAAAAoAAAASv///wD///8A////AP///wAAAABKAAAAKP///wAAAABwAAAAJ////wD///8AAAAAgQAAABwAAACIAAAAkAAAAJMAAACtAAAAFQAAABUAAACtAAAAkwAAAJAAAACIAAAAHAAAAIH///8A////AAAAAKQAAACrAAAAaP///wD///8AAAAARQAAANIAAADSAAAARf///wD///8AAAAAaAAAAKsAAACk////AAAAADMAAACcAAAAnQAAABj///8A////AP///wAAAAAYAAAAGP///wD///8A////AAAAABgAAACdAAAAnAAAADMAAAB1AAAAwwAAAP8AAADpAAAAsQAAAE4AAAAb////AP///wAAAAAbAAAATgAAALEAAADpAAAA/wAAAMMAAAB1AAAAtwAAAOkAAAD/AAAA/wAAAP8AAADvAAAA3gAAAN4AAADeAAAA3gAAAO8AAAD/AAAA/wAAAP8AAADpAAAAtwAAAGUAAAA/AAAA3wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAADfAAAAPwAAAGX///8A////AAAAAEgAAADtAAAAvwAAAL0AAADGAAAA7wAAAO8AAADGAAAAvQAAAL8AAADtAAAASP///wD///8A////AP///wD///8AAAAAO////wD///8A////AAAAAIcAAACH////AP///wD///8AAAAAO////wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A//8AAP//AAD4HwAA7/cAAN/7AAD//wAAoYUAAJ55AACf+QAAh+EAAAAAAADAAwAA4AcAAP5/AAD//wAA//8AAA=="/>
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
-<!-- Google fonts -->
-<link href='https://fonts.googleapis.com/css?family=Lato:400,600,900' rel='stylesheet' type='text/css'/>
-<link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
-
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="../nimdoc.out.css">
 
@@ -27,16 +23,17 @@
       <h1 class="title">sync/spsc_queue</h1>
       <div class="row">
   <div class="three columns">
-    <div class="theme-switch-wrapper">
-      <label class="theme-switch" for="checkbox">
-        <input type="checkbox" id="checkbox" />
-        <div class="slider round"></div>
-      </label>
-      &nbsp;&nbsp;&nbsp; <em>Dark Mode</em>
+    <div class="theme-select-wrapper">
+      <label for="theme-select">Theme:&nbsp;</label>
+      <select id="theme-select" onchange="setTheme(this.value)">
+        <option value="auto">🌗 Match OS</option>
+        <option value="dark">🌑 Dark</option>
+        <option value="light">🌕 Light</option>
+      </select>
     </div>
     <div id="global-links">
       <ul class="simple">
-        <li><a href="../theindex.html">Index</a></li>
+        <li><a id="indexLink" href="../theindex.html">Index</a></li>
       </ul>
     </div>
     <div id="searchInputDiv">
@@ -57,14 +54,7 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#SpscQueue" title="SpscQueue[T] = object
-  cap: int
-  data: ptr UncheckedArray[T]
-  head {.align(64).}: Atomic[int]
-  cachedTail {.align(64).}: int
-  tail {.align(64).}: Atomic[int]
-  cachedHead {.align(64).}: int
-  padding: array[64 - 8, byte]">SpscQueue</a></li>
+      <li><a class="reference" href="#SpscQueue" title="SpscQueue[T] = object">SpscQueue</a></li>
 
     </ul>
   </details>
@@ -86,7 +76,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">init
-  <li><a class="reference" href="#init%2CSpscQueue%5BT%5D%2CNatural" title="init[T](self: var SpscQueue[T]; capacity: Natural)">init[T](self: var SpscQueue[T]; capacity: Natural)</a></li>
+  <li><a class="reference" href="#init%2C%2CNatural" title="init[T](self: out SpscQueue[T]; capacity: Natural)">init[T](self: out SpscQueue[T]; capacity: Natural)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">len
@@ -126,8 +116,8 @@
 
   </div>
   <div class="nine columns" id="content">
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L1" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L1" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L1" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L1" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
     <div id="tocRoot"></div>
     
@@ -143,19 +133,12 @@
   <dl class="item">
     <div id="SpscQueue">
   <dt><pre><a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">cap</span><span class="Other">:</span> <span class="Identifier">int</span>
-  <span class="Identifier">data</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">UncheckedArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span>
-  <span class="Identifier">head</span> {.<span class="Identifier">align</span><span class="Other">(</span><span class="DecNumber">64</span><span class="Other">)</span>.}<span class="Other">:</span> <a href="atomics2.html#Atomic"><span class="Identifier">Atomic</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span>
-  <span class="Identifier">cachedTail</span> {.<span class="Identifier">align</span><span class="Other">(</span><span class="DecNumber">64</span><span class="Other">)</span>.}<span class="Other">:</span> <span class="Identifier">int</span>
-  <span class="Identifier">tail</span> {.<span class="Identifier">align</span><span class="Other">(</span><span class="DecNumber">64</span><span class="Other">)</span>.}<span class="Other">:</span> <a href="atomics2.html#Atomic"><span class="Identifier">Atomic</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span>
-  <span class="Identifier">cachedHead</span> {.<span class="Identifier">align</span><span class="Other">(</span><span class="DecNumber">64</span><span class="Other">)</span>.}<span class="Other">:</span> <span class="Identifier">int</span>
-  <span class="Identifier">padding</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="DecNumber">64</span> <span class="Operator">-</span> <span class="DecNumber">8</span><span class="Other">,</span> <span class="Identifier">byte</span><span class="Other">]</span>
-</pre></dt>
+  </pre></dt>
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -171,8 +154,8 @@
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -184,8 +167,8 @@
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -197,21 +180,21 @@
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L42" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L42" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L42" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L42" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="init-procs-all">
-  <div id="init,SpscQueue[T],Natural">
-  <dt><pre><span class="Keyword">proc</span> <a href="#init%2CSpscQueue%5BT%5D%2CNatural"><span class="Identifier">init</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">capacity</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span></pre></dt>
+  <div id="init,,Natural">
+  <dt><pre><span class="Keyword">proc</span> <a href="#init%2C%2CNatural"><span class="Identifier">init</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="spsc_queue.html#SpscQueue"><span class="Identifier">SpscQueue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">capacity</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -223,8 +206,8 @@
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L44" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L44" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L44" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L44" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -236,8 +219,8 @@
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L39" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L39" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L39" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L39" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -249,8 +232,8 @@
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L69" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L69" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L69" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L69" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -263,8 +246,8 @@
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -284,8 +267,8 @@
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
 Using this template in a loop causes multiple evaluations of <tt class="docutils literal"><span class="pre"><span class="Identifier">value</span></span></tt>.</div>
 
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/spsc_queue.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/spsc_queue.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/main/sync/spsc_queue.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/main/sync/spsc_queue.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -301,10 +284,13 @@ Using this template in a loop causes multiple evaluations of <tt class="docutils
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-08-17 08:20:58 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-02-11 19:00:41 UTC</small>
       </div>
     </div>
   </div>
   
+  <!-- Google fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,600,900' rel='stylesheet' type='text/css'/>
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 </body>
 </html>
