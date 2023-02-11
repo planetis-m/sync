@@ -51,12 +51,7 @@
     </div>
     <ul class="simple simple-toc" id="toc-list">
   <li>
-  <details open>
-    <summary><a class="reference reference-toplevel" href="#6" id="56">Imports</a></summary>
-    <ul class="simple simple-toc-section">
-      
-    </ul>
-  </details>
+  <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
 </li>
 <li>
   <details open>
@@ -174,7 +169,7 @@
 </div>
 <div id="acquire-procs-all">
   <div id="acquire,SpinLock">
-  <dt><pre><span class="Keyword">proc</span> <a href="#acquire%2CSpinLock"><span class="Identifier">acquire</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="spinlock.html#SpinLock"><span class="Identifier">SpinLock</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#acquire%2CSpinLock"><span class="Identifier">acquire</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="spinlock.html#SpinLock"><span class="Identifier">SpinLock</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> </span><span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span>.}</pre></dt>
   <dd>
     
     
@@ -187,7 +182,7 @@
 </div>
 <div id="release-procs-all">
   <div id="release,SpinLock">
-  <dt><pre><span class="Keyword">proc</span> <a href="#release%2CSpinLock"><span class="Identifier">release</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="spinlock.html#SpinLock"><span class="Identifier">SpinLock</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#release%2CSpinLock"><span class="Identifier">release</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="spinlock.html#SpinLock"><span class="Identifier">SpinLock</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> </span><span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span>.}</pre></dt>
   <dd>
     
     
@@ -200,7 +195,7 @@
 </div>
 <div id="tryAcquire-procs-all">
   <div id="tryAcquire,SpinLock">
-  <dt><pre><span class="Keyword">proc</span> <a href="#tryAcquire%2CSpinLock"><span class="Identifier">tryAcquire</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="spinlock.html#SpinLock"><span class="Identifier">SpinLock</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#tryAcquire%2CSpinLock"><span class="Identifier">tryAcquire</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="spinlock.html#SpinLock"><span class="Identifier">SpinLock</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> </span><span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span>.}</pre></dt>
   <dd>
     
     
@@ -240,7 +235,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-08-05 06:20:52 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-08-17 08:20:58 UTC</small>
       </div>
     </div>
   </div>

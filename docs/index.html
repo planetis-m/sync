@@ -25,7 +25,7 @@
   <div class="document" id="documentId">
     <div class="container">
       <h1 class="title">Index</h1>
-      Modules: <a href="sync/atomics2.html">sync/atomics2</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/latch.html">sync/latch</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>, <a href="sync/spinlock.html">sync/spinlock</a>, <a href="sync/spsc.html">sync/spsc</a>, <a href="sync/spsc_queue.html">sync/spsc_queue</a>.<br/><p /><h2>API symbols</h2>
+      Modules: <a href="sync/atomics2.html">sync/atomics2</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/channels.html">sync/channels</a>, <a href="sync/latch.html">sync/latch</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>, <a href="sync/spinlock.html">sync/spinlock</a>, <a href="sync/spsc.html">sync/spsc</a>, <a href="sync/spsc_queue.html">sync/spsc_queue</a>.<br/><p /><h2>API symbols</h2>
 <dl><dt><a name="%60%24%60" href="#%60%24%60"><span>`$`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: `$`[T](p: ConstPtr[T]): string" href="sync/smartptrs.html#%24%2CConstPtr%5BT%5D">smartptrs: `$`[T](p: ConstPtr[T]): string</a></li>
@@ -48,6 +48,8 @@
           <li><a class="reference external"
           data-doc-search-tag="barrier: `=copy`(dest: var Barrier; source: Barrier)" href="sync/barrier.html#%3Dcopy%2CBarrier%2CBarrier">barrier: `=copy`(dest: var Barrier; source: Barrier)</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="channels: `=copy`[T](dest: var Chan[T]; src: Chan[T])" href="sync/channels.html#%3Dcopy%2CChan%5BT%5D%2CChan%5BT%5D">channels: `=copy`[T](dest: var Chan[T]; src: Chan[T])</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="latch: `=copy`(dest: var Latch; source: Latch)" href="sync/latch.html#%3Dcopy%2CLatch%2CLatch">latch: `=copy`(dest: var Latch; source: Latch)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="rwlock: `=copy`(dest: var RwLock; source: RwLock)" href="sync/rwlock.html#%3Dcopy%2CRwLock%2CRwLock">rwlock: `=copy`(dest: var RwLock; source: RwLock)</a></li>
@@ -65,6 +67,8 @@
 <dt><a name="%60%3Ddestroy%60" href="#%60%3Ddestroy%60"><span>`=destroy`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="barrier: `=destroy`(b: var Barrier)" href="sync/barrier.html#%3Ddestroy%2CBarrier">barrier: `=destroy`(b: var Barrier)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="channels: `=destroy`[T](c: var Chan[T])" href="sync/channels.html#%3Ddestroy%2CChan%5BT%5D">channels: `=destroy`[T](c: var Chan[T])</a></li>
           <li><a class="reference external"
           data-doc-search-tag="latch: `=destroy`(x: var Latch)" href="sync/latch.html#%3Ddestroy%2CLatch">latch: `=destroy`(x: var Latch)</a></li>
           <li><a class="reference external"
@@ -145,6 +149,14 @@
 <dt><a name="cap" href="#cap"><span>cap:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="spsc_queue: cap[T](self: SpscQueue[T]): int" href="sync/spsc_queue.html#cap%2CSpscQueue%5BT%5D">spsc_queue: cap[T](self: SpscQueue[T]): int</a></li>
+          </ul></dd>
+<dt><a name="Chan" href="#Chan"><span>Chan:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="channels: Chan" href="sync/channels.html#Chan">channels: Chan</a></li>
+          </ul></dd>
+<dt><a name="close" href="#close"><span>close:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="channels: close[T](c: Chan[T])" href="sync/channels.html#close%2CChan%5BT%5D">channels: close[T](c: Chan[T])</a></li>
           </ul></dd>
 <dt><a name="compareExchange" href="#compareExchange"><span>compareExchange:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -250,6 +262,10 @@
 <li><a class="reference external"
           data-doc-search-tag="atomics2: load[T](location: var Atomic[T]; order: Ordering = SeqCst): T" href="sync/atomics2.html#load%2CAtomic%5BT%5D%2COrdering">atomics2: load[T](location: var Atomic[T]; order: Ordering = SeqCst): T</a></li>
           </ul></dd>
+<dt><a name="newChan" href="#newChan"><span>newChan:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="channels: newChan[T](elements = 30): Chan[T]" href="sync/channels.html#newChan%2Cint">channels: newChan[T](elements = 30): Chan[T]</a></li>
+          </ul></dd>
 <dt><a name="newConstPtr" href="#newConstPtr"><span>newConstPtr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: newConstPtr[T](val: sink Isolated[T]): ConstPtr[T]" href="sync/smartptrs.html#newConstPtr%2CsinkIsolated%5BT%5D">smartptrs: newConstPtr[T](val: sink Isolated[T]): ConstPtr[T]</a></li>
@@ -300,9 +316,21 @@
 <li><a class="reference external"
           data-doc-search-tag="atomics2: Ordering" href="sync/atomics2.html#Ordering">atomics2: Ordering</a></li>
           </ul></dd>
+<dt><a name="peek" href="#peek"><span>peek:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="channels: peek[T](c: Chan[T]): int" href="sync/channels.html#peek%2CChan%5BT%5D">channels: peek[T](c: Chan[T]): int</a></li>
+          </ul></dd>
 <dt><a name="readWith" href="#readWith"><span>readWith:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="rwlock: readWith(a: RwLock; body: untyped)" href="sync/rwlock.html#readWith.t%2CRwLock%2Cuntyped">rwlock: readWith(a: RwLock; body: untyped)</a></li>
+          </ul></dd>
+<dt><a name="recv" href="#recv"><span>recv:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="channels: recv[T](c: Chan[T]; dst: var T)" href="sync/channels.html#recv%2CChan%5BT%5D%2CT">channels: recv[T](c: Chan[T]; dst: var T)</a></li>
+          </ul></dd>
+<dt><a name="recvIso" href="#recvIso"><span>recvIso:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="channels: recvIso[T](c: Chan[T]): Isolated[T]" href="sync/channels.html#recvIso%2CChan%5BT%5D">channels: recvIso[T](c: Chan[T]): Isolated[T]</a></li>
           </ul></dd>
 <dt><a name="release" href="#release"><span>release:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -315,6 +343,12 @@
 <dt><a name="Semaphore" href="#Semaphore"><span>Semaphore:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="semaphore: Semaphore" href="sync/semaphore.html#Semaphore">semaphore: Semaphore</a></li>
+          </ul></dd>
+<dt><a name="send" href="#send"><span>send:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="channels: send[T](c: Chan[T]; src: sink Isolated[T])" href="sync/channels.html#send%2CChan%5BT%5D%2CsinkIsolated%5BT%5D">channels: send[T](c: Chan[T]; src: sink Isolated[T])</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="channels: send[T](c: Chan[T]; src: T)" href="sync/channels.html#send.t%2CChan%5BT%5D%2CT">channels: send[T](c: Chan[T]; src: T)</a></li>
           </ul></dd>
 <dt><a name="SharedPtr" href="#SharedPtr"><span>SharedPtr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -360,10 +394,16 @@
           </ul></dd>
 <dt><a name="tryRecv" href="#tryRecv"><span>tryRecv:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="channels: tryRecv[T](c: Chan[T]; dst: var T): bool" href="sync/channels.html#tryRecv%2CChan%5BT%5D%2CT">channels: tryRecv[T](c: Chan[T]; dst: var T): bool</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="spsc: tryRecv[T](self: SpscReceiver; dst: var T): bool" href="sync/spsc.html#tryRecv%2CSpscReceiver%2CT">spsc: tryRecv[T](self: SpscReceiver; dst: var T): bool</a></li>
           </ul></dd>
 <dt><a name="trySend" href="#trySend"><span>trySend:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="channels: trySend[T](c: Chan[T]; src: var Isolated[T]): bool" href="sync/channels.html#trySend%2CChan%5BT%5D%2CIsolated%5BT%5D">channels: trySend[T](c: Chan[T]; src: var Isolated[T]): bool</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="channels: trySend[T](c: Chan[T]; src: T): bool" href="sync/channels.html#trySend.t%2CChan%5BT%5D%2CT">channels: trySend[T](c: Chan[T]; src: T): bool</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="spsc: trySend[T](self: SpscSender; t: var Isolated[T]): bool" href="sync/spsc.html#trySend%2CSpscSender%2CIsolated%5BT%5D">spsc: trySend[T](self: SpscSender; t: var Isolated[T]): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="spsc: trySend[T](self: SpscSender[T]; value: T): bool" href="sync/spsc.html#trySend.t%2CSpscSender%5BT%5D%2CT">spsc: trySend[T](self: SpscSender[T]; value: T): bool</a></li>
@@ -392,7 +432,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-08-05 06:20:52 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-08-17 08:20:58 UTC</small>
       </div>
     </div>
   </div>
