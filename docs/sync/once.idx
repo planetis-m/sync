@@ -1,4 +1,0 @@
-Once	sync/once.html#Once	once: Once	
-init	sync/once.html#init,Once	once: init(o: var Once)	
-`=destroy`	sync/once.html#=destroy,Once	once: `=destroy`(o: var Once)	
-once	sync/once.html#once.t,Once,untyped	once: once(o: Once; body: untyped)	
