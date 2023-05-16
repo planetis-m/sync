@@ -7,6 +7,8 @@
 #    distribution, for details about the copyright.
 #
 
+{.deprecated: "Use the 'std/atomics' module instead".}
+
 ## Types and operations for atomic operations and lockless algorithms.
 runnableExamples("--threads:on"):
   # Atomic
@@ -71,11 +73,11 @@ type
 type
   Atomic*[T: AtomType] = distinct T ## An atomic object with underlying type `T`.
 
-proc `=copy`*[T](dst: var Atomic[T]; src: Atomic[T]) =
-  atomicStoreN(addr T(dst), T(src), AtomicSeqCst)
-
-proc `=sink`*[T](dst: var Atomic[T]; src: Atomic[T]) =
-  atomicStoreN(addr T(dst), T(src), AtomicSeqCst)
+# proc `=copy`*[T](dst: var Atomic[T]; src: Atomic[T]) =
+#   atomicStoreN(addr T(dst), T(src), AtomicSeqCst)
+#
+# proc `=sink`*[T](dst: var Atomic[T]; src: Atomic[T]) =
+#   atomicStoreN(addr T(dst), T(src), AtomicSeqCst)
 
 proc load*[T](location: var Atomic[T]; order: Ordering = SeqCst): T =
   ## Atomically obtains the value of the atomic object.
