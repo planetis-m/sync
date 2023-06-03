@@ -8,6 +8,7 @@ type
 
 proc `=sink`*(dest: var SpinLock; source: SpinLock) {.error.}
 proc `=copy`*(dest: var SpinLock; source: SpinLock) {.error.}
+proc `=dup`*(source: SpinLock): SpinLock {.error.}
 
 proc acquire*(s: var SpinLock) =
   while true:

@@ -11,6 +11,10 @@ proc init*(o: var Once) =
   bool(o.finished) = false
   initLock(o.L)
 
+proc `=sink`*(dest: var Once; source: Once) {.error.}
+proc `=copy`*(dest: var Once; source: Once) {.error.}
+proc `=dup`*(source: Once): Once {.error.}
+
 proc `=destroy`*(o: var Once) =
   deinitLock(o.L)
 

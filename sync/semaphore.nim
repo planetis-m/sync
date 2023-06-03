@@ -14,6 +14,7 @@ proc `=destroy`*(s: var Semaphore) =
 
 proc `=sink`*(dest: var Semaphore; source: Semaphore) {.error.}
 proc `=copy`*(dest: var Semaphore; source: Semaphore) {.error.}
+proc `=dup`*(source: Semaphore): Semaphore {.error.}
 
 proc init*(s: out Semaphore; count = 0) =
   s.counter = count

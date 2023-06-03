@@ -6,6 +6,7 @@ type
     queue: SharedPtr[SpscQueue[T]]
 
 #proc `=copy`*[T](dest: var SpscSender[T]; source: SpscSender[T]) {.error.}
+#proc `=dup`*[T](source: SpscSender[T]): SpscSender[T] {.error.}
 
 proc newSpscSender*[T](queue: sink SharedPtr[SpscQueue[T]]): SpscSender[T] =
   result = SpscSender[T](queue: queue)
@@ -24,6 +25,7 @@ type
     queue: SharedPtr[SpscQueue[T]]
 
 #proc `=copy`*[T](dest: var SpscReceiver[T]; source: SpscReceiver[T]) {.error.}
+#proc `=dup`*[T](source: SpscReceiver[T]): SpscReceiver[T] {.error.}
 
 proc newSpscReceiver*[T](queue: sink SharedPtr[SpscQueue[T]]): SpscReceiver[T] =
   result = SpscReceiver[T](queue: queue)

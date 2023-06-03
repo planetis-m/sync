@@ -31,6 +31,7 @@ proc `=destroy`*[T](self: var SpscQueue[T]) =
     deallocShared(self.data)
 
 proc `=copy`*[T](dest: var SpscQueue[T]; source: SpscQueue[T]) {.error.}
+proc `=dup`*[T](source: SpscQueue[T]): SpscQueue[T] {.error.}
 
 proc init*[T](self: out SpscQueue[T]; capacity: Natural) =
   self.cap = capacity + 1

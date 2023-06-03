@@ -14,6 +14,7 @@ proc `=destroy`*(x: var Latch) =
 
 proc `=sink`*(dest: var Latch; source: Latch) {.error.}
 proc `=copy`*(dest: var Latch; source: Latch) {.error.}
+proc `=dup`*(source: Latch): Latch {.error.}
 
 proc init*(x: out Latch, count: Natural) =
   x.counter = count
