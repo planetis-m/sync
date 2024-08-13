@@ -2,6 +2,8 @@
                         Sync
 ====================================================
 
+**Deprecated: Use the package threading instead**
+
 Useful synchronization primitives.
 
 Higher-level synchronization objects
