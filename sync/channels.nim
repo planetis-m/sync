@@ -212,9 +212,10 @@ proc channelSend(chan: ChannelRaw, data: pointer, size: int, blocking: static bo
       int(chan.head) - chan.slots
 
   copyMem(chan.buffer[writeIdx * size].addr, data, size)
-  inc int(chan.head)
+
+  atomicInc chan.head
   if int(chan.head) == 2 * chan.slots:
-    int(chan.head) = 0
+    setHead chan, 0
 
   signal(chan.dataAvailable)
   release(chan.L)
@@ -246,9 +247,10 @@ proc channelReceive(chan: ChannelRaw, data: pointer, size: int, blocking: static
       int(chan.tail) - chan.slots
 
   copyMem(data, chan.buffer[readIdx * size].addr, size)
-  inc int(chan.tail)
+
+  atomicInc chan.tail
   if int(chan.tail) == 2 * chan.slots:
-    int(chan.tail) = 0
+    setTail chan, 0
 
   signal(chan.spaceAvailable)
   release(chan.L)
