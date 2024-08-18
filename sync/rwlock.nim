@@ -61,7 +61,7 @@ proc init*(rw: out RwLock) =
   rw.waitingWriters = 0
   rw.isWriterActive = false
   initCond rw.c
-  initCond rw.L
+  initLock rw.L
 
 proc beginRead*(rw: var RwLock) =
   ## Acquire a read lock.

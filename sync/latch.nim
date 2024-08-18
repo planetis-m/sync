@@ -16,7 +16,7 @@ runnableExamples:
 
   proc worker(i: int) =
     data[i] = 42
-    x.leave()
+    x.dec()
 
   var threads: array[10, Thread[int]]
   for i in 0..<10:
