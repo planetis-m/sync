@@ -16,7 +16,7 @@ proc a(i: int) =
 
 proc main =
   #randomize()
-  init arrived, 2
+  initSem arrived, 2
   for i in 0 ..< N:
     createThread(p[i], a, i)
   joinThreads(p)

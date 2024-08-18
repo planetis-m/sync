@@ -14,8 +14,8 @@ proc routine =
   assert aArrived, "Constraint: Section A precedes D"
 
 proc testRendezvous =
-  init semS
-  init semT
+  initSem semS
+  initSem semT
   createThread(thread, routine)
   # Section A
   aArrived = true

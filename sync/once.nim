@@ -19,7 +19,7 @@ runnableExamples:
     instance: ptr Singleton
     exceptionOccurred = false
     o: Once
-  init o
+  initOnce o
 
   proc getInstance(): ptr Singleton =
     once(o):
@@ -78,7 +78,7 @@ proc `=sink`*(dest: var Once; source: Once) {.error.}
 proc `=copy`*(dest: var Once; source: Once) {.error.}
 proc `=dup`*(source: Once): Once {.error.}
 
-proc init*(o: out Once) =
+proc initOnce*(o: out Once) =
   o.state = Unset
   initLock(o.L)
   initCond(o.c)

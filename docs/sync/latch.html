@@ -80,8 +80,8 @@
   <li><a class="reference" href="#dec%2CLatch" title="dec(x: var Latch)">dec(x: var Latch)</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">init
-  <li><a class="reference" href="#init%2C%2CNatural" title="init(x: out Latch; count: Natural)">init(x: out Latch; count: Natural)</a></li>
+<ul class="simple nested-toc-section">initLatch
+  <li><a class="reference" href="#initLatch%2C%2CNatural" title="initLatch(x: out Latch; count: Natural)">initLatch(x: out Latch; count: Natural)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">wait
@@ -108,7 +108,7 @@
 
 <span class="Keyword">var</span> <span class="Identifier">data</span><span class="Punctuation">:</span> <span class="Identifier">array</span><span class="Punctuation">[</span><span class="DecNumber">10</span><span class="Punctuation">,</span> <span class="Identifier">int</span><span class="Punctuation">]</span>
 <span class="Keyword">var</span> <span class="Identifier">x</span><span class="Punctuation">:</span> <span class="Identifier">Latch</span>
-<span class="Identifier">init</span><span class="Punctuation">(</span><span class="Identifier">x</span><span class="Punctuation">,</span> <span class="DecNumber">10</span><span class="Punctuation">)</span>
+<span class="Identifier">initLatch</span><span class="Punctuation">(</span><span class="Identifier">x</span><span class="Punctuation">,</span> <span class="DecNumber">10</span><span class="Punctuation">)</span>
 
 <span class="Keyword">proc</span> <span class="Identifier">worker</span><span class="Punctuation">(</span><span class="Identifier">i</span><span class="Punctuation">:</span> <span class="Identifier">int</span><span class="Punctuation">)</span> <span class="Operator">=</span>
   <span class="Identifier">data</span><span class="Punctuation">[</span><span class="Identifier">i</span><span class="Punctuation">]</span> <span class="Operator">=</span> <span class="DecNumber">42</span>
@@ -194,9 +194,9 @@
 </div>
 
 </div>
-<div id="init-procs-all">
-  <div id="init,,Natural">
-  <dt><pre><span class="Keyword">proc</span> <a href="#init%2C%2CNatural"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="latch.html#Latch"><span class="Identifier">Latch</span></a><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="initLatch-procs-all">
+  <div id="initLatch,,Natural">
+  <dt><pre><span class="Keyword">proc</span> <a href="#initLatch%2C%2CNatural"><span class="Identifier">initLatch</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="latch.html#Latch"><span class="Identifier">Latch</span></a><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -230,7 +230,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 12:32:36 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 18:12:41 UTC</small>
       </div>
     </div>
   </div>

@@ -25,8 +25,8 @@ proc roll(i: int) =
 
 proc main =
   #randomize()
-  init barrierRolledDice, numThreads+1
-  init barrierCalculated, numThreads+1
+  initBarrier barrierRolledDice, numThreads+1
+  initBarrier barrierCalculated, numThreads+1
 
   for i in 0 ..< numThreads:
     createThread(p[i], roll, i)

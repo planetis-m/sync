@@ -44,7 +44,7 @@ proc work(w: WorkItem) =
   dec(latch)
 
 proc pi =
-  init latch, numThreads
+  initLatch latch, numThreads
   initLock L
   # compute how many intervals will each thread be responsible for
   # (thread IDs less than split have one extra interval)

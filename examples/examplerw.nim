@@ -26,7 +26,7 @@ proc pump(id: int) =
     sleep(250)
 
 proc main =
-  init rw
+  initRwLock rw
   for i in 0 ..< numThreads:
     # creating threads which execute writer function
     createThread(writers[i], pump, i)

@@ -15,9 +15,9 @@ proc work =
   completedThreadCounter.dec()
 
 proc main =
-  init completedThreadCounter, numThreads
-  init callingThreadBlocker, 1
-  init readyThreadCounter, numThreads
+  initLatch completedThreadCounter, numThreads
+  initLatch callingThreadBlocker, 1
+  initLatch readyThreadCounter, numThreads
   for i in 0 ..< numThreads:
     createThread(threads[i], work)
   wait readyThreadCounter

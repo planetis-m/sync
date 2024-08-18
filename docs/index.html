@@ -228,17 +228,25 @@
                          order: Ordering = SeqCst): T" href="sync/atomics.html#fetchXor%2CAtomic%5BT%3A%20SomeInteger%5D%2CT%2COrdering">atomics: proc fetchXor[T: SomeInteger](location: var Atomic[T]; value: T;
                          order: Ordering = SeqCst): T</a></li>
           </ul></dd>
-<dt><a name="init" href="#init"><span>init:</span></a></dt><dd><ul class="simple">
+<dt><a name="initBarrier" href="#initBarrier"><span>initBarrier:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="barrier: proc init(b: out Barrier; parties: Natural)" href="sync/barrier.html#init%2C%2CNatural">barrier: proc init(b: out Barrier; parties: Natural)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="latch: proc init(x: out Latch; count: Natural)" href="sync/latch.html#init%2C%2CNatural">latch: proc init(x: out Latch; count: Natural)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="once: proc init(o: out Once)" href="sync/once.html#init">once: proc init(o: out Once)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="rwlock: proc init(rw: out RwLock)" href="sync/rwlock.html#init">rwlock: proc init(rw: out RwLock)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="semaphore: proc init(s: out Semaphore; count: Natural = 0)" href="sync/semaphore.html#init%2C%2CNatural">semaphore: proc init(s: out Semaphore; count: Natural = 0)</a></li>
+          data-doc-search-tag="barrier: proc initBarrier(b: out Barrier; parties: Natural)" href="sync/barrier.html#initBarrier%2C%2CNatural">barrier: proc initBarrier(b: out Barrier; parties: Natural)</a></li>
+          </ul></dd>
+<dt><a name="initLatch" href="#initLatch"><span>initLatch:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="latch: proc initLatch(x: out Latch; count: Natural)" href="sync/latch.html#initLatch%2C%2CNatural">latch: proc initLatch(x: out Latch; count: Natural)</a></li>
+          </ul></dd>
+<dt><a name="initOnce" href="#initOnce"><span>initOnce:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="once: proc initOnce(o: out Once)" href="sync/once.html#initOnce">once: proc initOnce(o: out Once)</a></li>
+          </ul></dd>
+<dt><a name="initRwLock" href="#initRwLock"><span>initRwLock:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="rwlock: proc initRwLock(rw: out RwLock)" href="sync/rwlock.html#initRwLock">rwlock: proc initRwLock(rw: out RwLock)</a></li>
+          </ul></dd>
+<dt><a name="initSem" href="#initSem"><span>initSem:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="semaphore: proc initSem(s: out Semaphore; count: Natural = 0)" href="sync/semaphore.html#initSem%2C%2CNatural">semaphore: proc initSem(s: out Semaphore; count: Natural = 0)</a></li>
           </ul></dd>
 <dt><a name="isNil" href="#isNil"><span>isNil:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -372,7 +380,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 12:32:44 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 18:12:48 UTC</small>
       </div>
     </div>
   </div>

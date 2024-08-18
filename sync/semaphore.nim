@@ -13,7 +13,7 @@ runnableExamples:
   import std / os
 
   var arrived: Semaphore
-  init arrived, 2
+  initSem arrived, 2
 
   proc worker(i: int) =
     echo i, " starts"
@@ -62,7 +62,7 @@ proc `=sink`*(dest: var Semaphore; src: Semaphore) {.error.}
 proc `=copy`*(dest: var Semaphore; src: Semaphore) {.error.}
 proc `=dup`*(source: Semaphore): Semaphore {.error.}
 
-proc init*(s: out Semaphore; count: Natural = 0) =
+proc initSem*(s: out Semaphore; count: Natural = 0) =
   s.counter = count
   initCond(s.c)
   initLock(s.L)

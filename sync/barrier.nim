@@ -14,7 +14,7 @@ runnableExamples:
 
   var phases: array[10, int]
   var b: Barrier
-  init(b, 10)
+  initBarrier(b, 10)
 
   proc worker(id: int) =
     for i in 0 ..< 100:
@@ -66,7 +66,7 @@ proc `=sink`*(dest: var Barrier; src: Barrier) {.error.}
 proc `=copy`*(dest: var Barrier; src: Barrier) {.error.}
 proc `=dup`*(source: Barrier): Barrier {.error.}
 
-proc init*(b: out Barrier; parties: Natural) =
+proc initBarrier*(b: out Barrier; parties: Natural) =
   b.required = parties
   b.left = parties
   b.cycle = 0

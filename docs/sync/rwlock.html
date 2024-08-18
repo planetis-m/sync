@@ -92,8 +92,8 @@
   <li><a class="reference" href="#endWrite%2CRwLock" title="endWrite(rw: var RwLock)">endWrite(rw: var RwLock)</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">init
-  <li><a class="reference" href="#init" title="init(rw: out RwLock)">init(rw: out RwLock)</a></li>
+<ul class="simple nested-toc-section">initRwLock
+  <li><a class="reference" href="#initRwLock" title="initRwLock(rw: out RwLock)">initRwLock(rw: out RwLock)</a></li>
 
 </ul>
 
@@ -133,7 +133,7 @@
 <span class="Keyword">import</span> <span class="Identifier">std</span> <span class="Operator">/</span> <span class="Identifier">os</span>
 
 <span class="Keyword">var</span> <span class="Identifier">rw</span><span class="Punctuation">:</span> <span class="Identifier">RwLock</span>
-<span class="Identifier">init</span> <span class="Identifier">rw</span>
+<span class="Identifier">initRwLock</span> <span class="Identifier">rw</span>
 <span class="Keyword">var</span> <span class="Identifier">data</span> <span class="Operator">=</span> <span class="DecNumber">0</span>
 
 <span class="Keyword">proc</span> <span class="Identifier">worker</span> <span class="Operator">=</span>
@@ -261,9 +261,9 @@
 </div>
 
 </div>
-<div id="init-procs-all">
-  <div id="init">
-  <dt><pre><span class="Keyword">proc</span> <a href="#init"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Identifier">rw</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="rwlock.html#RwLock"><span class="Identifier">RwLock</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="initRwLock-procs-all">
+  <div id="initRwLock">
+  <dt><pre><span class="Keyword">proc</span> <a href="#initRwLock"><span class="Identifier">initRwLock</span></a><span class="Other">(</span><span class="Identifier">rw</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="rwlock.html#RwLock"><span class="Identifier">RwLock</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -316,7 +316,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 12:32:39 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 18:12:44 UTC</small>
       </div>
     </div>
   </div>

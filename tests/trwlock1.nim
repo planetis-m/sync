@@ -23,7 +23,7 @@ proc routine =
         assert data >= 0
 
 proc frob =
-  init rw
+  initRwLock rw
   for i in 0..<numThreads:
     createThread(threads[i], routine)
   joinThreads(threads)

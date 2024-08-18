@@ -12,7 +12,7 @@ runnableExamples:
 
   var data: array[10, int]
   var x: Latch
-  init(x, 10)
+  initLatch(x, 10)
 
   proc worker(i: int) =
     data[i] = 42
@@ -52,7 +52,7 @@ proc `=sink`*(dest: var Latch; source: Latch) {.error.}
 proc `=copy`*(dest: var Latch; source: Latch) {.error.}
 proc `=dup`*(source: Latch): Latch {.error.}
 
-proc init*(x: out Latch, count: Natural) =
+proc initLatch*(x: out Latch, count: Natural) =
   x.counter = count
   initCond(x.c)
   initLock(x.L)

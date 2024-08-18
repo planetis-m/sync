@@ -13,7 +13,7 @@ runnableExamples:
   import std / os
 
   var rw: RwLock
-  init rw
+  initRwLock rw
   var data = 0
 
   proc worker =
@@ -56,7 +56,7 @@ else:
 proc `=sink`*(dest: var RwLock; source: RwLock) {.error.}
 proc `=copy`*(dest: var RwLock; source: RwLock) {.error.}
 
-proc init*(rw: out RwLock) =
+proc initRwLock*(rw: out RwLock) =
   rw.activeReaders = 0
   rw.waitingWriters = 0
   rw.isWriterActive = false

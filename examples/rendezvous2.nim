@@ -24,7 +24,7 @@ proc b(i: int) =
 proc main =
   #randomize()
   for i in 0 ..< N:
-    init arrived[i]
+    initSem arrived[i]
 
   for i in 0 ..< N:
     if i mod 2 == 0:

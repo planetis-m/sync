@@ -26,7 +26,7 @@ proc routine {.thread.} =
     assert getInstance().data == 1
 
 proc main =
-  init o
+  initOnce o
   for i in 0 ..< numThreads:
     createThread(threads[i], routine)
   joinThreads(threads)

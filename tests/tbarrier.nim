@@ -20,7 +20,7 @@ proc routine(id: int) =
     wait barrier
 
 proc testBarrier =
-  init barrier, numThreads
+  initBarrier barrier, numThreads
   for i in 0 ..< numThreads:
     createThread(threads[i], routine, i)
   joinThreads(threads)

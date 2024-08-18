@@ -41,9 +41,9 @@ proc reorder2 =
     e.signal()
 
 proc main =
-  init(s1)
-  init(s2)
-  init(e)
+  initSem(s1)
+  initSem(s2)
+  initSem(e)
 
   # Start threads
   createThread(t1, reorder1)

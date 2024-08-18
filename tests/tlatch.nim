@@ -5,7 +5,7 @@ var
 
 # test zero count latch
 proc test =
-  init latch, 0
+  initLatch latch, 0
   # wait should not block
   wait(latch)
   # decriment should have no effect

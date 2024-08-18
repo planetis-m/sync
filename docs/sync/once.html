@@ -80,8 +80,8 @@
   <li><a class="reference" href="#%3Dsink%2COnce%2COnce" title="`=sink`(dest: var Once; source: Once)">`=sink`(dest: var Once; source: Once)</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">init
-  <li><a class="reference" href="#init" title="init(o: out Once)">init(o: out Once)</a></li>
+<ul class="simple nested-toc-section">initOnce
+  <li><a class="reference" href="#initOnce" title="initOnce(o: out Once)">initOnce(o: out Once)</a></li>
 
 </ul>
 
@@ -123,7 +123,7 @@
   <span class="Identifier">instance</span><span class="Punctuation">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Singleton</span>
   <span class="Identifier">exceptionOccurred</span> <span class="Operator">=</span> <span class="Identifier">false</span>
   <span class="Identifier">o</span><span class="Punctuation">:</span> <span class="Identifier">Once</span>
-<span class="Identifier">init</span> <span class="Identifier">o</span>
+<span class="Identifier">initOnce</span> <span class="Identifier">o</span>
 
 <span class="Keyword">proc</span> <span class="Identifier">getInstance</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Singleton</span> <span class="Operator">=</span>
   <span class="Identifier">once</span><span class="Punctuation">(</span><span class="Identifier">o</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
@@ -221,9 +221,9 @@
 </div>
 
 </div>
-<div id="init-procs-all">
-  <div id="init">
-  <dt><pre><span class="Keyword">proc</span> <a href="#init"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Identifier">o</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="once.html#Once"><span class="Identifier">Once</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="initOnce-procs-all">
+  <div id="initOnce">
+  <dt><pre><span class="Keyword">proc</span> <a href="#initOnce"><span class="Identifier">initOnce</span></a><span class="Other">(</span><span class="Identifier">o</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="once.html#Once"><span class="Identifier">Once</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -263,7 +263,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 12:32:36 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 18:12:42 UTC</small>
       </div>
     </div>
   </div>

@@ -80,8 +80,8 @@
   <li><a class="reference" href="#%3Dsink%2CBarrier%2CBarrier" title="`=sink`(dest: var Barrier; src: Barrier)">`=sink`(dest: var Barrier; src: Barrier)</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">init
-  <li><a class="reference" href="#init%2C%2CNatural" title="init(b: out Barrier; parties: Natural)">init(b: out Barrier; parties: Natural)</a></li>
+<ul class="simple nested-toc-section">initBarrier
+  <li><a class="reference" href="#initBarrier%2C%2CNatural" title="initBarrier(b: out Barrier; parties: Natural)">initBarrier(b: out Barrier; parties: Natural)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">wait
@@ -110,7 +110,7 @@
 
 <span class="Keyword">var</span> <span class="Identifier">phases</span><span class="Punctuation">:</span> <span class="Identifier">array</span><span class="Punctuation">[</span><span class="DecNumber">10</span><span class="Punctuation">,</span> <span class="Identifier">int</span><span class="Punctuation">]</span>
 <span class="Keyword">var</span> <span class="Identifier">b</span><span class="Punctuation">:</span> <span class="Identifier">Barrier</span>
-<span class="Identifier">init</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">,</span> <span class="DecNumber">10</span><span class="Punctuation">)</span>
+<span class="Identifier">initBarrier</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">,</span> <span class="DecNumber">10</span><span class="Punctuation">)</span>
 
 <span class="Keyword">proc</span> <span class="Identifier">worker</span><span class="Punctuation">(</span><span class="Identifier">id</span><span class="Punctuation">:</span> <span class="Identifier">int</span><span class="Punctuation">)</span> <span class="Operator">=</span>
   <span class="Keyword">for</span> <span class="Identifier">i</span> <span class="Keyword">in</span> <span class="DecNumber">0</span> <span class="Operator">..&lt;</span> <span class="DecNumber">100</span><span class="Punctuation">:</span>
@@ -200,9 +200,10 @@
 </div>
 
 </div>
-<div id="init-procs-all">
-  <div id="init,,Natural">
-  <dt><pre><span class="Keyword">proc</span> <a href="#init%2C%2CNatural"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="barrier.html#Barrier"><span class="Identifier">Barrier</span></a><span class="Other">;</span> <span class="Identifier">parties</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="initBarrier-procs-all">
+  <div id="initBarrier,,Natural">
+  <dt><pre><span class="Keyword">proc</span> <a href="#initBarrier%2C%2CNatural"><span class="Identifier">initBarrier</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Keyword">out</span> <a href="barrier.html#Barrier"><span class="Identifier">Barrier</span></a><span class="Other">;</span> <span class="Identifier">parties</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -236,7 +237,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 12:32:36 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 18:12:40 UTC</small>
       </div>
     </div>
   </div>

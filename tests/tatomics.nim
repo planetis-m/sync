@@ -1,4 +1,4 @@
-import sync/atomics2
+import sync/atomics
 
 block testSize: # issue 12726
   type
