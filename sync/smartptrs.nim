@@ -7,8 +7,8 @@
 #    distribution, for details about the copyright.
 
 ## C++11 like smart pointers. They always use the shared allocator.
-import std/isolation, atomics2
-from typetraits import supportsCopyMem
+import std/isolation, ./atomics
+from std/typetraits import supportsCopyMem
 
 proc raiseNilAccess() {.noinline.} =
   raise newException(NilAccessDefect, "dereferencing nil smart pointer")
@@ -24,10 +24,16 @@ type
     ## Non copyable pointer to a value of type `T` with exclusive ownership.
     val: ptr T
 
-proc `=destroy`*[T](p: var UniquePtr[T]) =
-  if p.val != nil:
-    `=destroy`(p.val[])
-    deallocShared(p.val)
+when defined(nimAllowNonVarDestructor):
+  proc `=destroy`*[T](p: UniquePtr[T]) =
+    if p.val != nil:
+      `=destroy`(p.val[])
+      deallocShared(p.val)
+else:
+  proc `=destroy`*[T](p: var UniquePtr[T]) =
+    if p.val != nil:
+      `=destroy`(p.val[])
+      deallocShared(p.val)
 
 proc `=dup`*[T](src: UniquePtr[T]): UniquePtr[T] {.error.}
   ## The dup operation is disallowed for `UniquePtr`, it
@@ -83,13 +89,23 @@ type
     ## Shared ownership reference counting pointer.
     val: ptr tuple[value: T, counter: Atomic[int]]
 
-proc `=destroy`*[T](p: var SharedPtr[T]) =
+template frees(p) =
   if p.val != nil:
-    if p.val.counter.load(Acquire) == 0:
+    # this `fetchSub` returns current val then subs
+    # so count == 0 means we're the last
+    if p.val.counter.fetchSub(1, AcqRel) == 0:
       `=destroy`(p.val.value)
       deallocShared(p.val)
-    else:
-      discard fetchSub(p.val.counter, 1, Release)
+
+when defined(nimAllowNonVarDestructor):
+  proc `=destroy`*[T](p: SharedPtr[T]) =
+    frees(p)
+else:
+  proc `=destroy`*[T](p: var SharedPtr[T]) =
+    frees(p)
+
+proc `=wasMoved`*[T](p: var SharedPtr[T]) =
+  p.val = nil
 
 proc `=dup`*[T](src: SharedPtr[T]): SharedPtr[T] =
   if src.val != nil:
@@ -160,7 +176,7 @@ proc `[]`*[T](p: ConstPtr[T]): lent T {.inline.} =
   checkNotNil(p)
   SharedPtr[T](p).val.value
 
-proc `[]=`*[T](p: ConstPtr[T], v: T) = {.error: "`ConstPtr` cannot be assigned.".}
+proc `[]=`*[T](p: ConstPtr[T], v: T) {.error: "`ConstPtr` cannot be assigned.".}
 
 proc `$`*[T](p: ConstPtr[T]): string {.inline.} =
   $SharedPtr[T](p)

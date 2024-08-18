@@ -7,8 +7,6 @@
 #    distribution, for details about the copyright.
 #
 
-{.deprecated: "Use the 'std/atomics' module instead".}
-
 ## Types and operations for atomic operations and lockless algorithms.
 runnableExamples("--threads:on"):
   # Atomic

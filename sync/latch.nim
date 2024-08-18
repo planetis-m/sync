@@ -1,7 +1,5 @@
 import std/locks
 
-{.push stackTrace: off.}
-
 type
   Latch* = object
     c: Cond
@@ -16,10 +14,11 @@ proc `=sink`*(dest: var Latch; source: Latch) {.error.}
 proc `=copy`*(dest: var Latch; source: Latch) {.error.}
 proc `=dup`*(source: Latch): Latch {.error.}
 
-proc init*(x: out Latch, count: Natural) =
-  x.counter = count
-  initCond(x.c)
-  initLock(x.L)
+proc createLatch*(count: Natural = 0): Latch =
+  result = default(Latch)
+  result.counter = count
+  initCond(result.c)
+  initLock(result.L)
 
 proc dec*(x: var Latch) =
   acquire(x.L)
@@ -34,5 +33,3 @@ proc wait*(x: var Latch) =
   while x.counter > 0:
     wait(x.c, x.L)
   release(x.L)
-
-{.pop.}

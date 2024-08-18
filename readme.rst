@@ -2,8 +2,6 @@
                         Sync
 ====================================================
 
-**Deprecated: Use the package threading instead**
-
 Useful synchronization primitives.
 
 Higher-level synchronization objects
@@ -15,13 +13,5 @@ The following is an overview of the available synchronization objects:
 - *Once*: Used for thread-safe, one-time initialization of a global variable.
 - *RwLock*: Provides a mutual exclusion mechanism which allows multiple readers at the same time, while allowing only one writer at a time. In some cases, this can be more efficient than a mutex.
 - *Semaphore*: Counting semaphore performing asynchronous permit aquisition.
-- *Spinlock*: A mutual exclusion primitive useful for protecting shared data.
 
 API `documentation <https://planetis-m.github.io/sync/>`_
-
-Acknowledgements
-================
-
-- `Correctly implementing a spinlock in C++ <https://rigtorp.se/spinlock/>`_
-- `SPSCQueue.h <https://github.com/rigtorp/SPSCQueue>`_ A bounded single-producer
-  single-consumer wait-free and lock-free queue written in C++11, Erik Rigtorp
