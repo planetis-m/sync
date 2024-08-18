@@ -12,7 +12,8 @@ runnableExamples:
 
   import std / os
 
-  var rw = createRwLock()
+  var rw: RwLock
+  init rw
   var data = 0
 
   proc worker =
@@ -55,10 +56,12 @@ else:
 proc `=sink`*(dest: var RwLock; source: RwLock) {.error.}
 proc `=copy`*(dest: var RwLock; source: RwLock) {.error.}
 
-proc createRwLock*(): RwLock =
-  result = default(RwLock)
-  initCond(result.c)
-  initLock(result.L)
+proc init*(rw: out RwLock) =
+  rw.activeReaders = 0
+  rw.waitingWriters = 0
+  rw.isWriterActive = false
+  initCond rw.c
+  initCond rw.L
 
 proc beginRead*(rw: var RwLock) =
   ## Acquire a read lock.

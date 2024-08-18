@@ -18,7 +18,8 @@ runnableExamples:
     counter = 1
     instance: ptr Singleton
     exceptionOccurred = false
-    o = createOnce()
+    o: Once
+  init o
 
   proc getInstance(): ptr Singleton =
     once(o):
@@ -77,10 +78,10 @@ proc `=sink`*(dest: var Once; source: Once) {.error.}
 proc `=copy`*(dest: var Once; source: Once) {.error.}
 proc `=dup`*(source: Once): Once {.error.}
 
-proc createOnce*(): Once =
-  result = default(Once)
-  initLock(result.L)
-  initCond(result.c)
+proc init*(o: out Once) =
+  o.state = Unset
+  initLock(o.L)
+  initCond(o.c)
 
 template once*(o: Once, body: untyped) =
   ## Executes `body` exactly once.

@@ -13,7 +13,8 @@ runnableExamples:
   import std / os
 
   var phases: array[10, int]
-  var b = createBarrier(10)
+  var b: Barrier
+  init(b, 10)
 
   proc worker(id: int) =
     for i in 0 ..< 100:
@@ -65,12 +66,12 @@ proc `=sink`*(dest: var Barrier; src: Barrier) {.error.}
 proc `=copy`*(dest: var Barrier; src: Barrier) {.error.}
 proc `=dup`*(source: Barrier): Barrier {.error.}
 
-proc createBarrier*(parties: Natural): Barrier =
-  result = default(Barrier)
-  result.required = parties
-  result.left = parties
-  initCond(result.c)
-  initLock(result.L)
+proc init*(b: out Barrier; parties: Natural) =
+  b.required = parties
+  b.left = parties
+  b.cycle = 0
+  initCond(b.c)
+  initLock(b.L)
 
 proc wait*(b: var Barrier) =
   ## Wait for all threads to reach the barrier. When the last thread reaches

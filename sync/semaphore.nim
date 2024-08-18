@@ -12,7 +12,8 @@ runnableExamples:
 
   import std / os
 
-  var arrived = createSemaphore(2)
+  var arrived: Semaphore
+  init arrived, 2
 
   proc worker(i: int) =
     echo i, " starts"
@@ -61,11 +62,10 @@ proc `=sink`*(dest: var Semaphore; src: Semaphore) {.error.}
 proc `=copy`*(dest: var Semaphore; src: Semaphore) {.error.}
 proc `=dup`*(source: Semaphore): Semaphore {.error.}
 
-proc createSemaphore*(count: Natural = 0): Semaphore =
-  result = default(Semaphore)
-  result.counter = count
-  initCond(result.c)
-  initLock(result.L)
+proc init*(s: out Semaphore; count: Natural = 0) =
+  s.counter = count
+  initCond(s.c)
+  initLock(s.L)
 
 proc wait*(s: var Semaphore) =
   ## Wait for the semaphore to be signaled. If the semaphore's counter is zero,
