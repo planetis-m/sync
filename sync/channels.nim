@@ -398,5 +398,4 @@ proc newChan*[T](elements: Positive = 30): Chan[T] =
   ## 
   ## `elements` is the capacity of the channel and thus how many messages it can hold 
   ## before it refuses to accept any further messages.
-  assert elements >= 1, "Elements must be positive!"
   result = Chan[T](d: allocChannel(sizeof(T), elements))
