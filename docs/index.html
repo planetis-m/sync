@@ -25,7 +25,7 @@
   <div class="document" id="documentId">
     <div class="container">
       <h1 class="title">Index</h1>
-      Modules: <a href="sync.html">sync</a>, <a href="sync/atomics.html">sync/atomics</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/channels.html">sync/channels</a>, <a href="sync/latch.html">sync/latch</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>.<br/><p /><h2>API symbols</h2>
+      Modules: <a href="sync.html">sync</a>, <a href="sync/barrier.html">sync/barrier</a>, <a href="sync/channels.html">sync/channels</a>, <a href="sync/latch.html">sync/latch</a>, <a href="sync/once.html">sync/once</a>, <a href="sync/rwlock.html">sync/rwlock</a>, <a href="sync/semaphore.html">sync/semaphore</a>, <a href="sync/smartptrs.html">sync/smartptrs</a>.<br/><p /><h2>API symbols</h2>
 <dl><dt><a name="%60%24%60" href="#%60%24%60"><span>`$`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: proc `$`[T](p: ConstPtr[T]): string" href="sync/smartptrs.html#%24%2CConstPtr%5BT%5D">smartptrs: proc `$`[T](p: ConstPtr[T]): string</a></li>
@@ -33,14 +33,6 @@
           data-doc-search-tag="smartptrs: proc `$`[T](p: SharedPtr[T]): string" href="sync/smartptrs.html#%24%2CSharedPtr%5BT%5D">smartptrs: proc `$`[T](p: SharedPtr[T]): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="smartptrs: proc `$`[T](p: UniquePtr[T]): string" href="sync/smartptrs.html#%24%2CUniquePtr%5BT%5D">smartptrs: proc `$`[T](p: UniquePtr[T]): string</a></li>
-          </ul></dd>
-<dt><a name="%60%2B%3D%60" href="#%60%2B%3D%60"><span>`+=`:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc `+=`[T: SomeInteger](location: var Atomic[T]; value: T)" href="sync/atomics.html#%2B%3D%2CAtomic%5BT%3A%20SomeInteger%5D%2CT">atomics: proc `+=`[T: SomeInteger](location: var Atomic[T]; value: T)</a></li>
-          </ul></dd>
-<dt><a name="%60-%3D%60" href="#%60-%3D%60"><span>`-=`:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc `-=`[T: SomeInteger](location: var Atomic[T]; value: T)" href="sync/atomics.html#-%3D%2CAtomic%5BT%3A%20SomeInteger%5D%2CT">atomics: proc `-=`[T: SomeInteger](location: var Atomic[T]; value: T)</a></li>
           </ul></dd>
 <dt><a name="%60%3Dcopy%60" href="#%60%3Dcopy%60"><span>`=copy`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -86,6 +78,8 @@
           <li><a class="reference external"
           data-doc-search-tag="once: proc `=dup`(source: Once): Once" href="sync/once.html#%3Ddup%2COnce">once: proc `=dup`(source: Once): Once</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="rwlock: proc `=dup`(source: RwLock): RwLock" href="sync/rwlock.html#%3Ddup%2CRwLock">rwlock: proc `=dup`(source: RwLock): RwLock</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="semaphore: proc `=dup`(source: Semaphore): Semaphore" href="sync/semaphore.html#%3Ddup%2CSemaphore">semaphore: proc `=dup`(source: Semaphore): Semaphore</a></li>
           <li><a class="reference external"
           data-doc-search-tag="smartptrs: proc `=dup`[T](src: SharedPtr[T]): SharedPtr[T]" href="sync/smartptrs.html#%3Ddup%2CSharedPtr%5BT%5D">smartptrs: proc `=dup`[T](src: SharedPtr[T]): SharedPtr[T]</a></li>
@@ -130,18 +124,6 @@
           <li><a class="reference external"
           data-doc-search-tag="smartptrs: proc `[]`[T](p: UniquePtr[T]): var T" href="sync/smartptrs.html#%5B%5D%2CUniquePtr%5BT%5D">smartptrs: proc `[]`[T](p: UniquePtr[T]): var T</a></li>
           </ul></dd>
-<dt><a name="Atomic" href="#Atomic"><span>Atomic:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: type Atomic" href="sync/atomics.html#Atomic">atomics: type Atomic</a></li>
-          </ul></dd>
-<dt><a name="atomicDec" href="#atomicDec"><span>atomicDec:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc atomicDec[T: SomeInteger](location: var Atomic[T]; value: T = 1)" href="sync/atomics.html#atomicDec%2CAtomic%5BT%3A%20SomeInteger%5D%2CT">atomics: proc atomicDec[T: SomeInteger](location: var Atomic[T]; value: T = 1)</a></li>
-          </ul></dd>
-<dt><a name="atomicInc" href="#atomicInc"><span>atomicInc:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc atomicInc[T: SomeInteger](location: var Atomic[T]; value: T = 1)" href="sync/atomics.html#atomicInc%2CAtomic%5BT%3A%20SomeInteger%5D%2CT">atomics: proc atomicInc[T: SomeInteger](location: var Atomic[T]; value: T = 1)</a></li>
-          </ul></dd>
 <dt><a name="Barrier" href="#Barrier"><span>Barrier:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="barrier: object Barrier" href="sync/barrier.html#Barrier">barrier: object Barrier</a></li>
@@ -158,26 +140,6 @@
 <li><a class="reference external"
           data-doc-search-tag="channels: object Chan" href="sync/channels.html#Chan">channels: object Chan</a></li>
           </ul></dd>
-<dt><a name="compareExchange" href="#compareExchange"><span>compareExchange:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc compareExchange[T](location: var Atomic[T]; expected: var T; desired: T;
-                   order: Ordering = SeqCst): bool" href="sync/atomics.html#compareExchange%2CAtomic%5BT%5D%2CT%2CT%2COrdering">atomics: proc compareExchange[T](location: var Atomic[T]; expected: var T; desired: T;
-                   order: Ordering = SeqCst): bool</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="atomics: proc compareExchange[T](location: var Atomic[T]; expected: var T; desired: T;
-                   success, failure: Ordering): bool" href="sync/atomics.html#compareExchange%2CAtomic%5BT%5D%2CT%2CT%2COrdering%2COrdering">atomics: proc compareExchange[T](location: var Atomic[T]; expected: var T; desired: T;
-                   success, failure: Ordering): bool</a></li>
-          </ul></dd>
-<dt><a name="compareExchangeWeak" href="#compareExchangeWeak"><span>compareExchangeWeak:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc compareExchangeWeak[T](location: var Atomic[T]; expected: var T; desired: T;
-                       order: Ordering = SeqCst): bool" href="sync/atomics.html#compareExchangeWeak%2CAtomic%5BT%5D%2CT%2CT%2COrdering">atomics: proc compareExchangeWeak[T](location: var Atomic[T]; expected: var T; desired: T;
-                       order: Ordering = SeqCst): bool</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="atomics: proc compareExchangeWeak[T](location: var Atomic[T]; expected: var T; desired: T;
-                       success, failure: Ordering): bool" href="sync/atomics.html#compareExchangeWeak%2CAtomic%5BT%5D%2CT%2CT%2COrdering%2COrdering">atomics: proc compareExchangeWeak[T](location: var Atomic[T]; expected: var T; desired: T;
-                       success, failure: Ordering): bool</a></li>
-          </ul></dd>
 <dt><a name="ConstPtr" href="#ConstPtr"><span>ConstPtr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="smartptrs: type ConstPtr" href="sync/smartptrs.html#ConstPtr">smartptrs: type ConstPtr</a></li>
@@ -193,40 +155,6 @@
 <dt><a name="endWrite" href="#endWrite"><span>endWrite:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="rwlock: proc endWrite(rw: var RwLock)" href="sync/rwlock.html#endWrite%2CRwLock">rwlock: proc endWrite(rw: var RwLock)</a></li>
-          </ul></dd>
-<dt><a name="exchange" href="#exchange"><span>exchange:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc exchange[T](location: var Atomic[T]; desired: T; order: Ordering = SeqCst): T" href="sync/atomics.html#exchange%2CAtomic%5BT%5D%2CT%2COrdering">atomics: proc exchange[T](location: var Atomic[T]; desired: T; order: Ordering = SeqCst): T</a></li>
-          </ul></dd>
-<dt><a name="fetchAdd" href="#fetchAdd"><span>fetchAdd:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc fetchAdd[T: SomeInteger](location: var Atomic[T]; value: T;
-                         order: Ordering = SeqCst): T" href="sync/atomics.html#fetchAdd%2CAtomic%5BT%3A%20SomeInteger%5D%2CT%2COrdering">atomics: proc fetchAdd[T: SomeInteger](location: var Atomic[T]; value: T;
-                         order: Ordering = SeqCst): T</a></li>
-          </ul></dd>
-<dt><a name="fetchAnd" href="#fetchAnd"><span>fetchAnd:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc fetchAnd[T: SomeInteger](location: var Atomic[T]; value: T;
-                         order: Ordering = SeqCst): T" href="sync/atomics.html#fetchAnd%2CAtomic%5BT%3A%20SomeInteger%5D%2CT%2COrdering">atomics: proc fetchAnd[T: SomeInteger](location: var Atomic[T]; value: T;
-                         order: Ordering = SeqCst): T</a></li>
-          </ul></dd>
-<dt><a name="fetchOr" href="#fetchOr"><span>fetchOr:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc fetchOr[T: SomeInteger](location: var Atomic[T]; value: T;
-                        order: Ordering = SeqCst): T" href="sync/atomics.html#fetchOr%2CAtomic%5BT%3A%20SomeInteger%5D%2CT%2COrdering">atomics: proc fetchOr[T: SomeInteger](location: var Atomic[T]; value: T;
-                        order: Ordering = SeqCst): T</a></li>
-          </ul></dd>
-<dt><a name="fetchSub" href="#fetchSub"><span>fetchSub:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc fetchSub[T: SomeInteger](location: var Atomic[T]; value: T;
-                         order: Ordering = SeqCst): T" href="sync/atomics.html#fetchSub%2CAtomic%5BT%3A%20SomeInteger%5D%2CT%2COrdering">atomics: proc fetchSub[T: SomeInteger](location: var Atomic[T]; value: T;
-                         order: Ordering = SeqCst): T</a></li>
-          </ul></dd>
-<dt><a name="fetchXor" href="#fetchXor"><span>fetchXor:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc fetchXor[T: SomeInteger](location: var Atomic[T]; value: T;
-                         order: Ordering = SeqCst): T" href="sync/atomics.html#fetchXor%2CAtomic%5BT%3A%20SomeInteger%5D%2CT%2COrdering">atomics: proc fetchXor[T: SomeInteger](location: var Atomic[T]; value: T;
-                         order: Ordering = SeqCst): T</a></li>
           </ul></dd>
 <dt><a name="initBarrier" href="#initBarrier"><span>initBarrier:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -259,10 +187,6 @@
 <dt><a name="Latch" href="#Latch"><span>Latch:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="latch: object Latch" href="sync/latch.html#Latch">latch: object Latch</a></li>
-          </ul></dd>
-<dt><a name="load" href="#load"><span>load:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc load[T](location: var Atomic[T]; order: Ordering = SeqCst): T" href="sync/atomics.html#load%2CAtomic%5BT%5D%2COrdering">atomics: proc load[T](location: var Atomic[T]; order: Ordering = SeqCst): T</a></li>
           </ul></dd>
 <dt><a name="newChan" href="#newChan"><span>newChan:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -297,10 +221,6 @@
 <dt><a name="once" href="#once"><span>once:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="once: template once(o: Once; body: untyped)" href="sync/once.html#once.t%2COnce%2Cuntyped">once: template once(o: Once; body: untyped)</a></li>
-          </ul></dd>
-<dt><a name="Ordering" href="#Ordering"><span>Ordering:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: enum Ordering" href="sync/atomics.html#Ordering">atomics: enum Ordering</a></li>
           </ul></dd>
 <dt><a name="peek" href="#peek"><span>peek:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -342,10 +262,6 @@
 <li><a class="reference external"
           data-doc-search-tag="semaphore: proc signal(s: var Semaphore)" href="sync/semaphore.html#signal%2CSemaphore">semaphore: proc signal(s: var Semaphore)</a></li>
           </ul></dd>
-<dt><a name="store" href="#store"><span>store:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="atomics: proc store[T](location: var Atomic[T]; desired: T; order: Ordering = SeqCst)" href="sync/atomics.html#store%2CAtomic%5BT%5D%2CT%2COrdering">atomics: proc store[T](location: var Atomic[T]; desired: T; order: Ordering = SeqCst)</a></li>
-          </ul></dd>
 <dt><a name="tryRecv" href="#tryRecv"><span>tryRecv:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="channels: proc tryRecv[T](c: Chan[T]; dst: var T): bool" href="sync/channels.html#tryRecv%2CChan%5BT%5D%2CT">channels: proc tryRecv[T](c: Chan[T]; dst: var T): bool</a></li>
@@ -380,7 +296,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 18:12:48 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-26 17:32:19 UTC</small>
       </div>
     </div>
   </div>

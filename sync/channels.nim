@@ -28,9 +28,9 @@
 ## the underlying resources and synchronization. It has to be initialized using
 ## the `newChan` proc. Sending and receiving operations are provided by the
 ## blocking `send` and `recv` procs, and non-blocking `trySend` and `tryRecv`
-## procs. Send operations add messages to the channel, receiving operations 
+## procs. Send operations add messages to the channel, receiving operations
 ## remove them.
-## 
+##
 ## See also:
 ## * [std/isolation](https://nim-lang.org/docs/isolation.html)
 ##
@@ -100,7 +100,7 @@ runnableExamples("--threads:on --gc:orc"):
 when not (defined(gcArc) or defined(gcOrc) or defined(gcAtomicArc) or defined(nimdoc)):
   {.error: "This module requires one of --mm:arc / --mm:atomicArc / --mm:orc compilation flags".}
 
-import std/[locks, isolation], ./atomics
+import std/[locks, isolation, atomics]
 
 # Channel
 # ------------------------------------------------------------------------------
@@ -118,19 +118,19 @@ type
 
 # ------------------------------------------------------------------------------
 
-proc getTail(chan: ChannelRaw, order: Ordering = Relaxed): int {.inline.} =
+proc getTail(chan: ChannelRaw, order: MemoryOrder = moRelaxed): int {.inline.} =
   chan.tail.load(order)
 
-proc getHead(chan: ChannelRaw, order: Ordering = Relaxed): int {.inline.} =
+proc getHead(chan: ChannelRaw, order: MemoryOrder = moRelaxed): int {.inline.} =
   chan.head.load(order)
 
-proc setTail(chan: ChannelRaw, value: int, order: Ordering = Relaxed) {.inline.} =
+proc setTail(chan: ChannelRaw, value: int, order: MemoryOrder = moRelaxed) {.inline.} =
   chan.tail.store(value, order)
 
-proc setHead(chan: ChannelRaw, value: int, order: Ordering = Relaxed) {.inline.} =
+proc setHead(chan: ChannelRaw, value: int, order: MemoryOrder = moRelaxed) {.inline.} =
   chan.head.store(value, order)
 
-proc setAtomicCounter(chan: ChannelRaw, value: int, order: Ordering = Relaxed) {.inline.} =
+proc setAtomicCounter(chan: ChannelRaw, value: int, order: MemoryOrder = moRelaxed) {.inline.} =
   chan.atomicCounter.store(value, order)
 
 proc numItems(chan: ChannelRaw): int {.inline.} =
@@ -145,12 +145,6 @@ template isFull(chan: ChannelRaw): bool =
 
 template isEmpty(chan: ChannelRaw): bool =
   chan.getHead() == chan.getTail()
-
-template isFullUnsafe(chan: ChannelRaw): bool =
-  abs(int(chan.head) - int(chan.tail)) == chan.slots
-
-template isEmptyUnsafe(chan: ChannelRaw): bool =
-  int(chan.head) == int(chan.tail)
 
 # Channels memory ops
 # ------------------------------------------------------------------------------
@@ -197,25 +191,25 @@ proc channelSend(chan: ChannelRaw, data: pointer, size: int, blocking: static bo
 
   # check for when another thread was faster to fill
   when blocking:
-    while chan.isFullUnsafe():
+    while chan.isFull():
       wait(chan.spaceAvailable, chan.L)
   else:
-    if chan.isFullUnsafe():
+    if chan.isFull():
       release(chan.L)
       return false
 
-  assert not chan.isFullUnsafe()
+  assert not chan.isFull()
 
-  let writeIdx = if int(chan.head) < chan.slots:
-      int(chan.head)
+  let writeIdx = if chan.getHead() < chan.slots:
+      chan.getHead()
     else:
-      int(chan.head) - chan.slots
+      chan.getHead() - chan.slots
 
   copyMem(chan.buffer[writeIdx * size].addr, data, size)
 
-  atomicInc chan.head
-  if int(chan.head) == 2 * chan.slots:
-    setHead chan, 0
+  atomicInc(chan.head)
+  if chan.getHead() == 2 * chan.slots:
+    chan.setHead(0)
 
   signal(chan.dataAvailable)
   release(chan.L)
@@ -232,25 +226,25 @@ proc channelReceive(chan: ChannelRaw, data: pointer, size: int, blocking: static
 
   # check for when another thread was faster to empty
   when blocking:
-    while chan.isEmptyUnsafe():
+    while chan.isEmpty():
       wait(chan.dataAvailable, chan.L)
   else:
-    if chan.isEmptyUnsafe():
+    if chan.isEmpty():
       release(chan.L)
       return false
 
-  assert not chan.isEmptyUnsafe()
+  assert not chan.isEmpty()
 
-  let readIdx = if int(chan.tail) < chan.slots:
-      int(chan.tail)
+  let readIdx = if chan.getTail() < chan.slots:
+      chan.getTail()
     else:
-      int(chan.tail) - chan.slots
+      chan.getTail() - chan.slots
 
   copyMem(data, chan.buffer[readIdx * size].addr, size)
 
-  atomicInc chan.tail
-  if int(chan.tail) == 2 * chan.slots:
-    setTail chan, 0
+  atomicInc(chan.tail)
+  if chan.getTail() == 2 * chan.slots:
+    chan.setTail(0)
 
   signal(chan.spaceAvailable)
   release(chan.L)
@@ -267,7 +261,7 @@ template frees(c) =
   if c.d != nil:
     # this `fetchSub` returns current val then subs
     # so count == 0 means we're the last
-    if c.d.atomicCounter.fetchSub(1, AcqRel) == 0:
+    if c.d.atomicCounter.fetchSub(1, moAcquireRelease) == 0:
       freeChannel(c.d)
 
 when defined(nimAllowNonVarDestructor):
@@ -282,13 +276,13 @@ proc `=wasMoved`*[T](x: var Chan[T]) =
 
 proc `=dup`*[T](src: Chan[T]): Chan[T] =
   if src.d != nil:
-    discard fetchAdd(src.d.atomicCounter, 1, Relaxed)
+    discard fetchAdd(src.d.atomicCounter, 1, moRelaxed)
   result.d = src.d
 
 proc `=copy`*[T](dest: var Chan[T], src: Chan[T]) =
   ## Shares `Channel` by reference counting.
   if src.d != nil:
-    discard fetchAdd(src.d.atomicCounter, 1, Relaxed)
+    discard fetchAdd(src.d.atomicCounter, 1, moRelaxed)
   `=destroy`(dest)
   dest.d = src.d
 
@@ -313,7 +307,8 @@ template trySend*[T](c: Chan[T], src: T): bool =
   ## Helper template for `trySend <#trySend,Chan[T],sinkIsolated[T]>`_.
   ##
   ## .. warning:: For repeated sends of the same value, consider using the
-  ## `trySendMut` proc with a pre-isolated value to avoid unnecessary copying.
+  ##    `tryTake <#trySend,Chan[T],varIsolated[T]>`_ proc with a pre-isolated
+  ##    value to avoid unnecessary copying.
   mixin isolate
   trySend(c, isolate(src))
 
@@ -338,7 +333,7 @@ proc tryTake*[T](c: Chan[T], src: var Isolated[T]): bool {.inline.} =
 
 proc tryRecv*[T](c: Chan[T], dst: var T): bool {.inline.} =
   ## Tries to receive a message from the channel `c` and fill `dst` with its value.
-  ## 
+  ##
   ## Doesn't block waiting for messages in the channel to become available.
   ## Instead returns after an attempt to receive a message was made.
   ##
@@ -350,11 +345,11 @@ proc tryRecv*[T](c: Chan[T], dst: var T): bool {.inline.} =
   channelReceive(c.d, dst.addr, sizeof(T), false)
 
 proc send*[T](c: Chan[T], src: sink Isolated[T]) {.inline.} =
-  ## Sends the message `src` to the channel `c`. 
+  ## Sends the message `src` to the channel `c`.
   ## This blocks the sending thread until `src` was successfully sent.
-  ## 
-  ## The memory of `src` is moved, not copied. 
-  ## 
+  ##
+  ## The memory of `src` is moved, not copied.
+  ##
   ## If the channel is already full with messages this will block the thread until
   ## messages from the channel are removed.
   when defined(gcOrc) and defined(nimSafeOrcSend):
@@ -368,16 +363,16 @@ template send*[T](c: Chan[T]; src: T) =
   send(c, isolate(src))
 
 proc recv*[T](c: Chan[T], dst: var T) {.inline.} =
-  ## Receives a message from the channel `c` and fill `dst` with its value. 
-  ## 
+  ## Receives a message from the channel `c` and fill `dst` with its value.
+  ##
   ## This blocks the receiving thread until a message was successfully received.
-  ## 
+  ##
   ## If the channel does not contain any messages this will block the thread until
   ## a message get sent to the channel.
   discard channelReceive(c.d, dst.addr, sizeof(T), true)
 
 proc recv*[T](c: Chan[T]): T {.inline.} =
-  ## Receives a message from the channel. 
+  ## Receives a message from the channel.
   ## A version of `recv`_ that returns the message.
   discard channelReceive(c.d, result.addr, sizeof(result), true)
 
@@ -394,8 +389,8 @@ proc peek*[T](c: Chan[T]): int {.inline.} =
 
 proc newChan*[T](elements: Positive = 30): Chan[T] =
   ## An initialization procedure, necessary for acquiring resources and
-  ## initializing internal state of the channel. 
-  ## 
-  ## `elements` is the capacity of the channel and thus how many messages it can hold 
+  ## initializing internal state of the channel.
+  ##
+  ## `elements` is the capacity of the channel and thus how many messages it can hold
   ## before it refuses to accept any further messages.
   result = Chan[T](d: allocChannel(sizeof(T), elements))

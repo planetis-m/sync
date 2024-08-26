@@ -55,6 +55,7 @@ else:
 
 proc `=sink`*(dest: var RwLock; source: RwLock) {.error.}
 proc `=copy`*(dest: var RwLock; source: RwLock) {.error.}
+proc `=dup`*(source: RwLock): RwLock {.error.}
 
 proc initRwLock*(rw: out RwLock) =
   rw.activeReaders = 0

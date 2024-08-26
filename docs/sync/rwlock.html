@@ -72,6 +72,10 @@
   <li><a class="reference" href="#%3Ddestroy%2CRwLock" title="`=destroy`(rw: RwLock)">`=destroy`(rw: RwLock)</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">=dup
+  <li><a class="reference" href="#%3Ddup%2CRwLock" title="`=dup`(source: RwLock): RwLock">`=dup`(source: RwLock): RwLock</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">=sink
   <li><a class="reference" href="#%3Dsink%2CRwLock%2CRwLock" title="`=sink`(dest: var RwLock; source: RwLock)">`=sink`(dest: var RwLock; source: RwLock)</a></li>
 
@@ -196,6 +200,19 @@
 </div>
 
 </div>
+<div id="=dup-procs-all">
+  <div id="=dup,RwLock">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%3Ddup%2CRwLock"><span class="Identifier">`=dup`</span></a><span class="Other">(</span><span class="Identifier">source</span><span class="Other">:</span> <a href="rwlock.html#RwLock"><span class="Identifier">RwLock</span></a><span class="Other">)</span><span class="Other">:</span> <a href="rwlock.html#RwLock"><span class="Identifier">RwLock</span></a> {.<span class="Identifier">error</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L58" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L58" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="=sink-procs-all">
   <div id="=sink,RwLock,RwLock">
   <dt><pre><span class="Keyword">proc</span> <a href="#%3Dsink%2CRwLock%2CRwLock"><span class="Identifier">`=sink`</span></a><span class="Other">(</span><span class="Identifier">dest</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="rwlock.html#RwLock"><span class="Identifier">RwLock</span></a><span class="Other">;</span> <span class="Identifier">source</span><span class="Other">:</span> <a href="rwlock.html#RwLock"><span class="Identifier">RwLock</span></a><span class="Other">)</span> {.<span class="Identifier">error</span>.}</pre></dt>
@@ -215,8 +232,8 @@
   <dd>
     
     Acquire a read lock.
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L66" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L66" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L67" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L67" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -228,8 +245,8 @@
   <dd>
     
     Acquire a write lock.
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L74" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L74" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L75" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L75" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -241,8 +258,8 @@
   <dd>
     
     Release a read lock.
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L84" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L84" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L85" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L85" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -254,8 +271,8 @@
   <dd>
     
     Release a write lock.
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L91" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L91" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L92" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L92" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -267,8 +284,8 @@
   <dd>
     
     
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L59" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L59" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L60" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L60" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -286,8 +303,8 @@
   <dd>
     
     Acquire a read lock and execute <tt class="docutils literal"><span class="pre"><span class="Identifier">body</span></span></tt>. Release the lock afterwards.
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L98" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L98" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L99" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L99" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -299,8 +316,8 @@
   <dd>
     
     Acquire a write lock and execute <tt class="docutils literal"><span class="pre"><span class="Identifier">body</span></span></tt>. Release the lock afterwards.
-    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L107" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L107" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/planetis-m/sync/tree/master/sync/rwlock.nim#L108" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/planetis-m/sync/edit/master/sync/rwlock.nim#L108" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -316,7 +333,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-18 18:12:44 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-26 17:32:14 UTC</small>
       </div>
     </div>
   </div>
