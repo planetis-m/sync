@@ -1,6 +1,6 @@
 # Package
 
-version     = "2.0.2"
+version     = "2.0.3"
 author      = "Antonis Geralis"
 description = "Useful synchronization primitives."
 license     = "MIT"
@@ -13,7 +13,7 @@ import os
 
 const
   ProjectUrl = "https://github.com/planetis-m/sync"
-  PkgDir = thisDir().quoteShell
+  PkgDir = thisDir()
   DocsDir = PkgDir / "docs"
 
 task docs, "Generate documentation":
