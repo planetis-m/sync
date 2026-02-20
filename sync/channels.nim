@@ -218,8 +218,6 @@ proc drainChannel[T](chan: ChannelRaw) =
     if nextTail == 2 * chan.slots:
       nextTail = 0
     chan.setTail(nextTail)
-
-    signal(chan.spaceAvailable)
   release(chan.L)
 
 proc channelSend(chan: ChannelRaw, data: pointer, size: int, blocking: static bool,
@@ -236,7 +234,6 @@ proc channelSend(chan: ChannelRaw, data: pointer, size: int, blocking: static bo
   # check for when another thread was faster to fill
   when blocking:
     let useTimeout = timeout != default(Duration)
-    let timeoutMs = if useTimeout: timeout.inMilliseconds() else: 0'i64
     let startedAt = if useTimeout: getTime() else: default(Time)
     while chan.isFull():
       if chan.isStopped():
@@ -244,7 +241,7 @@ proc channelSend(chan: ChannelRaw, data: pointer, size: int, blocking: static bo
         return false
       if useTimeout:
         release(chan.L)
-        if (getTime() - startedAt).inMilliseconds() >= timeoutMs:
+        if (getTime() - startedAt) >= timeout:
           return false
         sleep(TimeoutPollMs)
         acquire(chan.L)
@@ -289,7 +286,6 @@ proc channelReceive(chan: ChannelRaw, data: pointer, size: int, blocking: static
   # check for when another thread was faster to empty
   when blocking:
     let useTimeout = timeout != default(Duration)
-    let timeoutMs = if useTimeout: timeout.inMilliseconds() else: 0'i64
     let startedAt = if useTimeout: getTime() else: default(Time)
     while chan.isEmpty():
       if chan.isStopped():
@@ -297,7 +293,7 @@ proc channelReceive(chan: ChannelRaw, data: pointer, size: int, blocking: static
         return false
       if useTimeout:
         release(chan.L)
-        if (getTime() - startedAt).inMilliseconds() >= timeoutMs:
+        if (getTime() - startedAt) >= timeout:
           return false
         sleep(TimeoutPollMs)
         acquire(chan.L)
